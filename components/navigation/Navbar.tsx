@@ -23,7 +23,7 @@ function Navbar() {
               width={150}
               height={150}
               alt="Topnotch Logo"
-              className="w-32 md:w-auto"
+              className="w-32 md:w-auto xl:w-52"
             />
           </Link>
         </div>
