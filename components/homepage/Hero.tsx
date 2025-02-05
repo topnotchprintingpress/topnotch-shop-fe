@@ -11,6 +11,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Categories from "../custom/Categories";
 
+import { BsFillCartPlusFill } from "react-icons/bs";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaAward } from "react-icons/fa6";
+
 const books = [
   {
     id: 1,
@@ -65,18 +69,18 @@ function Hero() {
             {books.map((book) => (
               <CarouselItem
                 key={book.id}
-                className="basis-1/2 md:basis-1/2 lg:basis-1/3"
+                className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
                   <Card className="bg-[#fffcf7] rounded-none">
-                    <CardContent className="flex flex-col md:flex-row md:items-center gap-6 h-64 md:h-48 p-6 xl:p-10 border border-[#2b0909]">
-                      <div>
+                    <CardContent className="flex flex-col md:flex-row md:items-center gap-6 h-80 md:h-52 p-4 md:p-6 xl:p-10 border border-[#2b0909]">
+                      <div className="flex justify-center items-center">
                         <Image
                           src={book.image}
                           alt={book.title}
                           width={100}
                           height={150}
-                          className="w-16 md:w-auto object-cover rounded-md"
+                          className="w-28 md:w-auto object-cover rounded-md"
                         />
                       </div>
                       <div className="flex flex-col justify-between h-full">
@@ -84,15 +88,30 @@ function Hero() {
                           <h4 className="text-sm md:text-base xl:text-lg font-semibold text-[#2b0909]">
                             {book.title}
                           </h4>
-                          <p className="text-sm md:text-base xl:text-lg font-bold text-[#ff8080]">
+                          <p className="text-base lg:text-lg xl:text-lg font-bold text-[#ff8080]">
                             {book.price}
                           </p>
                         </div>
+                        <div className="flex items-center gap-3 xl:gap-8 mb-2 mt-2">
+                          <div className="flex items-center gap-1">
+                            <TbTruckDelivery size={12} />
+                            <h3 className="text-[.6rem] xl:text-sm">
+                              Fast Delivery
+                            </h3>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <FaAward size={12} />
+                            <h3 className="text-[.6rem] xl:text-sm text-nowrap">
+                              Best Seller
+                            </h3>
+                          </div>
+                        </div>
                         <Link
                           href="/shop"
-                          className="bg-[#ff8080] text-white px-4 py-1.5 md:py-2 rounded-md text-center hover:bg-[#e67373] transition-colors mt-4 md:mt-0 text-sm md:text-sm lg:text-base"
+                          className="flex items-center justify-center gap-3 w-full bg-[#ff8080] text-white px-1 md:px-5 py-1.5 md:py-2 rounded-md hover:bg-[#e67373] transition-colors md:mt-0 text-xs md:text-sm lg:text-base"
                         >
-                          Shop Now
+                          <BsFillCartPlusFill size={20} />
+                          Add to Cart
                         </Link>
                       </div>
                     </CardContent>
@@ -101,8 +120,8 @@ function Hero() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="bg-[#ffbfbf] text-[#2b0909] absolute -top-10 -translate-y-1/2 right-28 transform hover:bg-[#e67373] transition-colors" />
-          <CarouselNext className="bg-[#ffbfbf] text-[#2b0909] absolute -top-10 -translate-y-1/2 right-8 transform hover:bg-[#e67373] transition-colors" />
+          <CarouselPrevious className="bg-[#ffbfbf] text-[#2b0909] absolute -top-9 md:-top-10 -translate-y-1/2 right-20 md:right-28 transform hover:bg-[#e67373] transition-colors" />
+          <CarouselNext className="bg-[#ffbfbf] text-[#2b0909] absolute -top-9 md:-top-10 -translate-y-1/2 right-2 md:right-8 transform hover:bg-[#e67373] transition-colors" />
         </Carousel>
       </div>
     </section>

@@ -48,7 +48,7 @@ function Navbar() {
 
         {/* Mobile Menu Overlay */}
         <div
-          className={`fixed top-[4.6rem] left-0 w-full h-[calc(100vh-4rem)] bg-[#fffcf7] transition-transform duration-300 ease-in-out shadow-2xl ${
+          className={`fixed top-[4.6rem] left-0 w-full h-[calc(100vh-4rem)] bg-[#fffcf7] transition-transform duration-300 ease-in-out shadow-2xl z-50 ${
             menuOpen ? "translate-x-full" : "translate-x-0"
           }`}
         >
