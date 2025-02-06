@@ -48,7 +48,7 @@ const books = [
 
 function Hero() {
   return (
-    <section className="bg-white w-full px-4 py-0 md:py-16 lg:py-0 xl:px-24 2xl:px-32 flex flex-col items-center justify-center border-t border-[#2b0909] my-16 sm:my-14 md:my-4">
+    <section className="bg-white w-full px-4 py-0 md:py-16 lg:py-0 xl:px-24 2xl:px-32 flex flex-col items-center justify-center border-t border-[#2b0909] mt-16 sm:my-14 md:my-4">
       <div className="w-full mt-4 mb-6">
         <Categories />
       </div>
