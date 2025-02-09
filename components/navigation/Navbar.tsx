@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { BsMenuButtonWideFill } from "react-icons/bs";
 import { RiCloseLargeFill } from "react-icons/ri";
+import { FaUserAlt } from "react-icons/fa";
+import { BsFillCartPlusFill } from "react-icons/bs";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(true);
@@ -13,7 +15,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-[#fffcf7] z-50 h-[8.5vh] md:h-[16vh] xl:h-[10vh] w-full flex justify-center items-center py-8 px-4 md:px-2 border-b-2 border-[#2b0909]">
+    <nav className="bg-[#fffcf7] z-50 h-[12vh] md:h-[18vh] xl:h-[10vh] w-full flex justify-center items-center px-4 md:px-2 border-b-2 border-[#2b0909]">
       <div className="container flex justify-between items-center mx-auto">
         {/* Branding Section */}
         <div>
@@ -31,24 +33,28 @@ function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex">
           <ul className="flex gap-8 2xl:gap-12 items-center text-[#2b0909] font-bold text-sm">
-            <li>
-              <Link href="/subjects">Books</Link>
-            </li>
-            <li>
-              <Link href="/topics">Stationery</Link>
-            </li>
-            <li>
-              <Link href="/subscription">Lab Equipment</Link>
-            </li>
-            <li>
-              <Link href="/subscription">Offers</Link>
-            </li>
+            {[
+              { href: "/", label: "Home" },
+              { href: "/subjects", label: "About Us" },
+              { href: "/topics", label: "Contact" },
+              { href: "/subscription", label: "FAQ" },
+            ].map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={handleNav}
+                  className="block p-3 rounded-lg hover:bg-[#f8d6b6] transition-colors"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Mobile Menu Overlay */}
         <div
-          className={`fixed top-[4.6rem] left-0 w-full h-[calc(100vh-4rem)] bg-[#fffcf7] transition-transform duration-300 ease-in-out shadow-2xl z-50 ${
+          className={`fixed top-[7rem] left-0 w-full h-[calc(100vh-4rem)] bg-[#fffcf7] transition-transform duration-300 ease-in-out shadow-2xl z-50 ${
             menuOpen ? "translate-x-full" : "translate-x-0"
           }`}
         >
@@ -56,11 +62,9 @@ function Navbar() {
             <ul className="flex flex-col gap-2 text-[#350203] font-semibold">
               {[
                 { href: "/", label: "Home" },
-                { href: "/subjects", label: "Subjects" },
-                { href: "/topics", label: "Topics" },
-                { href: "/subscription", label: "Pricing" },
-                { href: "/about_us", label: "About Us" },
-                { href: "/contact_us", label: "Contact Us" },
+                { href: "/subjects", label: "About Us" },
+                { href: "/topics", label: "Contact" },
+                { href: "/subscription", label: "FAQ" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
@@ -97,14 +101,18 @@ function Navbar() {
         <div className="flex">
           <div className="hidden md:flex gap-6 justify-center items-center font-semibold text-sm">
             <>
-              <Link
-                href="/signup"
-                className="bg-[#ff8080] hover:bg-[#ffbfbf] rounded-2xl px-4 py-2 text-[#ffffff]"
-              >
-                Join Now
+              <Link href="/signin" className="flex text-[#2b0909]">
+                <BsFillCartPlusFill className="relative" size={19} />
+                <h4 className="ml-4">My cart</h4>
+                <div className="absolute top-8 ml-4 text-xs">
+                  <p className="text-[white] p-0.5 font-bold bg-black rounded-[100%] w-6 h-auto flex justify-center items-center">
+                    2
+                  </p>
+                </div>
               </Link>
-              <Link href="/signin" className="text-[#2b0909]">
-                Log In
+              <Link href="/signup" className="flex text-[#2b0909]">
+                <FaUserAlt size={16} />
+                <h4 className="ml-4">My Account</h4>
               </Link>
             </>
           </div>
