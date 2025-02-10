@@ -5,7 +5,7 @@ import Image from "next/image";
 import { BsMenuButtonWideFill } from "react-icons/bs";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { FaUserAlt } from "react-icons/fa";
-import { BsFillCartPlusFill } from "react-icons/bs";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(true);
@@ -101,18 +101,24 @@ function Navbar() {
         <div className="flex">
           <div className="hidden md:flex gap-6 justify-center items-center font-semibold text-sm">
             <>
-              <Link href="/signin" className="flex text-[#2b0909]">
-                <BsFillCartPlusFill className="relative" size={19} />
-                <h4 className="ml-4">My cart</h4>
-                <div className="absolute top-8 ml-4 text-xs">
-                  <p className="text-[white] p-0.5 font-bold bg-black rounded-[100%] w-6 h-auto flex justify-center items-center">
-                    2
+              <Link
+                href="/signin"
+                className="flex text-[#2b0909] justify-center items-center"
+              >
+                <MdOutlineShoppingCart className="relative text-[28px]" />
+                <h4 className="ml-2 text-xs tracking-tighter">My cart</h4>
+                <div className="absolute top-8 -ml-8 text-xs">
+                  <p className="text-white p-2.5 font-bold bg-[#2b0909] rounded-[100%] w-[19px] h-[19px] flex justify-center items-center">
+                    20
                   </p>
                 </div>
               </Link>
-              <Link href="/signup" className="flex text-[#2b0909]">
+              <Link
+                href="/signup"
+                className="flex text-[#2b0909] justify-center items-center"
+              >
                 <FaUserAlt size={16} />
-                <h4 className="ml-4">My Account</h4>
+                <h4 className="ml-4 text-xs tracking-tighter">My Account</h4>
               </Link>
             </>
           </div>

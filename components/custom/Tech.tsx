@@ -99,7 +99,7 @@ export default function TechProds() {
                         width={300}
                         height={200}
                         alt={item.name}
-                        className="w-full h-48 object-contain rounded-t-lg"
+                        className="w-full h-52 object-contain rounded-t-lg"
                       />
                     </CardHeader>
                     <CardContent className="p-4">

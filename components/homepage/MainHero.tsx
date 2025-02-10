@@ -54,7 +54,7 @@ export default function MainHero() {
                 <Card>
                   <Image
                     src={prod.image}
-                    width={500}
+                    width={1200}
                     height={500}
                     alt="Product Image"
                     className="w-full"
