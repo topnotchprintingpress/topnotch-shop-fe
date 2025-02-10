@@ -19,7 +19,7 @@ function Navbar() {
       <div className="container flex justify-between items-center mx-auto">
         {/* Branding Section */}
         <div>
-          <Link href="">
+          <Link href="/">
             <Image
               src="/logo/Logo1.png"
               width={150}
@@ -35,14 +35,13 @@ function Navbar() {
           <ul className="flex gap-8 2xl:gap-12 items-center text-[#2b0909] font-bold text-sm">
             {[
               { href: "/", label: "Home" },
-              { href: "/subjects", label: "About Us" },
-              { href: "/topics", label: "Contact" },
+              { href: "/about", label: "About Us" },
+              { href: "/contact", label: "Contact" },
               { href: "/subscription", label: "FAQ" },
             ].map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  onClick={handleNav}
                   className="block p-3 rounded-lg hover:bg-[#f8d6b6] transition-colors"
                 >
                   {item.label}
@@ -59,11 +58,11 @@ function Navbar() {
           }`}
         >
           <div className="p-6 flex flex-col gap-6 overflow-y-auto">
-            <ul className="flex flex-col gap-2 text-[#350203] font-semibold">
+            <ul className="flex flex-col gap-2 text-[#2b0909] font-semibold">
               {[
                 { href: "/", label: "Home" },
-                { href: "/subjects", label: "About Us" },
-                { href: "/topics", label: "Contact" },
+                { href: "/about", label: "About Us" },
+                { href: "/contact", label: "Contact" },
                 { href: "/subscription", label: "FAQ" },
               ].map((item) => (
                 <li key={item.href}>
@@ -82,14 +81,14 @@ function Navbar() {
               <Link
                 href="/signup"
                 onClick={handleNav}
-                className="bg-[#f8d6b6] hover:bg-[#facba0] text-center py-3 rounded-lg text-[#350203] font-semibold"
+                className="bg-[#f8d6b6] hover:bg-[#facba0] text-center py-3 rounded-lg text-[#2b0909] font-semibold"
               >
                 Join Now
               </Link>
               <Link
                 href="/signin"
                 onClick={handleNav}
-                className="text-center py-3 rounded-lg text-[#350203] font-semibold border-2 border-[#350203] hover:bg-[#f8d6b6] transition-colors"
+                className="text-center py-3 rounded-lg text-[#2b0909] font-semibold border-2 border-[#2b0909] hover:bg-[#f8d6b6] transition-colors"
               >
                 Log In
               </Link>
@@ -129,7 +128,7 @@ function Navbar() {
               size={30}
               className={
                 menuOpen
-                  ? "text-[#350203] cursor-pointer transition-all duration-700 ease-in-out"
+                  ? "text-[#2b0909] cursor-pointer transition-all duration-700 ease-in-out"
                   : "hidden transition-all duration-700 ease-in-out"
               }
             />
@@ -137,7 +136,7 @@ function Navbar() {
               size={30}
               className={
                 !menuOpen
-                  ? "text-[#350203] cursor-pointer transition-all duration-700 ease-in-out"
+                  ? "text-[#2b0909] cursor-pointer transition-all duration-700 ease-in-out"
                   : "hidden transition-all duration-700 ease-in-out"
               }
             />
