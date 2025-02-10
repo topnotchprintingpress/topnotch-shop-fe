@@ -9,7 +9,6 @@ import {
   Lock,
   PhoneCall,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export default function Footer() {
   return (
@@ -130,15 +129,21 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Stay Connected</h3>
-            <p className="text-sm mb-4">
-              Subscribe to our newsletter for updates and exclusive offers.
-            </p>
-            <form className="flex flex-col space-y-2">
-              <Button type="submit" className="w-full">
-                Subscribe
-              </Button>
-            </form>
+            <h3 className="text-lg font-semibold mb-4">Call Us Via</h3>
+            <ul className="text-sm">
+              <li>
+                <span className="font-semibold">Sales:</span> +254 742 954513
+              </li>
+              <li>
+                <span className="font-semibold">Kisumu:</span> +254 742 954513
+              </li>
+              <li>
+                <span className="font-semibold">Kikuyu:</span> +254 742 954513
+              </li>
+              <li>
+                <span className="font-semibold">CBD:</span> +254 742 954513
+              </li>
+            </ul>
           </div>
         </div>
         <div className="border-t border-muted-foreground/10 mt-8 pt-8 text-center text-sm">
