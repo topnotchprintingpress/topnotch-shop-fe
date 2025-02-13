@@ -13,7 +13,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Call your Django backend to authenticate
         const res = await fetch("http://localhost:8000/api/auth/login/", {
           method: "POST",
           body: JSON.stringify(credentials),
@@ -36,17 +35,17 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.accessToken = user.access;
-        token.refreshToken = user.refresh;
-      }
-      return token;
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
     },
-    async session({ session, token }) {
-      session.accessToken = token.accessToken;
-      session.refreshToken = token.refreshToken;
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+    async session({ session, user, token }) {
       return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return token;
     },
   },
   pages: {
