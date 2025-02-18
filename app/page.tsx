@@ -7,6 +7,7 @@ import New from "@/components/custom/New";
 import TechProds from "@/components/custom/Tech";
 import LabProds from "@/components/custom/Labs";
 import SaleBanner from "@/components/custom/SaleBanner";
+import FeaturedBooks from "@/components/custom/Books";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Search />
       <MainHero />
       <Hero />
+      <FeaturedBooks />
       <HeroOffers />
       <Banner />
       <New />

@@ -9,30 +9,23 @@ export interface Image {
 }
 
 export interface Feature {
+  id: number;
   feature: string;
 }
 
 export interface ProductBase {
-  name: string;
+  id: number;
+  title: string;
   description: string;
   price: number;
+  main_category: string;
   category: Category | null;
   stock: number;
   discount: number;
   featured: boolean;
+  best_seller: boolean;
   status: string;
   slug: string;
+  features: Feature[];
   images: Image[];
 }
-
-export type Book = ProductBase;
-
-export type Stationery = ProductBase;
-
-export type LabEquipment = ProductBase;
-
-export interface Device extends ProductBase {
-  features: Feature[];
-}
-
-export type ProductList = (Book | Stationery | LabEquipment | Device)[];

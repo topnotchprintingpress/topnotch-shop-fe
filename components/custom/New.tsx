@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,75 +10,30 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { BsFillCartPlusFill } from "react-icons/bs";
-
-const newProducts = [
-  {
-    id: 1,
-    name: "Physics Form 3",
-    description: "books",
-    price: 1500,
-    discountPercentage: 20,
-    image: "/books/phy3.png",
-  },
-  {
-    id: 2,
-    name: "Chemistry Form 2",
-    description: "books",
-    price: 1200,
-    discountPercentage: 15,
-    image: "/books/form2chem.png",
-  },
-  {
-    id: 3,
-    name: "Maths Form 2",
-    description: "books",
-    price: 2000,
-    discountPercentage: 25,
-    image: "/books/maths2.png",
-  },
-  {
-    id: 4,
-    name: "Maths Guru Book 2",
-    description: "books",
-    price: 2000,
-    discountPercentage: 25,
-    image: "/books/maths2.png",
-  },
-  {
-    id: 5,
-    name: "Maths Guru Book 2",
-    description: "books",
-    price: 2000,
-    discountPercentage: 25,
-    image: "/books/maths2.png",
-  },
-  {
-    id: 6,
-    name: "Maths Guru Book 2",
-    description: "books",
-    price: 2000,
-    discountPercentage: 25,
-    image: "/books/maths2.png",
-  },
-  {
-    id: 7,
-    name: "Maths Guru Book 2",
-    description: "books",
-    price: 2000,
-    discountPercentage: 25,
-    image: "/books/maths2.png",
-  },
-  {
-    id: 8,
-    name: "Maths Guru Book 2",
-    description: "books",
-    price: 2000,
-    discountPercentage: 25,
-    image: "/books/maths2.png",
-  },
-];
+import { useAppContext } from "@/providers/ProductProvider";
+import { ProductBase } from "@/types/types";
 
 function New() {
+  const context = useAppContext();
+  const { newItems } = context;
+  const [latest, setLatest] = useState<ProductBase[]>([]);
+
+  useEffect(() => {
+    setLatest(newItems?.slice(0, 9) || []);
+  }, [newItems]);
+  if (!newItems || newItems.length == 0) {
+    <section className="bg-white w-full px-4 py-8 md:py-4 lg:py-2 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
+      <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
+        <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
+          What{"'"}s New?
+        </h3>
+      </div>
+      <div className="w-full max-w-7xl xl:max-w-full mx-auto">
+        <div className="p-2 grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+      </div>
+    </section>;
+  }
+
   return (
     <section className="bg-white w-full px-4 py-8 md:py-4 lg:py-2 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
       <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
@@ -87,7 +43,7 @@ function New() {
       </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
         <div className="p-2 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {newProducts.map((item) => (
+          {latest.map((item) => (
             <Card
               key={item.id}
               className="relative w-full  shadow-none border border-[#2b0909]"
@@ -97,16 +53,20 @@ function New() {
                   new
                 </div>
                 <Image
-                  src={item.image || "/placeholder.svg"}
+                  src={
+                    item.images.length > 0
+                      ? item.images[0].image
+                      : "/placeholder.svg"
+                  }
                   width={300}
                   height={200}
-                  alt={item.name}
+                  alt={item.title}
                   className="w-full h-48 object-contain rounded-t-lg"
                 />
               </CardHeader>
               <CardContent className="p-4">
                 <CardTitle className="text-sm md:text-base xl:text-lg mb-2">
-                  {item.name}
+                  {item.title}
                 </CardTitle>
                 <p className="text-base lg:text-lg xl:text-lg font-bold text-[#ff8080]">
                   Kes. {item.price}
