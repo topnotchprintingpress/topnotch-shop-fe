@@ -9,6 +9,7 @@ interface AppContextProps {
   featuredBooks: ProductBase[] | null;
   discountedItems: ProductBase[] | null;
   newItems: ProductBase[] | null;
+  featuredTech: ProductBase[] | null;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -30,6 +31,9 @@ export function AppWrapper({
     (item) => item.discount > 0
   );
   const newItems: ProductBase[] = (products ?? []).reverse();
+  const featuredTech: ProductBase[] = (products ?? []).filter(
+    (tech) => tech.main_category == "Technology" && tech.featured
+  );
 
   useEffect(() => {
     if (products) {
@@ -49,6 +53,7 @@ export function AppWrapper({
         featuredBooks,
         discountedItems,
         newItems,
+        featuredTech,
       }}
     >
       {children}
