@@ -21,6 +21,7 @@ import Categories from "../custom/Categories";
 import { BsFillCartPlusFill } from "react-icons/bs";
 
 import { useAppContext } from "@/providers/ProductProvider";
+import { FaBoxOpen } from "react-icons/fa";
 
 function Hero() {
   const context = useAppContext();
@@ -38,19 +39,15 @@ function Hero() {
           </h3>
         </div>
         <div className="w-full max-w-7xl xl:max-w-full mx-auto">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="flex justify-center items-center">
-              <h4>Coming soon</h4>
-            </CarouselContent>
-            <CarouselPrevious className="bg-[#ffbfbf] text-[#2b0909] absolute -top-9 md:-top-10 -translate-y-1/2 right-20 md:right-28 transform hover:bg-[#e67373] transition-colors" />
-            <CarouselNext className="bg-[#ffbfbf] text-[#2b0909] absolute -top-9 md:-top-10 -translate-y-1/2 right-2 md:right-8 transform hover:bg-[#e67373] transition-colors" />
-          </Carousel>
+          <div className="w-full max-w-7xl xl:max-w-full mx-auto flex flex-col items-center justify-center py-12">
+            <FaBoxOpen className="text-6xl text-gray-400 mb-4" /> {/* Icon */}
+            <h3 className="text-xl md:text-2xl font-semibold text-gray-600 mb-2">
+              No Items Available
+            </h3>
+            <p className="text-sm md:text-base text-gray-500 text-center">
+              Check back later for best seller items.
+            </p>
+          </div>
         </div>
       </section>
     );

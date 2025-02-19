@@ -29,3 +29,12 @@ export interface ProductBase {
   features: Feature[];
   images: Image[];
 }
+
+export interface Banner {
+  id: number;
+  title: string;
+  image?: string;
+  link: string;
+  position: string;
+  is_active: boolean;
+}

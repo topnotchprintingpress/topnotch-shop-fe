@@ -19,6 +19,7 @@ import Link from "next/link";
 import React from "react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { useAppContext } from "@/providers/ProductProvider";
+import { FaBoxOpen } from "react-icons/fa";
 
 export default function FeaturedBooks() {
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
@@ -30,11 +31,17 @@ export default function FeaturedBooks() {
       <section className="bg-white w-full px-4 py-8 md:py-4 lg:py-2 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
         <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
           <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
-            Special Offers
+            Featured Books
           </h3>
         </div>
-        <div className="w-full max-w-7xl xl:max-w-full mx-auto">
-          <h3>No items</h3>
+        <div className="w-full max-w-7xl xl:max-w-full mx-auto flex flex-col items-center justify-center py-12">
+          <FaBoxOpen className="text-6xl text-gray-400 mb-4" /> {/* Icon */}
+          <h3 className="text-xl md:text-2xl font-semibold text-gray-600 mb-2">
+            No Items Available
+          </h3>
+          <p className="text-sm md:text-base text-gray-500 text-center">
+            Check back later for featured books.
+          </p>
         </div>
       </section>
     );

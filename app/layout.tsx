@@ -43,6 +43,22 @@ async function fetchBooks() {
   }
 }
 
+async function fetchBanners() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/banners`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch Banners");
+    }
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error("An unexpected error occured while fetching Banners:", error);
+  }
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -50,11 +66,12 @@ export default async function RootLayout({
 }>) {
   const products = await fetchProducts();
   const books = await fetchBooks();
+  const banners = await fetchBanners();
   return (
     <html lang="en">
       <body>
         <Navbar />
-        <AppWrapper products={products} books={books}>
+        <AppWrapper products={products} books={books} banners={banners}>
           {children}
         </AppWrapper>
         <Footer />
