@@ -34,6 +34,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
     }),
   ],
+  // session: {
+  //   jwt: true,
+  // },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       return true;
@@ -41,10 +44,15 @@ export const authOptions: NextAuthOptions = {
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
-    async session({ session, user, token }) {
+    async session({ session, token }) {
+      session.accessToken = token.accessToken as string;
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
+      if (user && user.accessToken) {
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
+      }
       return token;
     },
   },

@@ -38,3 +38,14 @@ export interface Banner {
   position: string;
   is_active: boolean;
 }
+
+export interface CartItem {
+  id: number;
+  product: {
+    id: number;
+    title: string;
+    image: string;
+    price: number;
+  };
+  quantity: number;
+}

@@ -29,6 +29,12 @@ declare module "next-auth" {
     error?: "RefreshAccessTokenError" | string;
     isSubscribed?: boolean;
   }
+
+  interface User {
+    accessToken?: string;
+    refreshToken?: string;
+    accessTokenExpires?: number;
+  }
 }
 
 export interface AuthenticatedUser extends User {
