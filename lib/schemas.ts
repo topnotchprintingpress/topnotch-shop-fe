@@ -3,12 +3,12 @@ import { z } from "zod";
 // Schema for user registration
 export const registerSchema = z
   .object({
-    name: z.string().min(1, "Name is required").max(50, "Name is too long"),
+    username: z.string().min(1, "Name is required").max(50, "Name is too long"),
     email: z.string().email("Invalid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters long"),
-    confirmPassword: z.string().min(8, "Confirm password must match"),
+    password1: z.string().min(8, "Password must be at least 8 characters long"),
+    password2: z.string().min(8, "Confirm password must match"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password1 === data.password2, {
     message: "Passwords do not match",
     path: ["confirmPassword"], // Attach error to confirmPassword field
   });

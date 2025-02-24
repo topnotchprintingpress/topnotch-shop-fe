@@ -2,6 +2,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, RegisterInput } from "@/lib/schemas";
+import PendingSubmitButton from "../buttons/PendingSubmitButton";
+import GoogleSignInButton from "../buttons/Googlebtn";
+import GoogleSignInError from "../buttons/GoogleSignInError";
+import FacebookSignInButton from "../buttons/Facebookbtn";
 
 export default function RegisterForm() {
   const {
@@ -15,7 +19,7 @@ export default function RegisterForm() {
   const onSubmit = async (data: RegisterInput) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/auth/registration/",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/registration/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -25,9 +29,6 @@ export default function RegisterForm() {
 
       if (response.ok) {
         alert("Registration successful!");
-      } else {
-        const errorData = await response.json();
-        alert(errorData.detail || "Registration failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -53,11 +54,11 @@ export default function RegisterForm() {
               Username *
             </label>
             <input
-              {...register("name")}
+              {...register("username")}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
-            {errors.name && (
-              <p className="text-red-500">{errors.name.message}</p>
+            {errors.username && (
+              <p className="text-red-500">{errors.username.message}</p>
             )}
           </div>
           <div>
@@ -74,25 +75,48 @@ export default function RegisterForm() {
             <label>Password</label>
             <input
               type="password"
-              {...register("password")}
+              {...register("password1")}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
+            {errors.password1 && (
+              <p className="text-red-500">{errors.password1.message}</p>
             )}
           </div>
           <div>
             <label>Confirm Password</label>
             <input
               type="password"
-              {...register("confirmPassword")}
+              {...register("password2")}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
-            {errors.confirmPassword && (
-              <p className="text-red-500">{errors.confirmPassword.message}</p>
+            {errors.password2 && (
+              <p className="text-red-500">{errors.password2.message}</p>
             )}
           </div>
-          <button type="submit">Register</button>
+          <PendingSubmitButton />
+          {/* {serverError && <p className="text-red-700">{serverError}</p>} */}
+
+          <div className="flex items-center my-4">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="mx-2 text-gray-500">or</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+
+          <div className="space-y-4">
+            <GoogleSignInButton />
+            <GoogleSignInError />
+            <FacebookSignInButton />
+          </div>
+
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            Already have an account?&nbsp;
+            <a
+              href="/signin"
+              className="font-medium text-[#261b72] hover:underline"
+            >
+              Sign in
+            </a>
+          </p>
         </form>
       </div>
     </div>

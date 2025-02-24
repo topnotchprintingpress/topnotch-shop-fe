@@ -6,10 +6,12 @@ import { BsMenuButtonWideFill } from "react-icons/bs";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { useSession } from "next-auth/react";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(true);
-
+  const { data: session } = useSession();
+  console.log(session);
   const handleNav = () => {
     setMenuOpen(!menuOpen);
   };
@@ -42,7 +44,7 @@ function Navbar() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block p-3 rounded-lg hover:bg-[#f8d6b6] transition-colors"
+                  className="block p-3 hover:border hover:border-[#2b0909] rounded-xl transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -102,7 +104,7 @@ function Navbar() {
             <>
               <Link
                 href="/signin"
-                className="flex text-[#2b0909] justify-center items-center"
+                className="flex text-[#2b0909] justify-center items-center "
               >
                 <MdOutlineShoppingCart className="relative text-[28px]" />
                 <h4 className="ml-2 text-xs tracking-tighter">My cart</h4>

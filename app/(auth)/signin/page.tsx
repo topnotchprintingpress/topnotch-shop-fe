@@ -1,5 +1,5 @@
-import LoginForm from "@/components/forms/signin-form";
+import Login from "@/components/authentication/Login";
 
 export default function SignInRoute() {
-  return <LoginForm />;
+  return <Login />;
 }

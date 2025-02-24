@@ -4,6 +4,7 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 
 import { AppWrapper } from "@/providers/ProductProvider";
+import { Providers } from "@/providers/SessionProvider";
 
 export const metadata: Metadata = {
   title: "Topnotch Publishers",
@@ -68,14 +69,16 @@ export default async function RootLayout({
   const books = await fetchBooks();
   const banners = await fetchBanners();
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <AppWrapper products={products} books={books} banners={banners}>
-          {children}
-        </AppWrapper>
-        <Footer />
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body>
+          <Navbar />
+          <AppWrapper products={products} books={books} banners={banners}>
+            {children}
+          </AppWrapper>
+          <Footer />
+        </body>
+      </html>
+    </Providers>
   );
 }
