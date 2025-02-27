@@ -5,7 +5,7 @@ function SignOut() {
   return (
     <button
       className="text-[#350203] flex gap-3 justify-center items-center"
-      onClick={() => signOut()}
+      onClick={() => signOut({ callbackUrl: "/signin" })}
     >
       <span>
         <RiLogoutCircleRLine size={20} />

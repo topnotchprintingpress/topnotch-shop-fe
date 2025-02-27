@@ -9,24 +9,41 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        identifier: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/login/`,
-          {
-            method: "POST",
-            body: JSON.stringify(credentials),
-            headers: { "Content-Type": "application/json" },
+        try {
+          if (!credentials) {
+            throw new Error("Credentials are missing");
           }
-        );
-        const user = await res.json();
-        if (res.ok && user) {
-          console.log("THis is a new user:", user);
-          return user;
+          const isEmail = credentials.identifier.includes("@");
+
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/login/`,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                username: isEmail ? "" : credentials.identifier,
+                email: isEmail ? credentials.identifier : "",
+                password: credentials.password,
+              }),
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(
+              data.non_field_errors
+                ? data.non_field_errors[0]
+                : "Invalid credentials"
+            );
+          }
+          return data;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+          throw new Error(error.message || "Failed to login");
         }
-        return null;
       },
     }),
     GoogleProvider({

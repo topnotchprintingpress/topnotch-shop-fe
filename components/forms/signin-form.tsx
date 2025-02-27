@@ -5,8 +5,13 @@ import { loginSchema, LoginInput } from "@/lib/schemas";
 import { signIn } from "next-auth/react";
 import GoogleSignInButton from "../buttons/Googlebtn";
 import FacebookSignInButton from "../buttons/Facebookbtn";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginForm() {
+  const [serverError, setServerError] = useState(""); // Store backend error
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -16,16 +21,17 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginInput) => {
+    setServerError(""); // Clear previous error
     const result = await signIn("credentials", {
       redirect: false,
-      email: data.email,
+      identifier: data.identifier,
       password: data.password,
     });
 
     if (result?.error) {
-      alert(result.error);
+      setServerError(result.error);
     } else {
-      window.location.href = "/";
+      router.push("/");
     }
   };
 
@@ -42,11 +48,11 @@ export default function LoginForm() {
           <div>
             <label>Email</label>
             <input
-              {...register("email")}
+              {...register("identifier")}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
-            {errors.email && (
-              <p className="text-red-500">{errors.email.message}</p>
+            {errors.identifier && (
+              <p className="text-red-500">{errors.identifier.message}</p>
             )}
           </div>
           <div>
@@ -60,6 +66,7 @@ export default function LoginForm() {
               <p className="text-red-500">{errors.password.message}</p>
             )}
           </div>
+          {serverError && <p className="text-red-500">{serverError}</p>}
 
           <div className="flex items-center justify-self-end">
             <a

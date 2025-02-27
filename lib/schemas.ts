@@ -15,7 +15,13 @@ export const registerSchema = z
 
 // Schema for user login
 export const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  identifier: z
+    .string()
+    .min(1, "Username or email is required")
+    .max(50, "Username or email is too long")
+    .refine((val) => /\S+@\S+\.\S+/.test(val) || val.length > 0, {
+      message: "Must be a valid email or username",
+    }),
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
