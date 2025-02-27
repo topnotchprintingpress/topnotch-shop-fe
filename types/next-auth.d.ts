@@ -5,9 +5,9 @@ import { User } from "next-auth";
 
 declare module "next-auth" {
   interface Session {
-    accessToken?: string; // Extend session with accessToken
+    access?: string; // Extend session with accessToken
     idToken?: string;
-    refreshToken?: string;
+    refresh?: string;
     error?: "RefreshAccessTokenError" | "InvalidTokenError" | string;
     accessTokenExpires;
 
@@ -16,28 +16,48 @@ declare module "next-auth" {
       id: string;
       email: string;
       name: string;
-      accessToken: string;
-      refreshToken: string;
+      username: string;
+      access: string;
+      refresh: string;
       image: string;
     };
     name?: string;
+    username?: string;
     email?: string;
   }
 
   interface JWT {
     access_token?: string;
     error?: "RefreshAccessTokenError" | string;
-    isSubscribed?: boolean;
+    accessTokenExpires?: number;
+    iat: number;
+    exp: number;
   }
 
   interface User {
-    accessToken?: string;
-    refreshToken?: string;
+    access?: string;
+    refresh?: string;
     accessTokenExpires?: number;
+    id: string;
+    email: string;
+    name: string;
+    username: string;
+    access: string;
+    refresh: string;
+    image: string;
+    user: {
+      id: string;
+      email: string;
+      name: string;
+      username: string;
+      access: string;
+      refresh: string;
+      image: string;
+    };
   }
 }
 
 export interface AuthenticatedUser extends User {
-  accessToken?: string;
-  refreshToken?: string;
+  access?: string;
+  refresh?: string;
 }

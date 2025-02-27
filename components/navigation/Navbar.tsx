@@ -4,14 +4,32 @@ import Link from "next/link";
 import Image from "next/image";
 import { BsMenuButtonWideFill } from "react-icons/bs";
 import { RiCloseLargeFill } from "react-icons/ri";
-import { FaUserAlt } from "react-icons/fa";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdManageAccounts, MdOutlineShoppingCart } from "react-icons/md";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { LuListOrdered } from "react-icons/lu";
+import { MdOutlineSupportAgent } from "react-icons/md";
+import { IoIosLogIn } from "react-icons/io";
+import { TiUserAdd } from "react-icons/ti";
+import { SlUser } from "react-icons/sl";
+// shadcn
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import SignOut from "../buttons/SignOut";
 
 function Navbar() {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(true);
-  const { data: session } = useSession();
-  console.log(session);
+  const { data: session, status } = useSession();
+  console.log("SESSION DATA: ", session);
   const handleNav = () => {
     setMenuOpen(!menuOpen);
   };
@@ -114,13 +132,87 @@ function Navbar() {
                   </p>
                 </div>
               </Link>
-              <Link
-                href="/signup"
-                className="flex text-[#2b0909] justify-center items-center"
-              >
-                <FaUserAlt size={16} />
-                <h4 className="ml-4 text-xs tracking-tighter">My Account</h4>
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  asChild
+                  className="focus:outline-none focus:ring-transparent"
+                >
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    <button className="border-2 border-[#350203] p-2 rounded-full">
+                      <SlUser size={20} className=" text-[#350203]" />
+                    </button>
+                    <h4 className="ml-2 text-xs tracking-tighter font-semibold">
+                      My Account
+                    </h4>
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-24 rounded-2xl bg-[#fffcf7] border-2 border-[#2b0909] text-[#2b0909] py-2 px-1">
+                  {status === "authenticated" ? (
+                    <>
+                      <DropdownMenuLabel className="">
+                        {session?.user.name}
+                      </DropdownMenuLabel>
+                      <DropdownMenuSeparator className="bg-[#350203]" />
+                      <DropdownMenuGroup>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            router.push("/Scollah/tutor");
+                          }}
+                          className="cursor-pointer"
+                        >
+                          Account
+                          <DropdownMenuShortcut>
+                            <MdManageAccounts size={15} className="cert" />
+                          </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem
+                          onClick={() => {
+                            router.push("/billing");
+                          }}
+                          className="cursor-pointer"
+                        >
+                          Orders{" "}
+                          <DropdownMenuShortcut>
+                            <LuListOrdered size={16} />
+                          </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem className="cursor-pointer">
+                          Support
+                          <DropdownMenuShortcut>
+                            <MdOutlineSupportAgent size={15} />
+                          </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator className="bg-[#350203]" />
+                      <DropdownMenuItem>
+                        <SignOut />
+                      </DropdownMenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          router.push("/signin");
+                        }}
+                        className="cursor-pointer flex justify-between items-center hover:border-b hover:rounded-full hover:border-[#350203]"
+                      >
+                        Log In <IoIosLogIn />
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
+                          router.push("/signup");
+                        }}
+                        className="cursor-pointer flex justify-between items-center hover:border-b hover:rounded-full hover:border-[#350203]"
+                      >
+                        Sign Up
+                        <TiUserAdd />
+                      </DropdownMenuItem>
+                    </>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           </div>
 
