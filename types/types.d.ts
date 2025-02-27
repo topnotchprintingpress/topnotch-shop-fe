@@ -49,3 +49,7 @@ export interface CartItem {
   };
   quantity: number;
 }
+
+export interface ProductDetail {
+  params: Promise<{ slug: string }>;
+}
