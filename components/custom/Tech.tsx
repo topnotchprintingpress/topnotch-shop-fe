@@ -92,9 +92,11 @@ export default function TechProds() {
                       />
                     </CardHeader>
                     <CardContent className="p-4">
-                      <CardTitle className="text-sm md:text-base xl:text-lg mb-2">
-                        {item.title}
-                      </CardTitle>
+                      <Link href={`/product/${item.slug}`}>
+                        <CardTitle className="text-sm md:text-base xl:text-lg mb-2">
+                          {item.title}
+                        </CardTitle>
+                      </Link>
                       <p className="text-xs text-gray-600">
                         {item.main_category}
                       </p>

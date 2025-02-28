@@ -2,7 +2,6 @@
 import React, { use, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,11 +22,12 @@ import Link from "next/link";
 const fetcher = async (url: string) => {
   const res = await fetch(url, { method: "GET", credentials: "include" });
   const data = await res.json();
-  return data[0];
+  return data.length > 0 ? data[0] : null;
 };
 
 const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
   const { slug } = use(params);
+  console.log("Product slug:", slug);
 
   // Fetch product details
   const {
@@ -36,10 +36,12 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
     isLoading,
   } = useSWR(
     slug ? `${process.env.NEXT_PUBLIC_API_URL}/products?slug=${slug}` : null,
-    fetcher
+    fetcher,
+    {
+      onSuccess: (data) => console.log("API Response:", data),
+      onError: (err) => console.error("API Error:", err),
+    }
   );
-
-  console.log("PRODUCT DETAILS:", product);
 
   // State management
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -48,15 +50,17 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
 
   // Handlers
   const nextImage = () => {
-    setCurrentImageIndex((prev) =>
-      product?.images ? (prev + 1) % product.images.length : 0
-    );
+    if (product?.images?.length) {
+      setCurrentImageIndex((prev) => (prev + 1) % product.images.length);
+    }
   };
 
   const prevImage = () => {
-    setCurrentImageIndex(
-      (prev) => (prev - 1 + product.images.length) % product.images.length
-    );
+    if (product?.images?.length) {
+      setCurrentImageIndex(
+        (prev) => (prev - 1 + product.images.length) % product.images.length
+      );
+    }
   };
 
   // Loading state
@@ -70,7 +74,6 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
     );
   }
 
-  // Lesson not found
   if (error || !product) {
     return (
       <div className="w-full min-h-screen bg-[#fcf4ec] flex flex-col justify-center items-center gap-4">
@@ -92,9 +95,9 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
         <div className="mb-6 text-sm flex items-center text-[#2b0909]/70">
           <span>Home</span>
           <ChevronRight className="w-4 h-4 mx-1" />
-          <span>Bags</span>
+          <span>Books</span>
           <ChevronRight className="w-4 h-4 mx-1" />
-          <span className="font-medium">{product.category}</span>
+          <span className="font-medium">{product?.title}</span>
         </div>
 
         {/* Product Layout */}
@@ -102,7 +105,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
           {/* Image Gallery */}
           <div className="relative">
             <motion.div
-              className="relative rounded-xl overflow-hidden aspect-square bg-white shadow-sm"
+              className="relative rounded-xl overflow-hidden aspect-square bg-white shadow-xl border border-[#2b0909]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
@@ -111,9 +114,9 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
               product.images[currentImageIndex] ? (
                 <motion.img
                   key={currentImageIndex}
-                  src={product.images[currentImageIndex]}
-                  alt={`${product.title} - Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover"
+                  src={product.images[currentImageIndex].image}
+                  alt={`${product?.title} - Image ${currentImageIndex + 1}`}
+                  className="w-full max-h-[400px] object-contain"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
@@ -155,7 +158,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
 
             {/* Thumbnail Navigation */}
             <div className="flex space-x-2 mt-4 justify-center">
-              {product?.images?.map((img, index) => (
+              {product?.images?.map((img: { image: string }, index: number) => (
                 <motion.button
                   key={index}
                   whileHover={{ scale: 1.05 }}
@@ -169,7 +172,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                 >
                   {img ? (
                     <Image
-                      src={img}
+                      src={img.image}
                       width={64}
                       height={64}
                       alt={`Thumbnail ${index + 1}`}
@@ -188,23 +191,17 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
           {/* Product Information */}
           <div className="flex flex-col text-[#2b0909]">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: window.innerWidth > 768 ? 20 : 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="text-3xl font-bold mb-2">{product.title}</h1>
-
-              <div className="flex items-center mb-4">
-                <span className="text-sm">
-                  {product.rating} ({product.reviewCount} reviews)
-                </span>
-              </div>
+              <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
 
               <p className="text-2xl font-semibold mb-6">
-                Ksh. {product.price}
+                Ksh. {product?.price}
               </p>
 
-              <p className="text-[#2b0909]/80 mb-6">{product.description}</p>
+              <p className="text-[#2b0909]/80 mb-6">{product?.description}</p>
 
               {/* Color Selection */}
               <div className="mb-6">
@@ -265,9 +262,9 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
 
               {/* Stock Status */}
               <div className="mb-6">
-                {product.stock > 0 ? (
+                {product?.stock > 0 ? (
                   <Badge className="bg-green-100 text-green-800 hover:bg-green-100 border-green-200">
-                    In Stock ({product.stock} available)
+                    In Stock ({product?.stock} available)
                   </Badge>
                 ) : (
                   <Badge className="bg-red-100 text-red-800 hover:bg-red-100 border-red-200">
@@ -318,7 +315,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
         {/* Product Details Tabs */}
         <motion.div
           className="mt-12"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: window.innerWidth > 768 ? 20 : 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
@@ -334,7 +331,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                 value="reviews"
                 className="text-[#2b0909] data-[state=active]:border-b-2 data-[state=active]:border-[#2b0909] rounded-none"
               >
-                Reviews ({product.reviewCount})
+                Reviews (0)
               </TabsTrigger>
               <TabsTrigger
                 value="shipping"
@@ -364,7 +361,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                     </li> */}
                     <li>
                       <span className="font-medium">Features:</span>{" "}
-                      {product.description}
+                      {product?.description}
                     </li>
                   </ul>
                 </div>
@@ -462,50 +459,6 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
             </TabsContent>
           </Tabs>
         </motion.div>
-
-        {/* Related Products */}
-        {/* <motion.div
-          className="mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <h2 className="text-2xl font-bold text-[#2b0909] mb-6">
-            You Might Also Like
-          </h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {product.relatedProducts.map((item) => (
-              <motion.div
-                key={item.id}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-lg shadow-sm overflow-hidden"
-              >
-                <div className="aspect-square relative overflow-hidden">
-                  <Image
-                    src={item.image}
-                    width={300}
-                    height={300}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-medium text-[#2b0909]">{item.title}</h3>
-                  <p className="mt-1 font-semibold text-[#2b0909]">
-                    ${item.price.toFixed(2)}
-                  </p>
-                  <Button
-                    variant="ghost"
-                    className="w-full mt-2 text-[#2b0909] border border-[#2b0909]/20 hover:bg-[#2b0909]/5"
-                  >
-                    Quick View
-                  </Button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div> */}
       </div>
     </div>
   );
