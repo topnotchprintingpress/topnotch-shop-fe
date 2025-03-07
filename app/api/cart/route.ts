@@ -1,14 +1,29 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const response = await fetch(`${process.env.DJANGO_API_URL}/cart/`, {
-    headers: {
-      Authorization: `Bearer ${req.cookies.access_token}`, // Add authentication
-    },
-  });
-  const data = await response.json();
-  res.status(response.status).json(data);
+export async function GET(req: NextRequest) {
+  try {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    console.log("Token:", token);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/`, {
+      method: "GET",
+      headers: {
+        Authorization: token?.access ? `Bearer ${token.access}` : "",
+      },
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: "Failed to fetch cart" },
+        { status: response.status }
+      );
+    }
+
+    const data = await response.json(); // Ensure response is valid JSON
+    return NextResponse.json(data, { status: response.status });
+  } catch (error) {
+    console.error("Error fetching cart:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
 }

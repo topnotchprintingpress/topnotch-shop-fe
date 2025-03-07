@@ -13,11 +13,11 @@ import {
   Truck,
 } from "lucide-react";
 import useSWR from "swr";
+import Loader from "@/components/custom/Loader";
+import ProductNotFound from "@/components/errorpages/ProductNotFound";
 
 // types
 import { ProductDetail } from "@/types/types";
-import { FaCertificate } from "react-icons/fa";
-import Link from "next/link";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, { method: "GET", credentials: "include" });
@@ -27,7 +27,6 @@ const fetcher = async (url: string) => {
 
 const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
   const { slug } = use(params);
-  console.log("Product slug:", slug);
 
   // Fetch product details
   const {
@@ -65,27 +64,11 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
 
   // Loading state
   if (isLoading) {
-    return (
-      <div className="w-full bg-[#350203] h-screen flex justify-center items-center">
-        <h4 className="font-bold text-7xl text-white flex">
-          <FaCertificate className="text-white animate-spin" size={100} />
-        </h4>
-      </div>
-    );
+    return <Loader />;
   }
 
   if (error || !product) {
-    return (
-      <div className="w-full min-h-screen bg-[#fcf4ec] flex flex-col justify-center items-center gap-4">
-        <h2 className="text-2xl font-bold text-[#350203]">Lesson Not Found</h2>
-        <Link
-          href="/"
-          className="px-6 py-3 bg-[#350203] text-white rounded-lg hover:bg-[#4a1717] transition-colors"
-        >
-          Browse Topics
-        </Link>
-      </div>
-    );
+    return <ProductNotFound />;
   }
 
   return (
@@ -198,7 +181,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
               <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
 
               <p className="text-2xl font-semibold mb-6">
-                Ksh. {product?.price}
+                KES {product?.price}
               </p>
 
               <p className="text-[#2b0909]/80 mb-6">{product?.description}</p>
@@ -442,7 +425,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                 </h3>
                 <p>
                   We offer free standard shipping on all orders over $100.
-                  Standard shipping takes 3-5 business days. Express shipping
+                  Standard shipping taKES 3-5 business days. Express shipping
                   options are available at checkout.
                 </p>
 

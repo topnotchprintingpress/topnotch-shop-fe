@@ -41,13 +41,22 @@ export interface Banner {
 
 export interface CartItem {
   id: number;
-  product: {
-    id: number;
-    title: string;
-    image: string;
-    price: number;
-  };
+  product: ProductBase;
   quantity: number;
+  total_price: number;
+  items: [];
+}
+
+export interface Cart {
+  id: number;
+  user: {
+    id: number;
+    email: string;
+  };
+  items: CartItem[];
+  total_price: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ProductDetail {

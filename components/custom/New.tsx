@@ -81,7 +81,7 @@ function New() {
                   </CardTitle>
                 </Link>
                 <p className="text-base lg:text-lg xl:text-lg font-bold text-[#ff8080]">
-                  Kes. {item.price}
+                  KES . {item.price}
                 </p>
               </CardContent>
               <CardFooter className="absolute -bottom-3 md:-bottom-2 -right-4 md:right-0">

@@ -104,11 +104,10 @@ export default function HeroOffers() {
                       </p>
                       <div className="mt-4 flex items-baseline gap-2">
                         <span className="text-sm md:text-base xl:text-lg font-bold">
-                          Ksh.
-                          {item.price * (1 - item.discount / 100)}
+                          KES {item.price * (1 - item.discount / 100)}
                         </span>
                         <span className="text-sm text-muted-foreground line-through">
-                          Ksh.{item.price}
+                          KES {item.price}
                         </span>
                       </div>
                     </CardContent>

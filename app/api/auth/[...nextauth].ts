@@ -29,6 +29,7 @@ export const authOptions: NextAuthOptions = {
                 password: credentials.password,
               }),
               headers: { "Content-Type": "application/json" },
+              credentials: "include",
             }
           );
           const data = await res.json();
@@ -114,6 +115,7 @@ export const authOptions: NextAuthOptions = {
             method: "POST",
             body: JSON.stringify({ refresh: token.refresh }),
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
           }
         );
         const data = await res.json();

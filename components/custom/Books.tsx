@@ -16,15 +16,19 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { useAppContext } from "@/providers/ProductProvider";
 import { FaBoxOpen } from "react-icons/fa";
+import { useCartContext } from "@/providers/CartContext";
 
 export default function FeaturedBooks() {
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
   const context = useAppContext();
+  const { cart } = useCartContext();
   const { featuredBooks } = context;
+
+  const;
 
   if (!featuredBooks || featuredBooks.length === 0) {
     return (
@@ -100,11 +104,10 @@ export default function FeaturedBooks() {
                       </p>
                       <div className="mt-4 flex items-baseline gap-2">
                         <span className="text-sm md:text-base xl:text-lg font-bold">
-                          Ksh.
-                          {item.price * (1 - item.discount / 100)}
+                          KES {item.price * (1 - item.discount / 100)}
                         </span>
                         <span className="text-sm text-muted-foreground line-through">
-                          Ksh.{item.price}
+                          KES {item.price}
                         </span>
                       </div>
                     </CardContent>

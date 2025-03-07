@@ -117,7 +117,7 @@ export default function ShippingReturnsPage() {
                   </li>
                   <li>
                     Orders that are paid for with a credit card and returned
-                    will be assessed a KShs100 as a processing fee.
+                    will be assessed a KES s100 as a processing fee.
                   </li>
                   <li>
                     We do not refund shipping costs MPesa or credit card fees.
@@ -170,7 +170,7 @@ export default function ShippingReturnsPage() {
                 <ul className="list-disc pl-6 space-y-2">
                   <li>
                     Shipping charges for goods delivered within Nairobi or out
-                    of Nairobi (Upcountry) will incur a shipping cost KShs300
+                    of Nairobi (Upcountry) will incur a shipping cost KES s300
                     (excludes premium services), except in areas considered as
                     hardship areas. International orders must choose a shipping
                     method at checkout.
@@ -190,13 +190,13 @@ export default function ShippingReturnsPage() {
                     rest of Kenya.
                   </li>
                   <li>
-                    Free shipping is available for orders above KSh. 3,000
-                    within Kenya.
+                    Free shipping is available for orders above KES 3,000 within
+                    Kenya.
                   </li>
                   <li>
                     The shipping fee applies to orders weighing between 0-5 kg,
                     each additional kg or part thereof is charged an additional
-                    KSh 50.
+                    KES 50.
                   </li>
                 </ul>
               </AccordionContent>
@@ -217,7 +217,7 @@ export default function ShippingReturnsPage() {
                     same-day delivery.
                   </li>
                   <li>
-                    Express delivery is charged at a flat rate of Kshs 500.
+                    Express delivery is charged at a flat rate of KES s 500.
                   </li>
                   <li>
                     Ensure the delivery address is accurate and the contact
@@ -233,7 +233,7 @@ export default function ShippingReturnsPage() {
               <AccordionContent>
                 <p>
                   Areas considered hardship areas will attract an extra shipping
-                  fee of not less than KSh 1,000. Delivery for items shipped to
+                  fee of not less than KES 1,000. Delivery for items shipped to
                   hardship areas is within 7 days.
                 </p>
               </AccordionContent>
@@ -248,12 +248,12 @@ export default function ShippingReturnsPage() {
                 </h4>
                 <ul className="list-disc pl-6 space-y-2 mb-4">
                   <li>
-                    This delivery option will charge Ksh. 406 regardless of the
+                    This delivery option will charge KES 406 regardless of the
                     cart amount and delivery location for weights not exceeding
                     5 kg.
                   </li>
                   <li>
-                    Weights above 5 kg will be charged an extra Ksh. 30 per Kg.
+                    Weights above 5 kg will be charged an extra KES 30 per Kg.
                   </li>
                   <li>
                     Delivery is done every day of the week except Sundays and

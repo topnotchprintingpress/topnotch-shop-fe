@@ -102,7 +102,7 @@ export default function TechProds() {
                       </p>
                       <div className="mt-4 flex items-baseline gap-2">
                         <span className="text-sm md:text-base xl:text-lg font-bold">
-                          Ksh.{item.price}
+                          KES {item.price}
                         </span>
                       </div>
                     </CardContent>

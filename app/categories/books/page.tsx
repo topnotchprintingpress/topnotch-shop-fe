@@ -31,7 +31,7 @@ const CategoryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
-    priceRange: [0, 100],
+    priceRange: [0, 10000],
     ratings: null,
     author: null,
   });
@@ -191,16 +191,17 @@ const CategoryPage = () => {
                     <h3 className="font-semibold mb-3">Price Range</h3>
                     <div className="flex items-center justify-between">
                       <span className="text-sm">
-                        Ksh.{selectedFilters.priceRange[0]}
+                        KES {selectedFilters.priceRange[0]}
                       </span>
                       <span className="text-sm">
-                        Ksh.{selectedFilters.priceRange[1]}
+                        KES {selectedFilters.priceRange[1]}
                       </span>
                     </div>
                     <input
                       type="range"
                       min="0"
-                      max="100"
+                      max="10000"
+                      defaultValue="0"
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2b0909] mt-2"
                     />
                   </div>
@@ -292,7 +293,7 @@ const CategoryPage = () => {
                         </p>
                         <div className="mt-4 flex items-baseline gap-2">
                           <span className="text-sm md:text-base xl:text-lg font-bold">
-                            Ksh.{item.price}
+                            KES {item.price}
                           </span>
                         </div>
                       </CardContent>
@@ -348,7 +349,7 @@ const CategoryPage = () => {
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-lg">
-                            Ksh.{item.price}
+                            KES {item.price}
                           </span>
                           <motion.button
                             className="flex items-center space-x-1 bg-[#2b0909] text-white px-3 py-1.5 rounded-md text-sm"

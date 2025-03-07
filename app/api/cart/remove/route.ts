@@ -1,24 +1,44 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { id } = req.query;
+export async function DELETE(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id");
 
-  if (req.method === "DELETE") {
+  if (!id) {
+    return NextResponse.json({ error: "Item ID is required" }, { status: 400 });
+  }
+
+  try {
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const response = await fetch(
-      `${process.env.DJANGO_API_URL}/cart/items/${id}/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/cart-items/${id}/`,
       {
         method: "DELETE",
+        credentials: "include",
         headers: {
-          Authorization: `Bearer ${req.cookies.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token?.access}`, // Using Bearer token for security
         },
       }
     );
-    res.status(response.status).end();
-  } else {
-    res.setHeader("Allow", ["DELETE"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      return NextResponse.json(
+        { error: errorText },
+        { status: response.status }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Item removed successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to delete cart item" },
+      { status: 500 }
+    );
   }
 }

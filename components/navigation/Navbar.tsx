@@ -12,6 +12,7 @@ import { MdOutlineSupportAgent } from "react-icons/md";
 import { IoIosLogIn } from "react-icons/io";
 import { TiUserAdd } from "react-icons/ti";
 import { SlUser } from "react-icons/sl";
+import { useCartContext } from "@/providers/CartContext";
 // shadcn
 import {
   DropdownMenu,
@@ -26,6 +27,8 @@ import {
 import SignOut from "../buttons/SignOut";
 
 function Navbar() {
+  const { cart } = useCartContext();
+  const cartItems = cart ? cart.flatMap((cartObj) => cartObj.items ?? []) : [];
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(true);
   const { data: session, status } = useSession();
@@ -121,14 +124,14 @@ function Navbar() {
           <div className="hidden md:flex gap-6 justify-center items-center font-semibold text-sm">
             <>
               <Link
-                href="/signin"
+                href="/shopping-cart"
                 className="flex text-[#2b0909] justify-center items-center "
               >
                 <MdOutlineShoppingCart className="relative text-[28px]" />
                 <h4 className="ml-2 text-xs tracking-tighter">My cart</h4>
                 <div className="absolute top-8 -ml-8 text-xs">
                   <p className="text-white p-2.5 font-bold bg-[#2b0909] rounded-[100%] w-[19px] h-[19px] flex justify-center items-center">
-                    20
+                    {cartItems?.length || 0}
                   </p>
                 </div>
               </Link>
@@ -149,8 +152,8 @@ function Navbar() {
                 <DropdownMenuContent className="w-24 rounded-2xl bg-[#fffcf7] border-2 border-[#2b0909] text-[#2b0909] py-2 px-1">
                   {status === "authenticated" ? (
                     <>
-                      <DropdownMenuLabel className="">
-                        {session?.user.name}
+                      <DropdownMenuLabel className="capitalize">
+                        Hey {session?.user.name}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator className="bg-[#350203]" />
                       <DropdownMenuGroup>
@@ -217,6 +220,20 @@ function Navbar() {
           </div>
 
           {/* Mobile Hamburger Menu Toggle */}
+          <div className="md:hidden mr-4">
+            <Link
+              href="/shopping-cart"
+              className="flex text-[#2b0909] justify-center items-center "
+            >
+              <MdOutlineShoppingCart className="relative text-[28px]" />
+
+              <div className="absolute top- ml-4 text-xs">
+                <p className="text-white p-2.5 font-bold bg-[#2b0909] rounded-[100%] w-[19px] h-[19px] flex justify-center items-center">
+                  {cartItems?.length || 0}
+                </p>
+              </div>
+            </Link>
+          </div>
           <div className="mobile-menu md:hidden" onClick={handleNav}>
             <BsMenuButtonWideFill
               size={30}
