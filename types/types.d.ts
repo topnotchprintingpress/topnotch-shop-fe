@@ -62,3 +62,38 @@ export interface Cart {
 export interface ProductDetail {
   params: Promise<{ slug: string }>;
 }
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+}
+
+export interface Order {
+  id: number;
+  // Add other fields from the Order model if needed
+}
+
+export interface PaymentHistory {
+  id: number; // Automatically added by Django as primary key
+  user: User; // ForeignKey to User
+  amount_paid: number; // IntegerField
+  reference_code: string; // CharField
+  payment_date: string; // DateTimeField (auto_now_add=True)
+}
+
+export interface ShippingAddress {
+  id: number;
+  user: User;
+  order: Order;
+  first_name: string;
+  last_name: string;
+  street_address: string;
+  apartment: string;
+  city: string;
+  county: string;
+  country: string;
+  postal_code: string;
+  phone_number: string;
+  created_at: string;
+}

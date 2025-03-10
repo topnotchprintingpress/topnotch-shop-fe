@@ -5,18 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCartContext } from "@/providers/CartContext";
+import { useShippingContext } from "@/providers/ShippingContext";
 import { CartItem } from "@/types/types";
-import {
-  ArrowLeft,
-  CreditCard,
-  Truck,
-  Lock,
-  Check,
-  ChevronRight,
-} from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ArrowLeft, CreditCard, Lock, Check, ChevronRight } from "lucide-react";
+
 import {
   Accordion,
   AccordionContent,
@@ -26,20 +18,20 @@ import {
 
 import Image from "next/image";
 
+// components
+import Shipping from "./Shipping";
+
 const CheckoutPage = () => {
   const { cart } = useCartContext();
+  const { shipping } = useShippingContext();
   const [step, setStep] = useState(1);
-  const [paymentMethod, setPaymentMethod] = useState("credit-card");
-  const [shippingMethod, setShippingMethod] = useState("standard");
 
   // Calculate subtotal
   const subtotal = (cart || []).reduce(
     (sum: number, item: CartItem) => sum + item.total_price,
     0
   );
-
-  // Shipping cost based on selection
-  const shippingCost = shippingMethod === "express" ? 250 : 100;
+  const shippingCost = 100;
 
   // Free shipping on orders over 5000
   const qualifiesForFreeShipping = subtotal > 5000;
@@ -98,273 +90,9 @@ const CheckoutPage = () => {
   const renderStepContent = () => {
     switch (step) {
       case 1:
-        return (
-          <motion.div
-            variants={fadeInVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <h3 className="text-lg font-semibold mb-4">Shipping Information</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              <div>
-                <Label htmlFor="firstName">First Name</Label>
-                <Input id="firstName" className="mt-1" />
-              </div>
-              <div>
-                <Label htmlFor="lastName">Last Name</Label>
-                <Input id="lastName" className="mt-1" />
-              </div>
-              <div className="md:col-span-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" className="mt-1" />
-              </div>
-              <div className="md:col-span-2">
-                <Label htmlFor="address">Street Address</Label>
-                <Input id="address" className="mt-1" />
-              </div>
-              <div>
-                <Label htmlFor="city">City</Label>
-                <Input id="city" className="mt-1" />
-              </div>
-              <div>
-                <Label htmlFor="postalCode">Postal Code</Label>
-                <Input id="postalCode" className="mt-1" />
-              </div>
-              <div className="md:col-span-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" className="mt-1" />
-              </div>
-            </div>
-
-            <h3 className="text-lg font-semibold mb-4">Shipping Method</h3>
-            <RadioGroup
-              value={shippingMethod}
-              onValueChange={setShippingMethod}
-              className="space-y-3"
-            >
-              <div
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  shippingMethod === "standard"
-                    ? "border-[#2b0909] bg-[#2b0909]/5"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex items-start">
-                  <RadioGroupItem
-                    value="standard"
-                    id="standard"
-                    className="mt-1"
-                  />
-                  <div className="ml-3 flex-1">
-                    <Label
-                      htmlFor="standard"
-                      className="font-medium text-base cursor-pointer"
-                    >
-                      Standard Delivery
-                    </Label>
-                    <p className="text-sm text-gray-600">3-5 business days</p>
-                    <p className="text-sm font-medium mt-1">
-                      {qualifiesForFreeShipping
-                        ? "Free"
-                        : `KES ${shippingCost.toFixed(2)}`}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  shippingMethod === "express"
-                    ? "border-[#2b0909] bg-[#2b0909]/5"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex items-start">
-                  <RadioGroupItem
-                    value="express"
-                    id="express"
-                    className="mt-1"
-                  />
-                  <div className="ml-3 flex-1">
-                    <Label
-                      htmlFor="express"
-                      className="font-medium text-base cursor-pointer"
-                    >
-                      Express Delivery
-                    </Label>
-                    <p className="text-sm text-gray-600">1-2 business days</p>
-                    <p className="text-sm font-medium mt-1">
-                      {qualifiesForFreeShipping ? "Free" : `KES ${250}`}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </RadioGroup>
-
-            <Button
-              className="w-full mt-6 text-white"
-              style={{ backgroundColor: "#2b0909" }}
-              onClick={() => setStep(2)}
-            >
-              Continue to Payment
-            </Button>
-          </motion.div>
-        );
+        return <Shipping onNextStep={() => setStep(2)} />;
 
       case 2:
-        return (
-          <motion.div
-            variants={fadeInVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <h3 className="text-lg font-semibold mb-4">Payment Method</h3>
-            <RadioGroup
-              value={paymentMethod}
-              onValueChange={setPaymentMethod}
-              className="space-y-3 mb-6"
-            >
-              <div
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  paymentMethod === "credit-card"
-                    ? "border-[#2b0909] bg-[#2b0909]/5"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex items-start">
-                  <RadioGroupItem
-                    value="credit-card"
-                    id="credit-card"
-                    className="mt-1"
-                  />
-                  <div className="ml-3 flex-1">
-                    <Label
-                      htmlFor="credit-card"
-                      className="font-medium text-base cursor-pointer"
-                    >
-                      Credit Card
-                    </Label>
-                    <div className="flex items-center text-gray-500 text-sm mt-1">
-                      <div className="flex gap-1">
-                        <span className="bg-blue-500 text-white rounded px-1 text-xs">
-                          VISA
-                        </span>
-                        <span className="bg-red-500 text-white rounded px-1 text-xs">
-                          MC
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  paymentMethod === "mpesa"
-                    ? "border-[#2b0909] bg-[#2b0909]/5"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex items-start">
-                  <RadioGroupItem value="mpesa" id="mpesa" className="mt-1" />
-                  <div className="ml-3 flex-1">
-                    <Label
-                      htmlFor="mpesa"
-                      className="font-medium text-base cursor-pointer"
-                    >
-                      M-Pesa
-                    </Label>
-                    <p className="text-sm text-gray-600">
-                      Pay using M-Pesa mobile money
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  paymentMethod === "paypal"
-                    ? "border-[#2b0909] bg-[#2b0909]/5"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex items-start">
-                  <RadioGroupItem value="paypal" id="paypal" className="mt-1" />
-                  <div className="ml-3 flex-1">
-                    <Label
-                      htmlFor="paypal"
-                      className="font-medium text-base cursor-pointer"
-                    >
-                      PayPal
-                    </Label>
-                    <p className="text-sm text-gray-600">
-                      Pay using your PayPal account
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </RadioGroup>
-
-            {paymentMethod === "credit-card" && (
-              <div className="space-y-4 mb-6">
-                <div>
-                  <Label htmlFor="cardName">Name on Card</Label>
-                  <Input id="cardName" className="mt-1" />
-                </div>
-                <div>
-                  <Label htmlFor="cardNumber">Card Number</Label>
-                  <Input
-                    id="cardNumber"
-                    placeholder="XXXX XXXX XXXX XXXX"
-                    className="mt-1"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="expiry">Expiry Date</Label>
-                    <Input id="expiry" placeholder="MM/YY" className="mt-1" />
-                  </div>
-                  <div>
-                    <Label htmlFor="cvc">CVC</Label>
-                    <Input id="cvc" placeholder="XXX" className="mt-1" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {paymentMethod === "mpesa" && (
-              <div className="space-y-4 mb-6">
-                <div>
-                  <Label htmlFor="phoneNumber">M-Pesa Phone Number</Label>
-                  <Input
-                    id="phoneNumber"
-                    placeholder="e.g. 07XX XXX XXX"
-                    className="mt-1"
-                  />
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-4 mt-6">
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => setStep(1)}
-              >
-                Back
-              </Button>
-              <Button
-                className="flex-1 text-white"
-                style={{ backgroundColor: "#2b0909" }}
-                onClick={() => setStep(3)}
-              >
-                Review Order
-              </Button>
-            </div>
-          </motion.div>
-        );
-
-      case 3:
         return (
           <motion.div
             variants={fadeInVariants}
@@ -423,32 +151,28 @@ const CheckoutPage = () => {
                 <AccordionTrigger className="text-base font-medium">
                   Shipping Information
                 </AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-2 mt-2">
-                    <p>
-                      <span className="font-medium">Name:</span> John Doe
-                    </p>
-                    <p>
-                      <span className="font-medium">Address:</span> 123 Main St,
-                      Nairobi
-                    </p>
-                    <p>
-                      <span className="font-medium">Email:</span>{" "}
-                      john@example.com
-                    </p>
-                    <p>
-                      <span className="font-medium">Phone:</span> +254 712 345
-                      678
-                    </p>
-                    <p className="mt-3 font-medium">Shipping Method:</p>
-                    <p className="flex items-center">
-                      <Check size={16} className="text-green-500 mr-1" />
-                      {shippingMethod === "standard"
-                        ? "Standard Delivery (3-5 days)"
-                        : "Express Delivery (1-2 days)"}
-                    </p>
-                  </div>
-                </AccordionContent>
+                {shipping.map((ship) => (
+                  <AccordionContent key={ship.id}>
+                    <div className="space-y-2 mt-2">
+                      <p>
+                        <span className="font-medium">Name:</span>{" "}
+                        {ship.first_name} {ship.last_name}
+                      </p>
+                      <p>
+                        <span className="font-medium">Address:</span>{" "}
+                        {ship.apartment}, {ship.street_address}, {ship.city}
+                      </p>
+                      <p>
+                        <span className="font-medium">Email:</span>{" "}
+                        {ship.first_name}
+                      </p>
+                      <p>
+                        <span className="font-medium">Phone:</span>{" "}
+                        {ship.phone_number}
+                      </p>
+                    </div>
+                  </AccordionContent>
+                ))}
               </AccordionItem>
 
               <AccordionItem value="payment">
@@ -459,11 +183,7 @@ const CheckoutPage = () => {
                   <div className="mt-2">
                     <p className="flex items-center">
                       <Check size={16} className="text-green-500 mr-1" />
-                      {paymentMethod === "credit-card"
-                        ? "Credit Card (XXXX XXXX XXXX 1234)"
-                        : paymentMethod === "mpesa"
-                        ? "M-Pesa (07XX XXX XXX)"
-                        : "PayPal"}
+                      Credit Card | Mpesa
                     </p>
                   </div>
                 </AccordionContent>
@@ -523,6 +243,7 @@ const CheckoutPage = () => {
               <Button
                 className="flex-1 text-white"
                 style={{ backgroundColor: "#2b0909" }}
+                onClick={handlePayment}
               >
                 Place Order
               </Button>
@@ -532,6 +253,30 @@ const CheckoutPage = () => {
 
       default:
         return null;
+    }
+  };
+
+  const handlePayment = async () => {
+    try {
+      const amount = subtotal;
+      const res = await fetch("/api/payment/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount }), // Ensure you pass order_id
+      });
+      const data = await res.json();
+
+      if (data.status) {
+        window.location.href = data.data.authorization_url;
+      } else {
+        console.error("Payment initialization failed:", data.message);
+        alert("Payment initialization failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error handling subscription:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -619,31 +364,9 @@ const CheckoutPage = () => {
 
                 <div className="text-sm text-gray-600 space-y-4">
                   <div className="flex items-center gap-2">
-                    <Truck size={16} />
-                    <div>
-                      <div className="font-medium">
-                        {shippingMethod === "standard"
-                          ? "Standard Delivery"
-                          : "Express Delivery"}
-                      </div>
-                      <div className="text-xs">
-                        {shippingMethod === "standard"
-                          ? "Estimated delivery: 3-5 business days"
-                          : "Estimated delivery: 1-2 business days"}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
                     <CreditCard size={16} />
                     <div>
-                      <div className="font-medium">
-                        {paymentMethod === "credit-card"
-                          ? "Credit Card"
-                          : paymentMethod === "mpesa"
-                          ? "M-Pesa"
-                          : "PayPal"}
-                      </div>
+                      <div className="font-medium">Credit Card | MPesa</div>
                     </div>
                   </div>
                 </div>

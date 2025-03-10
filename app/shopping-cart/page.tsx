@@ -178,13 +178,13 @@ const ShoppingCart = () => {
                     className="mx-auto mb-4 text-gray-400"
                     size={48}
                   />
-                  <p className="text-gray-500">Your cart is empty</p>
-                  <Button
-                    className="mt-4"
-                    style={{ backgroundColor: "#2b0909" }}
+                  <p className="text-gray-500 mb-6">Your cart is empty</p>
+                  <Link
+                    href="/"
+                    className="mt-4 p-4 bg-[#2b0909] rounded-3xl text-[#fffcf7]"
                   >
                     Start Shopping
-                  </Button>
+                  </Link>
                 </motion.div>
               )}
             </CardContent>

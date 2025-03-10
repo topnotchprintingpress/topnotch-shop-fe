@@ -25,6 +25,49 @@ export const loginSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters long"),
 });
 
+export const shippingSchema = z.object({
+  first_name: z
+    .string()
+    .min(1, "First Name is required")
+    .max(50, "Name is too long"),
+  last_name: z
+    .string()
+    .min(1, "Last Name is required")
+    .max(50, "Name is too long"),
+  email: z.string().email("Invalid email address").optional(),
+  street_address: z
+    .string()
+    .min(1, "Street Address is required")
+    .max(50, "Name is too long"),
+  apartment: z
+    .string()
+    .min(1, "Apartment name is required")
+    .max(50, "Name is too long")
+    .optional(),
+  city: z
+    .string()
+    .min(1, "Please specify your city")
+    .max(50, "City Name is too long")
+    .optional(),
+  county: z
+    .string()
+    .min(1, "Please specify your county/state")
+    .max(50, "County Name is too long"),
+  country: z
+    .string()
+    .min(1, "Please specify your country")
+    .max(50, "Country Name is too long"),
+  postal_code: z
+    .string()
+    .min(1, "Please specify your postal code")
+    .max(20, "Postal Code is too long")
+    .optional(),
+  phone_number: z
+    .string()
+    .min(1, "Phone number is required")
+    .max(12, "Phone Number is too long"),
+});
+
 // Schema for updating user profile
 export const profileSchema = z.object({
   name: z
