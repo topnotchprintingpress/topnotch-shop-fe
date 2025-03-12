@@ -1,13 +1,15 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
-import { ShippingAddress } from "@/types/types";
+import { ShippingAddress, Order } from "@/types/types";
 
 interface ShippingContextType {
   shipping: ShippingAddress[];
+  order: Order[];
   addShipping: (addressData: Partial<ShippingAddress>) => Promise<void>;
   fetchShipping: () => Promise<void>;
   updateShipping: () => Promise<void>;
+  fetchOrder: () => Promise<void>;
 }
 
 const ShippingContext = createContext<ShippingContextType | undefined>(
@@ -20,6 +22,7 @@ export const ShippingProvider = ({
   children: React.ReactNode;
 }) => {
   const [shipping, setShipping] = useState<ShippingAddress[]>([]);
+  const [order, setOrder] = useState<Order[]>([]);
 
   // Fetch the user's cart
   const fetchShipping = async () => {
@@ -101,8 +104,26 @@ export const ShippingProvider = ({
     }
   };
 
+  // Fetch the user's cart
+  const fetchOrder = async () => {
+    try {
+      const response = await fetch("/api/order/", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        setOrder(data.reverse());
+      }
+    } catch (error) {
+      console.error("Failed to fetch cart:", error);
+    }
+  };
+
   useEffect(() => {
     fetchShipping();
+    fetchOrder();
   }, []);
 
   return (
@@ -112,6 +133,8 @@ export const ShippingProvider = ({
         fetchShipping,
         addShipping,
         updateShipping,
+        order,
+        fetchOrder,
       }}
     >
       {children}

@@ -88,7 +88,7 @@ export default function PaymentSuccessPage() {
             {/* Action Buttons */}
             <div className="space-y-3">
               <Link
-                href="/account/orders"
+                href="/my_account/orders"
                 className="block w-full py-2 px-4 bg-[#2b0909] hover:bg-[#2b0909cc] text-white font-medium rounded-md transition duration-200"
               >
                 View Order Details

@@ -171,7 +171,7 @@ function Navbar() {
 
                         <DropdownMenuItem
                           onClick={() => {
-                            router.push("/billing");
+                            router.push("/my_account/orders");
                           }}
                           className="cursor-pointer"
                         >

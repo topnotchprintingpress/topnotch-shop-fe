@@ -71,7 +71,13 @@ export interface User {
 
 export interface Order {
   id: number;
-  // Add other fields from the Order model if needed
+  user: User;
+  total_price: number;
+  order_reference: string;
+  items: CartItem[];
+  shipping_address: ShippingAddress;
+  status: string;
+  created_at: string;
 }
 
 export interface PaymentHistory {

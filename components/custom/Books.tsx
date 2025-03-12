@@ -16,7 +16,7 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
-import React, { use } from "react";
+import React from "react";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import { useAppContext } from "@/providers/ProductProvider";
 import { FaBoxOpen } from "react-icons/fa";
@@ -27,8 +27,6 @@ export default function FeaturedBooks() {
   const context = useAppContext();
   const { cart } = useCartContext();
   const { featuredBooks } = context;
-
-  const;
 
   if (!featuredBooks || featuredBooks.length === 0) {
     return (

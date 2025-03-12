@@ -17,10 +17,10 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import { useAppContext } from "@/providers/ProductProvider";
 import { ProductBase } from "@/types/types";
 import { FaBoxOpen } from "react-icons/fa";
+import AddToCart from "../buttons/AddToCart";
 
 export default function HeroOffers() {
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
@@ -102,23 +102,19 @@ export default function HeroOffers() {
                       <p className="text-xs text-gray-600">
                         {item.main_category}
                       </p>
-                      <div className="mt-4 flex items-baseline gap-2">
-                        <span className="text-sm md:text-base xl:text-lg font-bold">
+                    </CardContent>
+                    <CardFooter className="-bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+                      <div className="flex gap-2 items-center">
+                        <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
                           KES {item.price * (1 - item.discount / 100)}
-                        </span>
-                        <span className="text-sm text-muted-foreground line-through">
+                        </h3>
+                        <span className="text-sm text-gray-500 line-through">
                           KES {item.price}
                         </span>
                       </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Link
-                        href="/shop"
-                        className="flex items-center justify-center gap-3 w-full bg-[#ff8080] text-white px-1 md:px-5 py-1.5 md:py-2 rounded-md hover:bg-[#e67373] transition-colors md:mt-0 text-xs md:text-sm lg:text-base"
-                      >
-                        <BsFillCartPlusFill size={20} />
-                        Add to Cart
-                      </Link>
+                      <div className="ml-auto">
+                        <AddToCart productId={item.id} />
+                      </div>
                     </CardFooter>
                   </Card>
                 </div>

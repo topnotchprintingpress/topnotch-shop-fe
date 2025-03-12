@@ -6,6 +6,7 @@ import Footer from "@/components/navigation/Footer";
 import { AppWrapper } from "@/providers/ProductProvider";
 import { Providers } from "@/providers/SessionProvider";
 import { CartProvider } from "@/providers/CartContext";
+import { ShippingProvider } from "@/providers/ShippingContext";
 
 export const metadata: Metadata = {
   title: "Topnotch Publishers",
@@ -71,17 +72,19 @@ export default async function RootLayout({
   const banners = await fetchBanners();
   return (
     <Providers>
-      <CartProvider>
-        <html lang="en">
-          <body>
-            <Navbar />
-            <AppWrapper products={products} books={books} banners={banners}>
-              {children}
-            </AppWrapper>
-            <Footer />
-          </body>
-        </html>
-      </CartProvider>
+      <ShippingProvider>
+        <CartProvider>
+          <html lang="en">
+            <body>
+              <Navbar />
+              <AppWrapper products={products} books={books} banners={banners}>
+                {children}
+              </AppWrapper>
+              <Footer />
+            </body>
+          </html>
+        </CartProvider>
+      </ShippingProvider>
     </Providers>
   );
 }

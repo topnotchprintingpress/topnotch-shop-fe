@@ -79,7 +79,7 @@ function Hero() {
                 className="basis-1/1 md:basis-1/2 lg:basis-1/4"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full md:h-[56vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full md:h-[64vh]">
                     <CardHeader className="relative p-4">
                       <Image
                         src={
@@ -94,22 +94,22 @@ function Hero() {
                       />
                     </CardHeader>
                     <CardContent className="p-4">
+                      <p className="text-xs text-gray-600 mb-2">
+                        {item.main_category}
+                      </p>
                       <Link href={`/product/${item.slug}`}>
-                        <CardTitle className="text-sm md:text-base xl:text-lg mb-2">
+                        <CardTitle className="text-base">
                           {item.title}
                         </CardTitle>
                       </Link>
-                      <p className="text-xs text-gray-600">
-                        {item.main_category}
-                      </p>
-                      <div className="mt-4 flex items-baseline gap-2">
-                        <span className="text-sm md:text-base xl:text-lg font-bold">
-                          KES {item.price}
-                        </span>
-                      </div>
                     </CardContent>
-                    <CardFooter className="absolute -bottom-2 right-0">
-                      <AddToCart productId={item.id} />
+                    <CardFooter className="md:absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+                      <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                        KES {item.price}
+                      </h3>
+                      <div className="ml-auto">
+                        <AddToCart productId={item.id} />
+                      </div>
                     </CardFooter>
                   </Card>
                 </div>
