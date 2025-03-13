@@ -22,11 +22,6 @@ export default function MainHero() {
 
   if (!topBanner || topBanner.length == 0) {
     <section className="bg-white w-full px-4 py-8 md:py-4 lg:py-2 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
-      <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
-        <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
-          What{"'"}s New?
-        </h3>
-      </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
         <div className="w-full max-w-7xl xl:max-w-full mx-auto flex flex-col items-center justify-center py-12">
           <FaBoxOpen className="text-6xl text-gray-400 mb-4" /> {/* Icon */}
@@ -56,7 +51,7 @@ export default function MainHero() {
       >
         <CarouselContent>
           {banner.map((prod, id) => (
-            <CarouselItem key={id} className="relative w-full  mt-6 md:mt-0">
+            <CarouselItem key={id} className="relative w-full">
               <div className="p-1">
                 <Card>
                   <Image

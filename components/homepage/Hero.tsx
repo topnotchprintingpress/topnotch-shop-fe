@@ -29,7 +29,7 @@ function Hero() {
 
   if (!bestSellers || bestSellers.length === 0) {
     return (
-      <section className="bg-white w-full px-4 py-0 md:py-16 lg:py-0 xl:px-24 2xl:px-32 flex flex-col items-center justify-center border-t border-[#2b0909] my-0 md:my-4">
+      <section className="bg-white w-full px-4 md:px-8 py-0 md:py-16 lg:py-0 flex flex-col items-center justify-center border-t border-[#2b0909] my-0 md:my-4">
         <div className="w-full mt-2 md:mt-4 mb-6">
           <Categories />
         </div>
@@ -55,7 +55,7 @@ function Hero() {
 
   const firstTen = bestSellers?.slice(0, 9);
   return (
-    <section className="bg-white w-full px-4 py-0 md:py-16 lg:py-0 xl:px-24 2xl:px-32 flex flex-col items-center justify-center border-t border-[#2b0909] my-0 md:my-4">
+    <section className="bg-white w-full px-4 md:px-8 py-0 md:py-16 lg:py-0 flex flex-col items-center justify-center border-t border-[#2b0909] my-0 md:my-4">
       <div className="w-full mt-2 md:mt-4 mb-6">
         <Categories />
       </div>

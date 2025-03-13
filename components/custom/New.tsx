@@ -47,7 +47,7 @@ function New() {
   }
 
   return (
-    <section className="bg-white w-full px-4 py-8 md:py-12 lg:py-16 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
+    <section className="bg-white w-full px-4 md:px-8 py-8 md:py-12 lg:py-16 flex flex-col items-center justify-center">
       <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909] rounded-md">
         <h3 className="text-sm md:text-base xl:text-xl w-max px-1 pb-1 tracking-wider font-bold">
           What{"'"}s New?

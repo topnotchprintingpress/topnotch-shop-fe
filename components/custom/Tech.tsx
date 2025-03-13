@@ -17,10 +17,10 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import { useAppContext } from "@/providers/ProductProvider";
 import { ProductBase } from "@/types/types";
 import { FaBoxOpen } from "react-icons/fa";
+import AddToCart from "../buttons/AddToCart";
 
 export default function TechProds() {
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
@@ -33,7 +33,7 @@ export default function TechProds() {
   }, [featuredTech]);
 
   if (!featuredTech || featuredTech.length == 0) {
-    <section className="bg-white w-full px-4 py-8 md:py-4 lg:py-2 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
+    <section className="bg-white w-full px-4 md:px-8 py-8 md:py-4 lg:py-2 flex flex-col items-center justify-center">
       <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
         <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
           Featured Technology
@@ -54,7 +54,7 @@ export default function TechProds() {
   }
 
   return (
-    <section className="bg-white w-full px-4 py-8 md:py-4 lg:py-2 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
+    <section className="bg-white w-full px-4 md:px-8 py-8 md:py-4 lg:py-2 flex flex-col items-center justify-center">
       <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
         <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
           Featured Technology
@@ -77,7 +77,7 @@ export default function TechProds() {
                 className="basis-1/1 md:basis-1/2 lg:basis-1/4"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full md:h-[56vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-[24vw] 2xl:w-[20vw] h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-0">
                       <Image
                         src={
@@ -92,27 +92,34 @@ export default function TechProds() {
                       />
                     </CardHeader>
                     <CardContent className="p-4">
+                      <p className="text-xs text-gray-600 mb-2">
+                        {item.main_category}
+                      </p>
                       <Link href={`/product/${item.slug}`}>
-                        <CardTitle className="text-sm md:text-base xl:text-lg mb-2">
+                        <CardTitle className="text-base">
                           {item.title}
                         </CardTitle>
                       </Link>
-                      <p className="text-xs text-gray-600">
-                        {item.main_category}
-                      </p>
-                      <div className="mt-4 flex items-baseline gap-2">
-                        <span className="text-sm md:text-base xl:text-lg font-bold">
-                          KES {item.price}
-                        </span>
-                      </div>
                     </CardContent>
-                    <CardFooter className="absolute -bottom-2 right-0">
-                      <Link
-                        href="/shop"
-                        className="flex items-center justify-center gap-3 w-full bg-[#ff8080] text-white px-1 md:px-5 py-1.5 md:py-2 rounded-full hover:bg-[#e67373] transition-colors md:mt-0 text-xs md:text-sm lg:text-base border border-[#2b0909]"
-                      >
-                        <BsFillCartPlusFill size={20} />
-                      </Link>
+                    <CardFooter className="absolute bottom-0  md:-bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+                      {item.discount ? (
+                        <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                          <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                            KES {item.price * (1 - item.discount / 100)}
+                          </h3>
+                          <span className="text-xs sm:text-sm text-gray-500 line-through">
+                            KES {item.price}
+                          </span>
+                        </div>
+                      ) : (
+                        <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                          KES {item.price}
+                        </h3>
+                      )}
+
+                      <div className="ml-auto">
+                        <AddToCart productId={item.id} />
+                      </div>
                     </CardFooter>
                   </Card>
                 </div>

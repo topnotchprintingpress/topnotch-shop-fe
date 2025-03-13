@@ -12,14 +12,13 @@ import FeaturedBooks from "@/components/custom/Books";
 export default function Home() {
   return (
     <main className="w-full">
-      <Search />
+      {/* <Search /> */}
       <MainHero />
       <Hero />
       <HeroOffers />
       <MiddleBanner />
       <New />
       <FeaturedBooks />
-
       <TechProds />
       <SaleBanner />
       <LabProds />

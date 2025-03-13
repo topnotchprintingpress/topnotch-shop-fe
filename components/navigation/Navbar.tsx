@@ -38,7 +38,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-[#fffcf7] z-50 h-[12vh] md:h-[18vh] xl:h-[10vh] w-full flex justify-center items-center px-4 md:px-2 border-b-2 border-[#2b0909]">
+    <nav className="bg-[#fffcf7] z-50 h-[12vh] md:h-[18vh] 2xl:h-[12vh] w-full flex justify-center items-center px-4 md:px-6 2xl:px-0 border-b-2 border-[#2b0909]">
       <div className="container flex justify-between items-center mx-auto">
         {/* Branding Section */}
         <div>
