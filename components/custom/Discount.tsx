@@ -73,10 +73,10 @@ export default function HeroOffers() {
             {offers.map((item) => (
               <CarouselItem
                 key={item.id}
-                className="basis-1/1 md:basis-1/2 lg:basis-1/3"
+                className="basis-10/12 sm:basis-1/2 lg:basis-1/3 2xl:basis-1/4 px-2"
               >
                 <div className="p-2">
-                  <Card className="w-full bg-[#fffcf7] border border-[#2b0909]">
+                  <Card className="relative w-full bg-[#fffcf7] border border-[#2b0909] h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-0">
                       <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm font-bold">
                         {item.discount}% OFF
@@ -94,21 +94,22 @@ export default function HeroOffers() {
                       />
                     </CardHeader>
                     <CardContent className="p-4">
+                      <p className="text-xs text-gray-600 mb-2">
+                        {item.main_category}
+                      </p>
                       <Link href={`/product/${item.slug}`}>
-                        <CardTitle className="text-sm md:text-base xl:text-lg mb-2">
+                        <CardTitle className="text-base">
                           {item.title}
                         </CardTitle>
                       </Link>
-                      <p className="text-xs text-gray-600">
-                        {item.main_category}
-                      </p>
                     </CardContent>
-                    <CardFooter className="-bottom-2 right-0 md:flex items-center justify-between w-full px-4">
-                      <div className="flex gap-2 items-center">
+
+                    <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+                      <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
                         <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
                           KES {item.price * (1 - item.discount / 100)}
                         </h3>
-                        <span className="text-sm text-gray-500 line-through">
+                        <span className="text-xs sm:text-sm text-gray-500 line-through">
                           KES {item.price}
                         </span>
                       </div>

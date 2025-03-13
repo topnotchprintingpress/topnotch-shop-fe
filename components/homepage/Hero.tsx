@@ -79,7 +79,7 @@ function Hero() {
                 className="basis-1/1 md:basis-1/2 lg:basis-1/4"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full md:h-[64vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-4">
                       <Image
                         src={
@@ -103,7 +103,7 @@ function Hero() {
                         </CardTitle>
                       </Link>
                     </CardContent>
-                    <CardFooter className="md:absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+                    <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
                       <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
                         KES {item.price}
                       </h3>
