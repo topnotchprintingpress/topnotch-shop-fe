@@ -105,7 +105,11 @@ function Hero() {
                     </CardContent>
                     <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
                       <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
-                        KES {item.price}
+                        KES{" "}
+                        {item.price.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </h3>
                       <div className="ml-auto">
                         <AddToCart productId={item.id} />

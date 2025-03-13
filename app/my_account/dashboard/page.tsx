@@ -241,7 +241,11 @@ const EcommerceDashboard = () => {
                     <div>
                       <h3 className="font-medium">{item.name}</h3>
                       <p className="text-blue-600 font-semibold">
-                        ${item.price}
+                        $
+                        {item.price.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </p>
                       <div className="mt-2 flex space-x-2">
                         <button className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">

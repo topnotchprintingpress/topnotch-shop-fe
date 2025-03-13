@@ -181,7 +181,11 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
               <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
 
               <p className="text-2xl font-semibold mb-6">
-                KES {product?.price}
+                KES{" "}
+                {(product?.price).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
               </p>
 
               <p className="text-[#2b0909]/80 mb-6">{product?.description}</p>

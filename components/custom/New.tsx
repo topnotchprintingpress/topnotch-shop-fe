@@ -92,7 +92,11 @@ function New() {
               </CardContent>
               <CardFooter className="flex flex-col md:flex-row items-start md:items-center justify-between w-full px-3 md:px-4 py-2 md:py-3 bg-[#fffcf7] border-t border-[#2b0909] gap-2">
                 <h3 className="text-base md:text-lg font-bold tracking-tighter text-[#2b0909]">
-                  KES {item.price.toLocaleString()}
+                  KES{" "}
+                  {item.price.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </h3>
                 <div className="w-full md:w-auto md:ml-auto">
                   <AddToCart productId={item.id} />

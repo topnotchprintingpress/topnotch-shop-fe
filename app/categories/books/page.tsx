@@ -293,7 +293,11 @@ const CategoryPage = () => {
                         </p>
                         <div className="mt-4 flex items-baseline gap-2">
                           <span className="text-sm md:text-base xl:text-lg font-bold">
-                            KES {item.price}
+                            KES{" "}
+                            {item.price.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
                           </span>
                         </div>
                       </CardContent>
@@ -349,7 +353,11 @@ const CategoryPage = () => {
                         </div>
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-lg">
-                            KES {item.price}
+                            KES{" "}
+                            {item.price.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
                           </span>
                           <motion.button
                             className="flex items-center space-x-1 bg-[#2b0909] text-white px-3 py-1.5 rounded-md text-sm"

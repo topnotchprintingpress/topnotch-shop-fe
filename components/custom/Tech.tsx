@@ -105,15 +105,30 @@ export default function TechProds() {
                       {item.discount ? (
                         <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
                           <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
-                            KES {item.price * (1 - item.discount / 100)}
+                            KES{" "}
+                            {(
+                              item.price *
+                              (1 - item.discount / 100)
+                            ).toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
                           </h3>
                           <span className="text-xs sm:text-sm text-gray-500 line-through">
-                            KES {item.price}
+                            KES{" "}
+                            {item.price.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
                           </span>
                         </div>
                       ) : (
                         <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
-                          KES {item.price}
+                          KES{" "}
+                          {item.price.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </h3>
                       )}
 

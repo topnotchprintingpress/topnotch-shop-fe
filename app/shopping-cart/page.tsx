@@ -12,7 +12,6 @@ import {
   X,
   ShoppingBag,
   ArrowRight,
-  Heart,
   Truck,
   CreditCard,
 } from "lucide-react";
@@ -109,7 +108,7 @@ const ShoppingCart = () => {
                         src={
                           item?.product?.images.length > 0
                             ? item.product.images[0].image
-                            : "/placeholder.svg"
+                            : "/books/chem.png"
                         }
                         alt={item.product?.title}
                         className="w-20 h-20 object-contain rounded-lg"
@@ -120,7 +119,7 @@ const ShoppingCart = () => {
                           {item.product?.title}
                         </h3>
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-2 gap-2">
-                          <div className="flex items-center border rounded-md">
+                          <div className="flex items-center border rounded-md justify-between">
                             <motion.button
                               whileTap={{ scale: 0.9 }}
                               className="p-1 px-2"
@@ -140,17 +139,14 @@ const ShoppingCart = () => {
                           <div className="flex items-center gap-4">
                             <span className="font-semibold">
                               KES{" "}
-                              {(item.product?.price * item.quantity).toFixed(2)}
+                              {(
+                                item.product?.price * item.quantity
+                              ).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
                             </span>
                             <div className="flex gap-2">
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => console.log("Added to wishlist")}
-                                className="text-gray-500 hover:text-red-500"
-                              >
-                                <Heart size={18} />
-                              </motion.button>
                               <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.9 }}
@@ -205,7 +201,13 @@ const ShoppingCart = () => {
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span>KES {subtotal.toFixed(2)}</span>
+                  <span>
+                    KES{" "}
+                    {subtotal.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Taxes</span>
@@ -225,7 +227,13 @@ const ShoppingCart = () => {
 
               <div className="flex justify-between text-lg font-semibold mb-6">
                 <span>Total</span>
-                <span>KES {(subtotal + 100).toFixed(2)}</span>
+                <span>
+                  KES{" "}
+                  {(subtotal + 100).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </span>
               </div>
 
               {/* Delivery & Payment Options */}

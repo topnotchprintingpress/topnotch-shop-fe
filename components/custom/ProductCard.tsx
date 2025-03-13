@@ -35,7 +35,11 @@ const ProductCard = ({ product }) => (
         <p className="text-xs text-gray-600">{product.category?.toString()}</p>
         <div className="mt-4 flex items-baseline gap-2">
           <span className="text-sm md:text-base xl:text-lg font-bold">
-            KES {product.price}
+            KES{" "}
+            {product.price.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </span>
         </div>
       </CardContent>
