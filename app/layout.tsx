@@ -20,8 +20,10 @@ async function fetchProducts() {
       throw new Error("Failed to fetch Products");
     }
 
-    const data = res.json();
-    return data;
+    const data = await res.json();
+    const products = data.results;
+
+    return products;
   } catch (error) {
     console.error("An unexpected error occurred:", error);
   }
@@ -36,8 +38,9 @@ async function fetchBooks() {
       throw new Error("Failed to fetch Books in Products");
     }
 
-    const data = res.json();
-    return data;
+    const data = await res.json();
+    const books = data.results;
+    return books;
   } catch (error) {
     console.error(
       "An unexpected error occured while trying to fetch Books Category:",
@@ -55,8 +58,8 @@ async function fetchBanners() {
     }
 
     const data = await res.json();
-
-    return data;
+    const banners = data.results;
+    return banners;
   } catch (error) {
     console.error("An unexpected error occured while fetching Banners:", error);
   }

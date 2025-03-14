@@ -2,8 +2,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { BsMenuButtonWideFill } from "react-icons/bs";
-import { RiCloseLargeFill } from "react-icons/ri";
 import { MdManageAccounts, MdOutlineShoppingCart } from "react-icons/md";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -25,7 +23,8 @@ import {
   DropdownMenuTrigger,
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
-import { Gift, Phone } from "lucide-react";
+import { Gift, Home, Phone, Receipt, Star, Tag } from "lucide-react";
+import { BsMenuButtonWideFill } from "react-icons/bs";
 
 function Navbar() {
   const { cart } = useCartContext();
@@ -40,10 +39,14 @@ function Navbar() {
 
   // Define the menu items for both desktop and mobile
   const menuItems = [
-    { href: "/", label: "Home" },
-    { href: "/best-sellers", label: "Best Sellers" },
-    { href: "/new-arrivals", label: "New Arrivals" },
-    { href: "/deals", label: "Deals & Offers" },
+    { href: "/", label: "Home", icon: <Home size={16} /> },
+    { href: "/best-sellers", label: "Best Sellers", icon: <Star size={16} /> },
+    { href: "/new-arrivals", label: "New Arrivals", icon: <Tag size={16} /> },
+    {
+      href: "/deals",
+      label: "Deals & Offers",
+      icon: <Receipt size={16} />,
+    },
   ];
 
   return (
@@ -88,7 +91,8 @@ function Navbar() {
               {/* Desktop Menu */}
               <ul className="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
                 {menuItems.map((item) => (
-                  <li key={item.href}>
+                  <li key={item.href} className="flex items-center gap-1">
+                    {item.icon}
                     <Link
                       href={item.href}
                       className="text-sm font-bold text-[#2b0909] hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
@@ -100,16 +104,16 @@ function Navbar() {
               </ul>
             </div>
             {/* Right Side of Navbar */}
-            <div className="flex items-center lg:space-x-2">
+            <div className="flex items-center space-x-4 lg:space-x-6">
               <Link
                 href="/shopping-cart"
-                className="flex text-[#2b0909] justify-center items-center "
+                className="flex text-[#2b0909] justify-center items-center"
               >
                 <MdOutlineShoppingCart className="relative text-[28px]" />
-                <h4 className="hidden md:block ml-2 text-xs tracking-tighter">
+                <h4 className="hidden md:block ml-4 text-xs tracking-tighter font-semibold">
                   My cart
                 </h4>
-                <div className="absolute top-8 -ml-8 text-xs">
+                <div className="absolute top-4 md:top-8 ml-6 md:-ml-8 text-xs">
                   <p className="text-white p-2.5 font-bold bg-[#2b0909] rounded-[100%] w-[19px] h-[19px] flex justify-center items-center">
                     {cartItems?.length || 0}
                   </p>
@@ -122,21 +126,22 @@ function Navbar() {
                     <button className="border-2 border-[#350203] p-2 rounded-full">
                       <SlUser size={20} className="text-[#350203]" />
                     </button>
-                    <h4 className="ml-2 text-xs tracking-tighter font-semibold">
+                    <h4 className="hidden md:block ml-2 text-xs tracking-tighter font-semibold">
                       My Account
                     </h4>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                  {status === "authenticated" ? (
+                <DropdownMenuContent className="w-56 bg-[#fffcf7] mr-4 rounded-3xl">
+                  {status === "authenticated" && session.user.name ? (
                     <>
-                      <DropdownMenuLabel>
+                      <DropdownMenuLabel className="border-b border-[#2b0909]">
                         Hey, {session?.user.name}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuGroup>
                         <DropdownMenuItem
                           onClick={() => router.push("/Scollah/tutor")}
+                          className="cursor-pointer"
                         >
                           Account
                           <DropdownMenuShortcut>
@@ -145,13 +150,14 @@ function Navbar() {
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           onClick={() => router.push("/my_account/orders")}
+                          className="cursor-pointer"
                         >
                           Orders
                           <DropdownMenuShortcut>
                             <LuListOrdered size={16} />
                           </DropdownMenuShortcut>
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem className="cursor-pointer">
                           Support
                           <DropdownMenuShortcut>
                             <MdOutlineSupportAgent size={15} />
@@ -159,19 +165,25 @@ function Navbar() {
                         </DropdownMenuItem>
                       </DropdownMenuGroup>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>
+                      <DropdownMenuItem className="cursor-pointer border-t p-2">
                         <SignOut />
                       </DropdownMenuItem>
                     </>
                   ) : (
                     <>
-                      <DropdownMenuItem onClick={() => router.push("/signin")}>
+                      <DropdownMenuItem
+                        onClick={() => router.push("/signin")}
+                        className="cursor-pointer"
+                      >
                         Log In
                         <DropdownMenuShortcut>
                           <IoIosLogIn />
                         </DropdownMenuShortcut>
                       </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => router.push("/signup")}>
+                      <DropdownMenuItem
+                        onClick={() => router.push("/signup")}
+                        className="cursor-pointer"
+                      >
                         Sign Up
                         <DropdownMenuShortcut>
                           <TiUserAdd />
@@ -185,38 +197,28 @@ function Navbar() {
               <button
                 type="button"
                 onClick={handleNav}
-                className="inline-flex lg:hidden items-center justify-center hover:bg-gray-100 rounded-md dark:hover:bg-gray-700 p-2 text-gray-900 dark:text-white"
+                className="inline-flex lg:hidden items-center justify-center p-2"
               >
-                <span className="sr-only">Open Menu</span>
-                <svg
-                  className="w-5 h-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    d="M5 7h14M5 12h14M5 17h14"
-                  />
-                </svg>
+                <BsMenuButtonWideFill
+                  size={26}
+                  className="text-[#2b0909] cursor-pointer transition-all duration-700 ease-in-out"
+                />
               </button>
             </div>
           </div>
           {/* Mobile Menu */}
           <div
             id="ecommerce-navbar-menu-1"
-            className={`bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-200 rounded-lg py-3 px-4 mt-4 ${
+            className={`bg-gray-50 border border-[#2b0909] rounded-3xl py-3 px-4 mt-4 ${
               menuOpen ? "block" : "hidden"
             }`}
           >
-            <ul className="text-gray-900 dark:text-white text-sm font-medium space-y-3">
+            <ul className="text-gray-900 dark:text-white text-sm font-bold space-y-3">
               {menuItems.map((item) => (
-                <li key={item.href}>
+                <li
+                  key={item.href}
+                  className="flex items-center justify-between gap-8"
+                >
                   <Link
                     href={item.href}
                     className="hover:text-primary-700 dark:hover:text-primary-500"
@@ -224,47 +226,10 @@ function Navbar() {
                   >
                     {item.label}
                   </Link>
+                  {item.icon}
                 </li>
               ))}
             </ul>
-            {/* Authentication Buttons */}
-            <div className="mt-4">
-              {status === "authenticated" ? (
-                <>
-                  <p className="font-semibold text-lg text-[#350203]">
-                    Hey, {session?.user.name}
-                  </p>
-                  <button
-                    onClick={() => {
-                      handleNav();
-                      SignOut();
-                    }}
-                    className="w-full flex justify-center items-center gap-2 bg-[#350203] hover:bg-[#4a0405] text-white font-medium py-3 px-4 rounded-full transition-colors mt-2"
-                  >
-                    <span>Sign Out</span>
-                  </button>
-                </>
-              ) : (
-                <div className="flex flex-col gap-4">
-                  <Link
-                    href="/signin"
-                    onClick={handleNav}
-                    className="flex justify-between items-center bg-[#f8d6b6] hover:bg-[#facba0] py-4 px-5 rounded-full text-[#350203] font-semibold transition-colors"
-                  >
-                    <span>Log In</span>
-                    <IoIosLogIn size={20} />
-                  </Link>
-                  <Link
-                    href="/signup"
-                    onClick={handleNav}
-                    className="flex justify-between items-center py-4 px-5 rounded-full text-[#350203] font-semibold border-2 border-[#350203] hover:bg-[#f8d6b6] transition-colors"
-                  >
-                    <span>Sign Up</span>
-                    <TiUserAdd size={20} />
-                  </Link>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </nav>

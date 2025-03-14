@@ -26,9 +26,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       console.log("Cart API Response Status:", response.status);
       if (response.ok) {
         const data = await response.json();
+        const cartProds = data.results;
         console.log("Fetched Cart Data:", data); // Log the cart data
 
-        setCart(data);
+        setCart(cartProds);
       }
     } catch (error) {
       console.error("Failed to fetch cart:", error);

@@ -35,9 +35,9 @@ function Categories() {
     <div className="w-full grid grid-cols-2 md:flex justify-evenly items-center md:gap-8">
       {categories.map((cat) => (
         <Link key={cat.id} href={`/categories/${cat.link}`}>
-          <div className="flex md:justify-center items-center gap-5 text-sm md:text-base lg:text-base xl:text-lg font-semibold bg-[#f3f3f3] border border-[#2b0909] md:w-[400px] p-2 text-[#2b0909]">
+          <div className="flex md:justify-center items-center gap-5 font-semibold bg-[#f3f3f3] border border-[#2b0909] md:w-[250px] 2xl:w-[400px] p-2 text-[#2b0909]">
             {cat.icon}{" "}
-            <h3 className="text-sm md:text-base lg:text-base xl:text-lg">
+            <h3 className="text-sm md:text-sm xl:text-lg font-bold">
               {cat.name}
             </h3>
           </div>

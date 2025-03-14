@@ -15,6 +15,8 @@ interface AppContextProps {
   topBanner: Banner[] | null;
   middleBanner: Banner[] | null;
   bottomBanner: Banner[] | null;
+  filteredProducts: ProductBase[] | null;
+  searchProducts: (query: string) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -31,6 +33,9 @@ export function AppWrapper({
   children: React.ReactNode;
 }>) {
   const [bestSellers, setBestSellers] = useState<ProductBase[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<
+    ProductBase[] | null
+  >(products);
 
   useEffect(() => {
     if (products) {
@@ -78,6 +83,29 @@ export function AppWrapper({
   const bottomBanner: Banner[] = (banners ?? []).filter(
     (banner) => banner.is_active && banner.position == "bottom"
   );
+  useEffect(() => {
+    setFilteredProducts(products); // Initialize filtered products
+  }, [products]);
+
+  // Function to search for products
+  const searchProducts = async (query: string) => {
+    if (!query.trim()) {
+      setFilteredProducts(products);
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/?search=${query}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch search results");
+
+      const data = await res.json();
+      setFilteredProducts(data);
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  };
 
   return (
     <AppContext.Provider
@@ -94,6 +122,8 @@ export function AppWrapper({
         topBanner,
         middleBanner,
         bottomBanner,
+        filteredProducts,
+        searchProducts,
       }}
     >
       {children}

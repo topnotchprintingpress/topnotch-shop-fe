@@ -22,7 +22,8 @@ import { ProductDetail } from "@/types/types";
 const fetcher = async (url: string) => {
   const res = await fetch(url, { method: "GET", credentials: "include" });
   const data = await res.json();
-  return data.length > 0 ? data[0] : null;
+  const prodDetails = data.results;
+  return prodDetails.length > 0 ? prodDetails[0] : null;
 };
 
 const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
