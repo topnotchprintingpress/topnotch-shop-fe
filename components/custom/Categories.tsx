@@ -21,12 +21,17 @@ const categories = [
     icon: <MdOutlineCreate size={28} />,
     link: "books",
   },
-  { id: 3, name: "Lab Equipment", icon: <AiOutlineExperiment size={28} /> },
+  {
+    id: 3,
+    name: "Lab Equipment",
+    link: "technology",
+    icon: <AiOutlineExperiment size={28} />,
+  },
   {
     id: 4,
     name: "Tech",
     icon: <AiOutlineLaptop size={28} />,
-    link: "books",
+    link: "technology",
   },
 ];
 

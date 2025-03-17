@@ -113,9 +113,8 @@ export const ShippingProvider = ({
       });
       if (response.ok) {
         const data = await response.json();
-        const orderData = data.results;
 
-        setOrder(orderData.reverse());
+        setOrder(data.reverse());
       }
     } catch (error) {
       console.error("Failed to fetch cart:", error);

@@ -17,25 +17,31 @@ interface AppContextProps {
   bottomBanner: Banner[] | null;
   filteredProducts: ProductBase[] | null;
   searchProducts: (query: string) => Promise<void>;
+  totalPages: number;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+  setTotalPages: (pages: number) => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
 
 export function AppWrapper({
   products,
-  books,
   banners,
+  totalPages: initialTotalPages,
   children,
 }: Readonly<{
   products: ProductBase[] | null;
-  books: ProductBase[] | null;
   banners: Banner[] | null;
+  totalPages: number;
   children: React.ReactNode;
 }>) {
   const [bestSellers, setBestSellers] = useState<ProductBase[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<
     ProductBase[] | null
   >(products);
+  const [totalPages, setTotalPages] = useState(initialTotalPages);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (products) {
@@ -46,9 +52,14 @@ export function AppWrapper({
     }
   }, [products]);
 
+  // books
+  const books: ProductBase[] = (products ?? []).filter(
+    (book) => book.main_category == "Books" && book.featured
+  );
+
   // featured books
-  const featuredBooks: ProductBase[] = (books ?? []).filter(
-    (book) => book.featured
+  const featuredBooks: ProductBase[] = (products ?? []).filter(
+    (book) => book.main_category == "Books" && book.featured
   );
 
   // discounted items
@@ -101,7 +112,8 @@ export function AppWrapper({
       if (!res.ok) throw new Error("Failed to fetch search results");
 
       const data = await res.json();
-      setFilteredProducts(data);
+      const filtered = data.results;
+      setFilteredProducts(filtered);
     } catch (error) {
       console.error("Error searching products:", error);
     }
@@ -124,6 +136,10 @@ export function AppWrapper({
         bottomBanner,
         filteredProducts,
         searchProducts,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        setTotalPages,
       }}
     >
       {children}
