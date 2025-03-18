@@ -54,7 +54,7 @@ export function AppWrapper({
 
   // books
   const books: ProductBase[] = (products ?? []).filter(
-    (book) => book.main_category == "Books" && book.featured
+    (book) => book.main_category == "Books"
   );
 
   // featured books
@@ -71,9 +71,9 @@ export function AppWrapper({
   const newItems: ProductBase[] = (products ?? []).reverse();
 
   // featured tech
-  const featuredTech: ProductBase[] = (products ?? []).filter(
-    (tech) => tech.main_category == "Technology" && tech.featured
-  );
+  const featuredTech: ProductBase[] = (products ?? [])
+    .reverse()
+    .filter((tech) => tech.main_category == "Technology" && tech.featured);
 
   // new lab equipment
   const newLab: ProductBase[] = (products ?? [])

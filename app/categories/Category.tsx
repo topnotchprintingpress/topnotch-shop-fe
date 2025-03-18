@@ -24,6 +24,7 @@ import Link from "next/link";
 import { BsFillCartPlusFill } from "react-icons/bs";
 import PaginationComponent from "@/components/navigation/PaginationComponent";
 import { ProductBase } from "@/types/types";
+import AddToCart from "@/components/buttons/AddToCart";
 
 interface CategoryPageProps {
   main_category: string; // The category to fetch (e.g., "books", "stationery", "technology")
@@ -271,7 +272,7 @@ const CategoryPage = ({
                     variants={itemVariants}
                     whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   >
-                    <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full md:h-[56vh]">
+                    <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-[24vw] 2xl:w-[20vw] h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
                       <CardHeader className="relative p-4">
                         <Image
                           src={
@@ -294,23 +295,41 @@ const CategoryPage = ({
                         <p className="text-xs text-gray-600">
                           {item.category?.toString()}
                         </p>
-                        <div className="mt-4 flex items-baseline gap-2">
-                          <span className="text-sm md:text-base xl:text-lg font-bold">
+                      </CardContent>
+                      <CardFooter className="absolute bottom-0  md:-bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+                        {item.discount ? (
+                          <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                            <h3 className="text-lg font-bold tracking-tighter text-[#2b0909]">
+                              KES{" "}
+                              {(
+                                item.price *
+                                (1 - item.discount / 100)
+                              ).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </h3>
+                            <span className="text-xs sm:text-sm text-gray-500 line-through">
+                              KES{" "}
+                              {item.price.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </span>
+                          </div>
+                        ) : (
+                          <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
                             KES{" "}
                             {item.price.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}
-                          </span>
+                          </h3>
+                        )}
+
+                        <div className="ml-auto">
+                          <AddToCart productId={item.id} />
                         </div>
-                      </CardContent>
-                      <CardFooter className="absolute -bottom-2 right-0">
-                        <Link
-                          href="/shop"
-                          className="flex items-center justify-center gap-3 w-full bg-[#ff8080] text-white px-1 md:px-5 py-1.5 md:py-2 rounded-full hover:bg-[#e67373] transition-colors md:mt-0 text-xs md:text-sm lg:text-base border border-[#2b0909]"
-                        >
-                          <BsFillCartPlusFill size={20} />
-                        </Link>
                       </CardFooter>
                     </Card>
                   </motion.div>

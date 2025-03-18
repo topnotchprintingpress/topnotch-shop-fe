@@ -1,4 +1,3 @@
-// books/page.tsx
 import React from "react";
 import { fetchProducts } from "@/lib/data";
 import CategoryPage from "../Category";

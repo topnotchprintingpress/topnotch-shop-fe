@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -50,10 +49,13 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
   ],
   pages: {
@@ -64,13 +66,64 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async signIn() {
+    async signIn({ user, account }) {
       const isAllowedToSignIn = true;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
+      if (!isAllowedToSignIn) {
         return false;
       }
+
+      if (account?.provider) {
+        const { access_token: access, id_token: idToken } = account;
+
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/topnotch/google/login/`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                access_token: access,
+                id_token: idToken,
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            console.error(
+              "Failed to sign in:",
+              response.status,
+              response.statusText
+            );
+            return false;
+          }
+
+          const data = await response.json();
+          console.log("Backend response data:", data);
+
+          if (data?.access && data?.refresh) {
+            const decodedAccessToken = JSON.parse(
+              Buffer.from(data.access.split(".")[1], "base64").toString("utf-8")
+            );
+            // Attach the access token to the user object for further use
+            user.access = data.access;
+            user.refresh = data.refresh;
+            user.accessTokenExpires = decodedAccessToken.exp * 1000;
+
+            return true;
+          }
+
+          console.error("Access token missing in response");
+          return false;
+        } catch (error) {
+          console.error("Error during sign-in process:", error);
+          return false;
+        }
+      }
+
+      console.warn("Account provider is missing");
+      return false;
     },
 
     async redirect({ url, baseUrl }) {
@@ -88,8 +141,17 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
 
-    async jwt({ token, user }) {
-      console.log("JWT Callback - Before:", token, user);
+    async jwt({ token, user, account }) {
+      if (account) {
+        // Set Google tokens from the account object (if available)
+        token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token || user?.refresh;
+        token.idqToken = account.idToken;
+        token.provider = account.provider;
+        token.accessTokenExpires = account.expires_at
+          ? account.expires_at * 1000
+          : undefined;
+      }
 
       if (user && user.access) {
         return {

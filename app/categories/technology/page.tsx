@@ -14,9 +14,8 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  // Fetch paginated products based on the query and current page
-  const pageSize = 6; // Number of items per page
-  const mainCategory = "Technology"; // Replace with the desired main category
+  const pageSize = 6;
+  const mainCategory = "Technology";
 
   const { products, totalPages } = await fetchProducts(
     currentPage,

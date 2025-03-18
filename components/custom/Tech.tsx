@@ -16,50 +16,45 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAppContext } from "@/providers/ProductProvider";
-import { ProductBase } from "@/types/types";
 import { FaBoxOpen } from "react-icons/fa";
 import AddToCart from "../buttons/AddToCart";
 
-export default function TechProds() {
+export default function FeaturedBooks() {
   const plugin = React.useRef(Autoplay({ delay: 3000 }));
   const context = useAppContext();
   const { featuredTech } = context;
-  const [featTech, setFeatTech] = useState<ProductBase[]>([]);
 
-  useEffect(() => {
-    setFeatTech(featuredTech?.slice(0, 9) || []);
-  }, [featuredTech]);
-
-  if (!featuredTech || featuredTech.length == 0) {
-    <section className="bg-white w-full px-4 md:px-8 py-8 md:py-4 lg:py-2 flex flex-col items-center justify-center">
-      <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
-        <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
-          Featured Technology
-        </h3>
-      </div>
-      <div className="w-full max-w-7xl xl:max-w-full mx-auto">
+  if (!featuredTech || featuredTech.length === 0) {
+    return (
+      <section className="bg-white w-full px-4 md:px-8 py-8 md:py-4 lg:py-2 flex flex-col items-center justify-center">
+        <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
+          <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
+            Featured Tech
+          </h3>
+        </div>
         <div className="w-full max-w-7xl xl:max-w-full mx-auto flex flex-col items-center justify-center py-12">
           <FaBoxOpen className="text-6xl text-gray-400 mb-4" /> {/* Icon */}
           <h3 className="text-xl md:text-2xl font-semibold text-gray-600 mb-2">
             No Items Available
           </h3>
           <p className="text-sm md:text-base text-gray-500 text-center">
-            Check back later for featured technology.
+            Check back later for featured books.
           </p>
         </div>
-      </div>
-    </section>;
+      </section>
+    );
   }
+
+  const featuredFew = featuredTech?.slice(0, 9);
 
   return (
     <section className="bg-white w-full px-4 md:px-8 py-8 md:py-4 lg:py-2 flex flex-col items-center justify-center">
       <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
         <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
-          Featured Technology
+          Featured Tech
         </h3>
-        <h3></h3>
       </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
         <Carousel
@@ -71,24 +66,29 @@ export default function TechProds() {
           className="w-full"
         >
           <CarouselContent>
-            {featTech.map((item) => (
+            {featuredFew.map((item) => (
               <CarouselItem
                 key={item.id}
-                className="basis-1/1 md:basis-1/2 lg:basis-1/4"
+                className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-[24vw] 2xl:w-[20vw] h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
+                  <Card className="relative w-[70vw] md:w-full 2xl:w-[21vw] bg-[#fffcf7] border border-[#2b0909] h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-0">
+                      {item.discount && (
+                        <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm font-bold">
+                          {item.discount}% OFF
+                        </div>
+                      )}
                       <Image
                         src={
                           item.images.length > 0
                             ? item.images[0].image
-                            : "/placeholder.svg"
+                            : "/books/english.png"
                         }
                         width={300}
                         height={200}
                         alt={item.title}
-                        className="w-full h-52 object-contain rounded-t-lg"
+                        className="w-full h-48 object-contain rounded-t-lg"
                       />
                     </CardHeader>
                     <CardContent className="p-4">

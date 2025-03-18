@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginInput } from "@/lib/schemas";
 import { signIn } from "next-auth/react";
 import GoogleSignInButton from "../buttons/Googlebtn";
-import FacebookSignInButton from "../buttons/Facebookbtn";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -89,7 +88,6 @@ export default function LoginForm() {
           </div>
           <div className="space-y-4">
             <GoogleSignInButton />
-            <FacebookSignInButton />
           </div>
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
             Don’t have an account yet?&nbsp;&nbsp;
