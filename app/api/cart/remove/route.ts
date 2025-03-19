@@ -36,6 +36,8 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.error("Error removing cart:", error);
+
     return NextResponse.json(
       { error: "Failed to delete cart item" },
       { status: 500 }

@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
+          scope: "openid email profile",
           prompt: "consent",
           access_type: "offline",
           response_type: "code",
@@ -132,15 +133,6 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
 
-    async session({ session, token }) {
-      session.access = token.access as string;
-      session.refresh = token.refresh as string;
-      session.user.name = token.name ?? "";
-      session.user.email = token.email ?? "";
-      console.log("PRE SESSION:", session);
-      return session;
-    },
-
     async jwt({ token, user, account }) {
       if (account) {
         // Set Google tokens from the account object (if available)
@@ -158,13 +150,12 @@ export const authOptions: NextAuthOptions = {
           ...token,
           access: user.access,
           refresh: user.refresh,
-          email: user.user?.email ?? null,
-          name: user.user?.username ?? user.user?.name ?? null,
+          email: user.user?.email ?? user?.email ?? null,
+          name: user.user?.username ?? user?.name ?? null,
           image: user.image ?? null,
           accessTokenExpires: user.accessTokenExpires,
         };
       }
-      console.log("JWT Callback - After:", token);
       const tokenExpireAt = token.accessTokenExpires as number;
       if (Date.now() < (tokenExpireAt as number)) {
         return token;
@@ -195,6 +186,14 @@ export const authOptions: NextAuthOptions = {
         console.error("Cannot Refresh Token", error);
         return { ...token, error: "RefreshAccessTokenError" };
       }
+    },
+
+    async session({ session, token }) {
+      session.access = token.access as string;
+      session.refresh = token.refresh as string;
+      session.user.name = token.name ?? "";
+      session.user.email = token.email ?? "";
+      return session;
     },
   },
 };

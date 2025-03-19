@@ -40,6 +40,7 @@ export async function PATCH(req: NextRequest) {
     const data = await response.json();
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
+    console.error("Error updating cart:", error);
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }

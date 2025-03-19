@@ -32,6 +32,7 @@ function Navbar() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: session, status } = useSession();
+  console.log("LOGIN Session Data:", session);
 
   const handleNav = () => {
     setMenuOpen(!menuOpen);
@@ -132,10 +133,10 @@ function Navbar() {
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 bg-[#fffcf7] mr-4 rounded-3xl">
-                  {status === "authenticated" && session.user.name ? (
+                  {status === "authenticated" && session ? (
                     <>
                       <DropdownMenuLabel className="border-b border-[#2b0909]">
-                        Hey, {session?.user.name}
+                        Hey, {session?.user.name || session.user.name}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuGroup>

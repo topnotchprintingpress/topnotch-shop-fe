@@ -11,7 +11,6 @@ import {
   Filter,
   ArrowUpDown,
 } from "lucide-react";
-import { useAppContext } from "@/providers/ProductProvider";
 import Image from "next/image";
 import {
   Card,
@@ -21,7 +20,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { BsFillCartPlusFill } from "react-icons/bs";
 import PaginationComponent from "@/components/navigation/PaginationComponent";
 import { ProductBase } from "@/types/types";
 import AddToCart from "@/components/buttons/AddToCart";
@@ -41,12 +39,12 @@ const CategoryPage = ({
 }: CategoryPageProps) => {
   const [viewMode, setViewMode] = useState("grid");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState({
+  const [selectedFilters] = useState({
     priceRange: [0, 10000],
     ratings: null,
     author: null,
   });
-  const [sortOption, setSortOption] = useState("popularity");
+  // const [sortOption, setSortOption] = useState("popularity");
 
   const toggleFilters = () => setIsFilterOpen(!isFilterOpen);
 
