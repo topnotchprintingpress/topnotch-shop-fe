@@ -69,7 +69,7 @@ export default function Shipping({ onNextStep }: { onNextStep: () => void }) {
   return (
     <motion.div variants={fadeInVariants} initial="hidden" animate="visible">
       <h3 className="text-lg font-semibold mb-4">Shipping Information</h3>
-      {shipping ? (
+      {shipping && shipping.length > 0 ? (
         <div>
           {shipping.map((ship) => (
             <div key={ship.id}>

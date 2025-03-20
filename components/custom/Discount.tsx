@@ -76,7 +76,7 @@ export default function HeroOffers() {
                 className="basis-10/12 sm:basis-1/2 lg:basis-1/3 2xl:basis-1/4 px-2"
               >
                 <div className="p-2">
-                  <Card className="relative w-full bg-[#fffcf7] border border-[#2b0909] h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
+                  <Card className="relative w-full bg-[#fffcf7] border border-[#2b0909] h-[52vh] md:h-[58vh] xl:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-0">
                       <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm font-bold">
                         {item.discount}% OFF

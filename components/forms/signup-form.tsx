@@ -5,7 +5,8 @@ import { registerSchema, RegisterInput } from "@/lib/schemas";
 import PendingSubmitButton from "../buttons/PendingSubmitButton";
 import GoogleSignInButton from "../buttons/Googlebtn";
 import GoogleSignInError from "../buttons/GoogleSignInError";
-import FacebookSignInButton from "../buttons/Facebookbtn";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterForm() {
   const {
@@ -15,6 +16,8 @@ export default function RegisterForm() {
   } = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
   });
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const onSubmit = async (data: RegisterInput) => {
     try {
@@ -62,7 +65,7 @@ export default function RegisterForm() {
             )}
           </div>
           <div>
-            <label>Email</label>
+            <label>Email *</label>
             <input
               {...register("email")}
               className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -73,22 +76,49 @@ export default function RegisterForm() {
           </div>
           <div>
             <label>Password</label>
-            <input
-              type="password"
-              {...register("password1")}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <input
+                id="password1"
+                type={showPassword1 ? "text" : "password"}
+                {...register("password1")}
+                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword1(!showPassword1)}
+              >
+                {showPassword1 ? (
+                  <EyeOff className="h-5 w-5 text-gray-400" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-400" />
+                )}
+              </button>
+            </div>
             {errors.password1 && (
               <p className="text-red-500">{errors.password1.message}</p>
             )}
           </div>
           <div>
             <label>Confirm Password</label>
-            <input
-              type="password"
-              {...register("password2")}
-              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <input
+                type={showPassword2 ? "text" : "password"}
+                {...register("password2")}
+                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword2(!showPassword2)}
+              >
+                {showPassword2 ? (
+                  <EyeOff className="h-5 w-5 text-gray-400" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-400" />
+                )}
+              </button>
+            </div>
             {errors.password2 && (
               <p className="text-red-500">{errors.password2.message}</p>
             )}
@@ -105,7 +135,6 @@ export default function RegisterForm() {
           <div className="space-y-4">
             <GoogleSignInButton />
             <GoogleSignInError />
-            <FacebookSignInButton />
           </div>
 
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400">

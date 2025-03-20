@@ -73,7 +73,7 @@ export const authOptions: NextAuthOptions = {
         return false;
       }
 
-      if (account?.provider) {
+      if (account?.provider === "google") {
         const { access_token: access, id_token: idToken } = account;
 
         try {
@@ -123,8 +123,7 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      console.warn("Account provider is missing");
-      return false;
+      return true;
     },
 
     async redirect({ url, baseUrl }) {

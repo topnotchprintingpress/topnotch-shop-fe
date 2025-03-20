@@ -6,6 +6,7 @@ import { signIn } from "next-auth/react";
 import GoogleSignInButton from "../buttons/Googlebtn";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [serverError, setServerError] = useState(""); // Store backend error
@@ -68,16 +69,16 @@ export default function LoginForm() {
           {serverError && <p className="text-red-500">{serverError}</p>}
 
           <div className="flex items-center justify-self-end">
-            <a
-              href="/password/requestreset"
+            <Link
+              href="/reset"
               className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
           <button
             type="submit"
-            className="w-full text-white bg-[#350203] hover:bg-[#350203a9] focus:ring-4 focus:outline-none focus:bg-[#35020330] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className="w-full text-white bg-[#350203] hover:bg-[#350203a9] focus:ring-4 focus:outline-none focus:bg-[#35020330] font-medium rounded-3xl text-sm px-5 py-2.5 text-center"
           >
             Sign in
           </button>

@@ -54,7 +54,7 @@ function New() {
         </h3>
       </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
-        <div className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
+        <div className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-6">
           {latest.map((item) => (
             <Card
               key={item.id}
@@ -79,6 +79,13 @@ function New() {
                     />
                   </div>
                 </Link>
+                {item.discount ? (
+                  <div className="absolute bottom-0 right-2 z-10 bg-[#ff8080] border-2 border-[#350203] text-white px-2 py-1 rounded-full text-sm font-bold">
+                    {item.discount}% OFF
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </CardHeader>
               <CardContent className="p-3 md:p-4">
                 <p className="text-xs text-gray-600 mb-1 tracking-wider truncate">
@@ -91,13 +98,35 @@ function New() {
                 </Link>
               </CardContent>
               <CardFooter className="flex flex-col md:flex-row items-start md:items-center justify-between w-full px-3 md:px-4 py-2 md:py-3 bg-[#fffcf7] border-t border-[#2b0909] gap-2">
-                <h3 className="text-base md:text-lg font-bold tracking-tighter text-[#2b0909]">
-                  KES{" "}
-                  {item.price.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </h3>
+                {item.discount ? (
+                  <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                    <h3 className="text-lg font-bold  tracking-tighter text-[#2b0909]">
+                      KES{" "}
+                      {(item.price * (1 - item.discount / 100)).toLocaleString(
+                        undefined,
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }
+                      )}
+                    </h3>
+                    <span className="text-sm text-gray-500 line-through">
+                      KES{" "}
+                      {item.price.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </span>
+                  </div>
+                ) : (
+                  <h3 className="text-base font-bold truncate tracking-tighter text-[#2b0909]">
+                    KES{" "}
+                    {item.price.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </h3>
+                )}
                 <div className="w-full md:w-auto md:ml-auto">
                   <AddToCart productId={item.id} />
                 </div>

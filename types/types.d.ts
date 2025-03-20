@@ -28,6 +28,7 @@ export interface ProductBase {
   slug: string;
   features: Feature[];
   images: Image[];
+  get_discounted_price: number;
 }
 
 export interface Banner {

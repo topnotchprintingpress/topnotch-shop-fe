@@ -76,11 +76,18 @@ function Hero() {
             {firstTen.map((item) => (
               <CarouselItem
                 key={item.id}
-                className="basis-1/1 md:basis-1/2 lg:basis-1/4"
+                className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[64vh] 2xl:h-[38vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[66vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-4">
+                      {item.discount ? (
+                        <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm  font-bold">
+                          {item.discount}% OFF
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
                       <Image
                         src={
                           item.images.length > 0
@@ -90,7 +97,7 @@ function Hero() {
                         width={300}
                         height={200}
                         alt={item.title}
-                        className="w-full h-40 object-contain rounded-t-lg"
+                        className="w-full h-48 object-contain rounded-t-lg"
                       />
                     </CardHeader>
                     <CardContent className="p-4">
@@ -104,13 +111,35 @@ function Hero() {
                       </Link>
                     </CardContent>
                     <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
-                      <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
-                        KES{" "}
-                        {item.price.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </h3>
+                      {item.discount ? (
+                        <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                          <h3 className="text-lg font-bold  tracking-tighter text-[#2b0909]">
+                            KES{" "}
+                            {(
+                              item.price *
+                              (1 - item.discount / 100)
+                            ).toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </h3>
+                          <span className="text-sm text-gray-500 line-through">
+                            KES{" "}
+                            {item.price.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </span>
+                        </div>
+                      ) : (
+                        <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                          KES{" "}
+                          {item.price.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </h3>
+                      )}
                       <div className="ml-auto">
                         <AddToCart productId={item.id} />
                       </div>

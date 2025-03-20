@@ -168,10 +168,18 @@ function OrderDetails() {
                           <div className="text-right">
                             <p className="font-semibold text-[#2b0909]">
                               <span className="font-bold">KES</span>{" "}
-                              {item.product.price.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              })}
+                              {item.product.discount
+                                ? (
+                                    item.product.price *
+                                    (1 - item.product.discount / 100)
+                                  ).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  })
+                                : item.product.price.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  })}
                             </p>
                           </div>
                         </motion.div>

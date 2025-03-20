@@ -137,15 +137,39 @@ const ShoppingCart = () => {
                             </motion.button>
                           </div>
                           <div className="flex items-center gap-4">
-                            <span className="font-semibold">
-                              KES{" "}
-                              {(
-                                item.product?.price * item.quantity
-                              ).toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              })}
-                            </span>
+                            {item.product.discount ? (
+                              <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                                <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                                  KES{" "}
+                                  {(
+                                    item.product.price *
+                                    (1 - item.product.discount / 100)
+                                  ).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  })}
+                                </h3>
+                                <span className="text-xs sm:text-sm text-gray-500 line-through">
+                                  KES{" "}
+                                  {item.product.price.toLocaleString(
+                                    undefined,
+                                    {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }
+                                  )}
+                                </span>
+                              </div>
+                            ) : (
+                              <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                                KES{" "}
+                                {item.product.price.toLocaleString(undefined, {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
+                              </h3>
+                            )}
+
                             <div className="flex gap-2">
                               <motion.button
                                 whileHover={{ scale: 1.1 }}

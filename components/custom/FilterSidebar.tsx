@@ -1,7 +1,6 @@
 // components/FilterSidebar.tsx
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter } from "lucide-react";
 
 const FilterSidebar = ({ isOpen, toggleFilters }) => {
   const [selectedFilters, setSelectedFilters] = useState({
