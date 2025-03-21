@@ -29,6 +29,7 @@ export interface ProductBase {
   features: Feature[];
   images: Image[];
   get_discounted_price: number;
+  created_at: string;
 }
 
 export interface Banner {

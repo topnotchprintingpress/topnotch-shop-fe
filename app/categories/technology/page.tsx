@@ -1,4 +1,3 @@
-// books/page.tsx
 import React from "react";
 import { fetchProducts } from "@/lib/data";
 import CategoryPage from "../Category";
@@ -14,8 +13,9 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const pageSize = 6;
-  const mainCategory = "Technology";
+  // Fetch paginated products based on the query and current page
+  const pageSize = 6; // Number of items per page
+  const mainCategory = "Technology"; // Replace with the desired main category
 
   const { products, totalPages } = await fetchProducts(
     currentPage,

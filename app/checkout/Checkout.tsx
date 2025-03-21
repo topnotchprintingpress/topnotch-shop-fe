@@ -295,7 +295,6 @@ const CheckoutPage = () => {
         body: JSON.stringify({ amount }), // Ensure you pass order_id
       });
       const data = await res.json();
-      console.log("Payment Payload:", data);
 
       if (data.status) {
         window.location.href = data.data.authorization_url;

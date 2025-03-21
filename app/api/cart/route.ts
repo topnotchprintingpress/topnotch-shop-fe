@@ -4,7 +4,6 @@ import { getToken } from "next-auth/jwt";
 export async function GET(req: NextRequest) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    console.log("Token:", token);
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/`, {
       method: "GET",
       headers: {

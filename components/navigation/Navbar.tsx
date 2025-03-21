@@ -32,7 +32,6 @@ function Navbar() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: session, status } = useSession();
-  console.log("LOGIN Session Data:", session);
 
   const handleNav = () => {
     setMenuOpen(!menuOpen);
@@ -41,10 +40,18 @@ function Navbar() {
   // Define the menu items for both desktop and mobile
   const menuItems = [
     { href: "/", label: "Home", icon: <Home size={16} /> },
-    { href: "/best-sellers", label: "Best Sellers", icon: <Star size={16} /> },
-    { href: "/new-arrivals", label: "New Arrivals", icon: <Tag size={16} /> },
     {
-      href: "/deals",
+      href: "/products/best-sellers",
+      label: "Best Sellers",
+      icon: <Star size={16} />,
+    },
+    {
+      href: "/products/new-arrivals",
+      label: "New Arrivals",
+      icon: <Tag size={16} />,
+    },
+    {
+      href: "/products/deals-and-offers",
       label: "Deals & Offers",
       icon: <Receipt size={16} />,
     },

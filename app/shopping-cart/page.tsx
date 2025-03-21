@@ -20,7 +20,6 @@ import Link from "next/link";
 // Main component
 const ShoppingCart = () => {
   const { cart, removeFromCart, updateCart } = useCartContext();
-  console.log("CART ITEMS LIST: ");
 
   // Ensure cart is always an array (fallback to empty array if undefined)
   const subtotal = (cart || []).reduce(

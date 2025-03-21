@@ -16,12 +16,15 @@ export async function fetchProducts(
       url += `&main_category=${encodeURIComponent(main_category)}`;
     }
 
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch products");
 
     const data = await res.json();
     const products = data.results;
-    const totalPages = Math.ceil(data.count / pageSize);
+    const totalPages =
+      products.length > 0
+        ? Math.ceil(data.count / pageSize)
+        : Math.max(1, Math.ceil(data.count / pageSize));
 
     return { products, totalPages };
   } catch (error) {

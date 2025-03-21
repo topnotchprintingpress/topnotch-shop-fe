@@ -68,17 +68,17 @@ export function AppWrapper({
   );
 
   // new items
-  const newItems: ProductBase[] = (products ?? []).reverse();
+  const newItems: ProductBase[] = products ?? [];
 
   // featured tech
-  const featuredTech: ProductBase[] = (products ?? [])
-    .reverse()
-    .filter((tech) => tech.main_category == "Technology" && tech.featured);
+  const featuredTech: ProductBase[] = (products ?? []).filter(
+    (tech) => tech.main_category == "Technology" && tech.featured
+  );
 
   // new lab equipment
-  const newLab: ProductBase[] = (products ?? [])
-    .filter((lab) => lab.main_category == "Lab Equipment")
-    .reverse();
+  const newLab: ProductBase[] = (products ?? []).filter(
+    (lab) => lab.main_category == "Lab Equipment"
+  );
 
   // topbanner
   const topBanner: Banner[] = (banners ?? []).filter(

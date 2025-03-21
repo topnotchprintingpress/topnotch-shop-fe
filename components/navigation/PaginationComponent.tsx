@@ -1,5 +1,7 @@
 "use client";
-import React from "react";
+
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -9,97 +11,124 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { usePathname, useSearchParams } from "next/navigation";
 
 interface PaginationComponentProps {
-  currentPage: number;
   totalPages: number;
 }
 
-function PaginationComponent({
-  currentPage,
+export default function PaginationComponent({
   totalPages,
 }: PaginationComponentProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
 
-  // Function to create a URL with updated page query parameter
   const createPageURL = (pageNumber: number) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams);
     params.set("page", pageNumber.toString());
     return `${pathname}?${params.toString()}`;
   };
 
-  // Generate visible page numbers (e.g., [1, 2, 3, ..., 10])
-  const visiblePages = () => {
+  if (totalPages <= 1) return null; // Hide pagination if only one page
+
+  // Create an array of page numbers to display
+  const getPageNumbers = () => {
     const pages = [];
-    if (totalPages <= 5) {
-      // If total pages are small, show all pages
+    const maxVisiblePages = 5;
+
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages if there are less than maxVisiblePages
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Show first page, current page, and last page with ellipsis in between
+      // Always show first page
       pages.push(1);
-      if (currentPage > 3) {
-        pages.push(-1); // -1 represents an ellipsis
+
+      // Calculate range around current page
+      let startPage = Math.max(2, currentPage - 1);
+      let endPage = Math.min(totalPages - 1, currentPage + 1);
+
+      // Adjust if at edges
+      if (currentPage <= 2) {
+        endPage = 3;
+      } else if (currentPage >= totalPages - 1) {
+        startPage = totalPages - 2;
       }
-      if (currentPage > 2 && currentPage < totalPages - 1) {
-        pages.push(currentPage - 1, currentPage, currentPage + 1);
-      } else if (currentPage === 2) {
-        pages.push(currentPage, currentPage + 1);
-      } else if (currentPage === totalPages - 1) {
-        pages.push(currentPage - 1, currentPage);
+
+      // Add ellipsis if needed
+      if (startPage > 2) {
+        pages.push(-1); // Use -1 to represent ellipsis
       }
-      if (currentPage < totalPages - 2) {
-        pages.push(-1); // -1 represents an ellipsis
+
+      // Add middle pages
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
       }
+
+      // Add ellipsis if needed
+      if (endPage < totalPages - 1) {
+        pages.push(-2); // Use -2 to represent ellipsis
+      }
+
+      // Always show last page
       pages.push(totalPages);
     }
+
     return pages;
   };
 
-  return (
-    <div>
-      <Pagination>
-        <PaginationContent>
-          {/* Previous Button */}
-          <PaginationItem>
-            <PaginationPrevious
-              href={createPageURL(currentPage - 1)}
-              aria-disabled={currentPage === 1}
-            />
-          </PaginationItem>
+  const pageNumbers = getPageNumbers();
 
-          {/* Page Numbers */}
-          {visiblePages().map((page, index) =>
-            page === -1 ? (
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            href={createPageURL(currentPage - 1)}
+            aria-disabled={currentPage === 1}
+            tabIndex={currentPage === 1 ? -1 : 0}
+            onClick={(e) => currentPage === 1 && e.preventDefault()}
+            className={
+              currentPage === 1 ? "pointer-events-none opacity-50" : ""
+            }
+          />
+        </PaginationItem>
+
+        {pageNumbers.map((pageNumber, index) => {
+          if (pageNumber < 0) {
+            // Render ellipsis
+            return (
               <PaginationItem key={`ellipsis-${index}`}>
                 <PaginationEllipsis />
               </PaginationItem>
-            ) : (
-              <PaginationItem key={page}>
-                <PaginationLink
-                  href={createPageURL(page)}
-                  isActive={page === currentPage}
-                >
-                  {page}
-                </PaginationLink>
-              </PaginationItem>
-            )
-          )}
+            );
+          }
 
-          {/* Next Button */}
-          <PaginationItem>
-            <PaginationNext
-              href={createPageURL(currentPage + 1)}
-              aria-disabled={currentPage === totalPages}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
+          return (
+            <PaginationItem key={pageNumber}>
+              <PaginationLink
+                href={createPageURL(pageNumber)}
+                isActive={currentPage === pageNumber}
+              >
+                {pageNumber}
+              </PaginationLink>
+            </PaginationItem>
+          );
+        })}
+
+        <PaginationItem>
+          <PaginationNext
+            href={createPageURL(currentPage + 1)}
+            aria-disabled={currentPage >= totalPages}
+            tabIndex={currentPage >= totalPages ? -1 : 0}
+            onClick={(e) => currentPage >= totalPages && e.preventDefault()}
+            className={
+              currentPage >= totalPages ? "pointer-events-none opacity-50" : ""
+            }
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 }
-
-export default PaginationComponent;

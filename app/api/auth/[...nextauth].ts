@@ -101,7 +101,6 @@ export const authOptions: NextAuthOptions = {
           }
 
           const data = await response.json();
-          console.log("Backend response data:", data);
 
           if (data?.access && data?.refresh) {
             const decodedAccessToken = JSON.parse(

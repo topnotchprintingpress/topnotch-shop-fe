@@ -46,7 +46,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     try {
-      const response = await fetch(`api/cart/items/`, {
+      const response = await fetch(`/api/cart/items`, {
         method: "POST",
         credentials: "include",
         headers: {
