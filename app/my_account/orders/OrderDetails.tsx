@@ -17,6 +17,7 @@ function OrderDetails() {
     };
 
     loadOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
@@ -242,20 +243,12 @@ function OrderDetails() {
                         <span>Subtotal:</span>
                         <span>KES {orderItem.total_price || 0}</span>
                       </div>
-                      {/* {orderItem.shipping_cost && (
+                      {orderItem.shipping_cost && (
                         <div className="flex justify-between mb-2">
                           <span>Shipping:</span>
-                          <span>
-                            ${parseFloat(orderItem.shipping_cost).toFixed(2)}
-                          </span>
+                          <span>${orderItem.shipping_cost.toFixed(2)}</span>
                         </div>
-                      )} */}
-                      {/* {orderItem.tax && (
-                        <div className="flex justify-between mb-2">
-                          <span>Tax:</span>
-                          <span>${parseFloat(orderItem.tax).toFixed(2)}</span>
-                        </div>
-                      )} */}
+                      )}
                       <div className="flex justify-between font-medium text-[#2b0909] mt-3 pt-3 border-t border-[#2b0909]/10">
                         <span>Total:</span>
                         <span>KES {orderItem.total_price}</span>

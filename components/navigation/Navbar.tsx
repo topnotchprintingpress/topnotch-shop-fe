@@ -41,17 +41,17 @@ function Navbar() {
   const menuItems = [
     { href: "/", label: "Home", icon: <Home size={16} /> },
     {
-      href: "/products/best-sellers",
+      href: "/categories/best-sellers",
       label: "Best Sellers",
       icon: <Star size={16} />,
     },
     {
-      href: "/products/new-arrivals",
+      href: "/categories/new-arrivals",
       label: "New Arrivals",
       icon: <Tag size={16} />,
     },
     {
-      href: "/products/deals-and-offers",
+      href: "/categories/deals-and-offers",
       label: "Deals & Offers",
       icon: <Receipt size={16} />,
     },
@@ -148,7 +148,7 @@ function Navbar() {
                       <DropdownMenuSeparator />
                       <DropdownMenuGroup>
                         <DropdownMenuItem
-                          onClick={() => router.push("/Scollah/tutor")}
+                          onClick={() => router.push("/my_account/dashboard")}
                           className="cursor-pointer"
                         >
                           Account

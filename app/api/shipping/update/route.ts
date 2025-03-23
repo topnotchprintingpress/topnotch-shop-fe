@@ -10,16 +10,17 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const body = await req.json();
+    const { id, ...updateData } = body;
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/shipping/`,
+      `${process.env.NEXT_PUBLIC_API_URL}/shipping/${id}/`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token.access}`,
         },
-        body: JSON.stringify({ body }),
+        body: JSON.stringify(updateData),
         credentials: "include",
       }
     );

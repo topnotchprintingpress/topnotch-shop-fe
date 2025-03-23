@@ -8,7 +8,7 @@ interface ShippingContextType {
   order: Order[];
   addShipping: (addressData: Partial<ShippingAddress>) => Promise<void>;
   fetchShipping: () => Promise<void>;
-  updateShipping: () => Promise<void>;
+  updateShipping: (updatedData: Partial<ShippingAddress>) => Promise<void>;
   fetchOrder: () => Promise<void>;
 }
 
@@ -74,7 +74,7 @@ export const ShippingProvider = ({
   };
 
   // Update an item in the cart
-  const updateShipping = async () => {
+  const updateShipping = async (updatedData: Partial<ShippingAddress>) => {
     const session = await getSession();
 
     if (!session || !session.access) {
@@ -82,15 +82,20 @@ export const ShippingProvider = ({
       return;
     }
 
+    if (!updatedData.id) {
+      console.error("Shipping ID is required for update");
+      return;
+    }
+
     try {
-      const response = await fetch(`/api/cart/update/`, {
+      const response = await fetch(`/api/shipping/update/`, {
         method: "PATCH",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.access}`,
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(updatedData),
       });
 
       if (!response.ok) {

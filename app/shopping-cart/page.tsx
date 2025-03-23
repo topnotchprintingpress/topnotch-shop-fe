@@ -232,17 +232,9 @@ const ShoppingCart = () => {
                     })}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Taxes</span>
-                  <span>KES 0</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Shipping</span>
-                  <span>KES 100</span>
-                </div>
 
                 <div className="text-xs text-gray-500 mt-1">
-                  Free shipping on orders over $100
+                  Free shipping for more than 10 books
                 </div>
               </div>
 
@@ -252,7 +244,7 @@ const ShoppingCart = () => {
                 <span>Total</span>
                 <span>
                   KES{" "}
-                  {(subtotal + 100).toLocaleString(undefined, {
+                  {subtotal.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}

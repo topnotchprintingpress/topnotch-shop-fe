@@ -48,17 +48,27 @@ function New() {
 
   return (
     <section className="bg-white w-full px-4 md:px-8 py-8 md:py-12 lg:py-16 flex flex-col items-center justify-center">
-      <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909] rounded-md">
-        <h3 className="text-sm md:text-base xl:text-xl w-max px-1 pb-1 tracking-wider font-bold">
-          What{"'"}s New?
-        </h3>
+      <div className="w-full flex justify-between items-center max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
+        <div>
+          <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
+            What{"'"}s New?
+          </h3>
+        </div>
+        <div className="absolute right-4 md:right-16 flex items-center">
+          <Link
+            className="border-b hover:border-none"
+            href="/categories/new-arrivals"
+          >
+            View more
+          </Link>
+        </div>
       </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
         <div className="p-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-6">
           {latest.map((item) => (
             <Card
               key={item.id}
-              className="relative border border-[#2b0909] w-full h-full transition-all duration-300 hover:shadow-lg overflow-hidden group"
+              className="relative border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[74vh] 2xl:h-[38vh] transition-all duration-300 hover:shadow-lg overflow-hidden group"
             >
               <CardHeader className="relative p-0 overflow-hidden">
                 <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-0.5 rounded-full text-xs md:text-sm font-bold shadow-md">
@@ -97,9 +107,16 @@ function New() {
                   </CardTitle>
                 </Link>
               </CardContent>
-              <CardFooter className="flex flex-col md:flex-row items-start md:items-center justify-between w-full px-3 md:px-4 py-2 md:py-3 bg-[#fffcf7] border-t border-[#2b0909] gap-2">
+              <CardFooter className="absolute -bottom-2 bg-[#fffcf7] right-0 md:flex items-center justify-between w-full px-4 p-4 border-t border-[#2b0909]">
                 {item.discount ? (
-                  <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                  <div className="flex flex-col md:flex-col gap-1 md:gap-0 items-start">
+                    <span className="text-xs text-gray-500 line-through">
+                      KES{" "}
+                      {item.price.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </span>
                     <h3 className="text-lg font-bold  tracking-tighter text-[#2b0909]">
                       KES{" "}
                       {(item.price * (1 - item.discount / 100)).toLocaleString(
@@ -110,16 +127,9 @@ function New() {
                         }
                       )}
                     </h3>
-                    <span className="text-sm text-gray-500 line-through">
-                      KES{" "}
-                      {item.price.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                    </span>
                   </div>
                 ) : (
-                  <h3 className="text-base font-bold truncate tracking-tighter text-[#2b0909]">
+                  <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
                     KES{" "}
                     {item.price.toLocaleString(undefined, {
                       minimumFractionDigits: 2,

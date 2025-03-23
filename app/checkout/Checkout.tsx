@@ -188,11 +188,10 @@ const CheckoutPage = () => {
                       </p>
                       <p>
                         <span className="font-medium">Address:</span>{" "}
-                        {ship.apartment}, {ship.street_address}, {ship.city}
+                        {ship.apartment} {ship.street_address}, {ship.city}
                       </p>
                       <p>
-                        <span className="font-medium">Email:</span>{" "}
-                        {ship.first_name}
+                        <span className="font-medium">Email:</span> {ship.email}
                       </p>
                       <p>
                         <span className="font-medium">Phone:</span>{" "}
@@ -264,7 +263,7 @@ const CheckoutPage = () => {
               <Button
                 variant="outline"
                 className="flex-1"
-                onClick={() => setStep(2)}
+                onClick={() => setStep(1)}
               >
                 Back
               </Button>
@@ -369,16 +368,12 @@ const CheckoutPage = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>
-                      {qualifiesForFreeShipping
-                        ? "Free"
-                        : `KES ${finalShippingCost.toFixed(2)}`}
-                    </span>
+                    <span></span>
                   </div>
 
                   {!qualifiesForFreeShipping && (
                     <div className="text-xs text-gray-500 mt-1">
-                      Free shipping on orders over KES 5,000
+                      Free shipping on 10 books or more
                     </div>
                   )}
                 </div>

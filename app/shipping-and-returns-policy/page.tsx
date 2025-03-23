@@ -18,7 +18,7 @@ export default function ShippingReturnsPage() {
         <CardContent>
           <p className="mb-4">
             Request a Return or Exchange:{" "}
-            <a href="#" className="text-blue-600 hover:underline">
+            <a href="#" className="text-[#350203] hover:underline">
               Click here to request a return or exchange.
             </a>
           </p>

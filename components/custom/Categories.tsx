@@ -19,7 +19,7 @@ const categories = [
     id: 2,
     name: "Stationery",
     icon: <MdOutlineCreate size={28} />,
-    link: "books",
+    link: "stationery",
   },
   {
     id: 3,

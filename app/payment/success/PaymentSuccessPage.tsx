@@ -46,6 +46,7 @@ export default function PaymentSuccessPage() {
     };
 
     verifyPayment();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference, router]);
 
   return (

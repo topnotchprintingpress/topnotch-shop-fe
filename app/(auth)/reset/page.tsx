@@ -19,7 +19,7 @@ export default function ResetPassword() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/topnotch/password/reset/`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/password/reset/`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -154,7 +154,7 @@ export default function ResetPassword() {
           <div className="mt-6 text-center">
             <a
               href="/login"
-              className="font-medium text-blue-600 hover:text-blue-500"
+              className="font-medium text-[#350203] hover:text-blue-500"
             >
               Back to login
             </a>

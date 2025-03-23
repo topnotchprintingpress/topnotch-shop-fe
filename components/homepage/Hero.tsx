@@ -59,10 +59,20 @@ function Hero() {
       <div className="w-full mt-2 md:mt-4 mb-6">
         <Categories />
       </div>
-      <div className="flex w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
-        <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
-          Best Sellers
-        </h3>
+      <div className="w-full flex justify-between items-center max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
+        <div>
+          <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
+            Best Sellers{" "}
+          </h3>
+        </div>
+        <div className="absolute right-4 md:right-60 flex items-center">
+          <Link
+            className="border-b hover:border-none"
+            href="/categories/best-sellers"
+          >
+            View more
+          </Link>
+        </div>
       </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
         <Carousel

@@ -39,11 +39,7 @@ export const shippingSchema = z.object({
     .string()
     .min(1, "Street Address is required")
     .max(50, "Name is too long"),
-  apartment: z
-    .string()
-    .min(1, "Apartment name is required")
-    .max(50, "Name is too long")
-    .optional(),
+  apartment: z.string().optional(),
   city: z
     .string()
     .min(1, "Please specify your city")
@@ -57,11 +53,7 @@ export const shippingSchema = z.object({
     .string()
     .min(1, "Please specify your country")
     .max(50, "Country Name is too long"),
-  postal_code: z
-    .string()
-    .min(1, "Please specify your postal code")
-    .max(20, "Postal Code is too long")
-    .optional(),
+  postal_code: z.string().optional(),
   phone_number: z
     .string()
     .min(1, "Phone number is required")

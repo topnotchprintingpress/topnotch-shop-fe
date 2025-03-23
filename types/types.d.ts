@@ -78,6 +78,7 @@ export interface Order {
   order_reference: string;
   items: CartItem[];
   shipping_address: ShippingAddress;
+  shipping_cost: number;
   status: string;
   created_at: string;
 }
@@ -96,6 +97,7 @@ export interface ShippingAddress {
   order: Order;
   first_name: string;
   last_name: string;
+  email: string;
   street_address: string;
   apartment: string;
   city: string;

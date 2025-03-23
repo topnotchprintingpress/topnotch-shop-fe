@@ -18,6 +18,7 @@ import Link from "next/link";
 
 interface ProductListProps {
   products: ProductBase[] | null;
+  title: string;
 }
 
 const ProductList: React.FC<ProductListProps> = ({
@@ -33,7 +34,7 @@ const ProductList: React.FC<ProductListProps> = ({
               No Items Available
             </h3>
             <p className="text-sm md:text-base text-gray-500 text-center">
-              Check back later for best seller items.
+              Check back later for listed items.
             </p>
           </div>
         </div>
@@ -43,10 +44,10 @@ const ProductList: React.FC<ProductListProps> = ({
 
   return (
     <section className="bg-white w-full px-4 md:px-8 py-0 md:py-16 lg:py-0 flex flex-col items-center justify-center my-0 md:my-4">
-      <div className="w-full max-w-7xl xl:max-w-full mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="w-full max-w-7xl xl:max-w-full mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-0">
         {products.map((item) => (
-          <div className="p-2" key={item.id}>
-            <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[66vh] 2xl:h-[38vh]">
+          <div className="p-0" key={item.id}>
+            <Card className="relative bg-[#fffcf7] border-b rounded-none w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[68vh] 2xl:h-[38vh]">
               <CardHeader className="relative p-4">
                 {item.discount ? (
                   <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm  font-bold">
@@ -73,9 +74,16 @@ const ProductList: React.FC<ProductListProps> = ({
                   <CardTitle className="text-base">{item.title}</CardTitle>
                 </Link>
               </CardContent>
-              <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4">
+              <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4 p-4">
                 {item.discount ? (
-                  <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                  <div className="flex flex-col md:flex-col gap-1 md:gap-0 items-start">
+                    <span className="text-xs text-gray-500 line-through">
+                      KES{" "}
+                      {item.price.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </span>
                     <h3 className="text-lg font-bold  tracking-tighter text-[#2b0909]">
                       KES{" "}
                       {(item.price * (1 - item.discount / 100)).toLocaleString(
@@ -86,13 +94,6 @@ const ProductList: React.FC<ProductListProps> = ({
                         }
                       )}
                     </h3>
-                    <span className="text-sm text-gray-500 line-through">
-                      KES{" "}
-                      {item.price.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                    </span>
                   </div>
                 ) : (
                   <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">

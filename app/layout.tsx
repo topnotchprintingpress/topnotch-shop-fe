@@ -48,7 +48,7 @@ async function fetchBanners() {
     }
 
     const data = await res.json();
-    const banners = data.results;
+    const banners = data;
     return banners;
   } catch (error) {
     console.error("An unexpected error occured while fetching Banners:", error);

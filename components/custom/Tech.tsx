@@ -51,10 +51,20 @@ export default function FeaturedBooks() {
 
   return (
     <section className="bg-white w-full px-4 md:px-8 py-8 md:py-4 lg:py-2 flex flex-col items-center justify-center">
-      <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
-        <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
-          Featured Tech
-        </h3>
+      <div className="w-full flex justify-between items-center max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
+        <div>
+          <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
+            Featured Technology
+          </h3>
+        </div>
+        <div className="absolute right-4 md:right-60 flex items-center">
+          <Link
+            className="border-b hover:border-none"
+            href="/categories/technology"
+          >
+            View more
+          </Link>
+        </div>
       </div>
       <div className="w-full max-w-7xl xl:max-w-full mx-auto">
         <Carousel
