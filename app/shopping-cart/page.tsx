@@ -22,10 +22,27 @@ const ShoppingCart = () => {
   const { cart, removeFromCart, updateCart } = useCartContext();
 
   // Ensure cart is always an array (fallback to empty array if undefined)
+  const cartItems: CartItem[] = cart
+    ? cart.flatMap((cartObj) => cartObj.items ?? [])
+    : [];
+
+  const shippingCost = 200;
+
+  const numberOfBooks = cartItems.reduce(
+    (count, item) =>
+      item.product.main_category === "Books" ? count + item.quantity : count,
+    0
+  );
+
+  const qualifiesForFreeShipping = numberOfBooks >= 10;
+  const finalShippingCost = qualifiesForFreeShipping ? 0 : shippingCost;
+
   const subtotal = (cart || []).reduce(
     (sum: number, item: CartItem) => sum + item.total_price,
     0
   );
+
+  const total = subtotal + finalShippingCost;
 
   // Animation variants
   const containerVariants = {
@@ -52,15 +69,11 @@ const ShoppingCart = () => {
     },
   };
 
-  const cartItems: CartItem[] = cart
-    ? cart.flatMap((cartObj) => cartObj.items ?? [])
-    : [];
-
   const updateQuantity = (itemId: number, change: number) => {
     const currentItem = cartItems.find((item) => item.id === itemId);
     if (!currentItem) return;
 
-    const newQuantity = Math.max(1, currentItem.quantity + change); // Prevents negative or zero quantity
+    const newQuantity = Math.max(1, currentItem.quantity + change);
     updateCart(itemId, newQuantity);
   };
 
@@ -114,9 +127,14 @@ const ShoppingCart = () => {
                         whileHover={{ scale: 1.05 }}
                       />
                       <div className="flex-1">
-                        <h3 className="font-medium text-lg">
-                          {item.product?.title}
-                        </h3>
+                        <Link
+                          className="hover:text-[#ff8080]"
+                          href={`/product/${item.product.slug}`}
+                        >
+                          <h3 className="font-medium text-lg">
+                            {item.product?.title}
+                          </h3>
+                        </Link>
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-2 gap-2">
                           <div className="flex items-center border rounded-md justify-between">
                             <motion.button
@@ -232,9 +250,17 @@ const ShoppingCart = () => {
                     })}
                   </span>
                 </div>
+                <div className="flex justify-between">
+                  <span>Shipping</span>
+                  <span>
+                    {qualifiesForFreeShipping
+                      ? "Free"
+                      : `KES ${finalShippingCost.toFixed(2)}`}
+                  </span>
+                </div>
 
                 <div className="text-xs text-gray-500 mt-1">
-                  Free shipping for more than 10 books
+                  Standard Shipping fee applies at checkout (200 KES)
                 </div>
               </div>
 
@@ -244,7 +270,7 @@ const ShoppingCart = () => {
                 <span>Total</span>
                 <span>
                   KES{" "}
-                  {subtotal.toLocaleString(undefined, {
+                  {total.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}

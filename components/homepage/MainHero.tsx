@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 import {
   Carousel,
@@ -53,15 +54,17 @@ export default function MainHero() {
           {banner.map((prod, id) => (
             <CarouselItem key={id} className="relative w-full">
               <div className="p-1">
-                <Card>
-                  <Image
-                    src={prod.image || "/path/to/default/image.jpg"}
-                    width={1200}
-                    height={48}
-                    alt="Product Image"
-                    className="w-full"
-                  />
-                </Card>
+                <Link href={`/categories/${prod.link}`}>
+                  <Card>
+                    <Image
+                      src={prod.image || "/path/to/default/image.jpg"}
+                      width={1200}
+                      height={48}
+                      alt="Product Image"
+                      className="w-full"
+                    />
+                  </Card>
+                </Link>
               </div>
             </CarouselItem>
           ))}

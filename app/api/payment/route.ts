@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
     // Forward request to the backend API
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/submit/`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}submit/`,
       {
         method: "POST",
         credentials: "include",
@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
     );
 
     const data = await response.json();
+    console.log("Payment response:", data);
 
     // Return response from the backend API
     return NextResponse.json(data, { status: response.status });

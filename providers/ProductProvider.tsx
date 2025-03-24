@@ -13,8 +13,6 @@ interface AppContextProps {
   featuredTech: ProductBase[] | null;
   newLab: ProductBase[] | null;
   topBanner: Banner[] | null;
-  middleBanner: Banner[] | null;
-  bottomBanner: Banner[] | null;
   filteredProducts: ProductBase[] | null;
   searchProducts: (query: string) => Promise<void>;
   totalPages: number;
@@ -82,17 +80,7 @@ export function AppWrapper({
 
   // topbanner
   const topBanner: Banner[] = (banners ?? []).filter(
-    (banner) => banner.is_active && banner.position == "top"
-  );
-
-  // middlebanner
-  const middleBanner: Banner[] = (banners ?? []).filter(
-    (banner) => banner.is_active && banner.position == "middle"
-  );
-
-  // bottomBanner
-  const bottomBanner: Banner[] = (banners ?? []).filter(
-    (banner) => banner.is_active && banner.position == "bottom"
+    (banner) => banner.is_active
   );
   useEffect(() => {
     setFilteredProducts(products); // Initialize filtered products
@@ -132,8 +120,6 @@ export function AppWrapper({
         featuredTech,
         newLab,
         topBanner,
-        middleBanner,
-        bottomBanner,
         filteredProducts,
         searchProducts,
         currentPage,

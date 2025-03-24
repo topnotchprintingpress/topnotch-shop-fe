@@ -26,22 +26,28 @@ const CheckoutPage = () => {
   const { shipping } = useShippingContext();
   const [step, setStep] = useState(1);
 
+  const cartItems: CartItem[] = cart
+    ? cart.flatMap((cartObj) => cartObj.items ?? [])
+    : [];
+
   // Calculate subtotal
   const subtotal = (cart || []).reduce(
     (sum: number, item: CartItem) => sum + item.total_price,
     0
   );
-  const shippingCost = 100;
+  const shippingCost = 200;
 
-  // Free shipping on orders over 5000
-  const qualifiesForFreeShipping = subtotal > 5000;
+  const numberOfBooks = cartItems.reduce(
+    (count, item) =>
+      item.product.main_category === "Books" ? count + item.quantity : count,
+    0
+  );
+  const qualifiesForFreeShipping = numberOfBooks >= 10;
   const finalShippingCost = qualifiesForFreeShipping ? 0 : shippingCost;
 
   // Calculate total
-  const total = subtotal + finalShippingCost;
-
-  // Get flattened cart items array
-  const cartItems = cart ? cart.flatMap((cartObj) => cartObj.items ?? []) : [];
+  const grandTotal = subtotal + finalShippingCost;
+  console.log("GRAND TOTAL", grandTotal);
 
   // Animation variants
   const fadeInVariants = {
@@ -225,10 +231,7 @@ const CheckoutPage = () => {
                     <span>Subtotal</span>
                     <span>KES {subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Taxes</span>
-                    <span>KES 0</span>
-                  </div>
+
                   <div className="flex justify-between">
                     <span>Shipping</span>
                     <span>
@@ -240,7 +243,7 @@ const CheckoutPage = () => {
                   <Separator className="my-2" />
                   <div className="flex justify-between font-semibold text-lg">
                     <span>Total</span>
-                    <span>KES {total.toFixed(2)}</span>
+                    <span>KES {grandTotal.toFixed(2)}</span>
                   </div>
                 </div>
               </CardContent>
@@ -250,12 +253,6 @@ const CheckoutPage = () => {
               <div className="flex items-center text-sm text-gray-600">
                 <Lock size={14} className="mr-1" />
                 All information is encrypted and secure
-              </div>
-              <div className="flex items-start">
-                <input type="checkbox" id="terms" className="mt-1" />
-                <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
-                  I agree to the Terms and Conditions and Privacy Policy
-                </label>
               </div>
             </div>
 
@@ -285,7 +282,9 @@ const CheckoutPage = () => {
 
   const handlePayment = async () => {
     try {
-      const amount = subtotal;
+      console.log("Sending total to payment:", grandTotal); // Add this debug log
+
+      const amount = grandTotal;
       const res = await fetch("/api/payment/", {
         method: "POST",
         headers: {
@@ -362,13 +361,14 @@ const CheckoutPage = () => {
                     <span>Subtotal</span>
                     <span>KES {subtotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Taxes</span>
-                    <span>KES 0</span>
-                  </div>
+
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span></span>
+                    <span>
+                      {qualifiesForFreeShipping
+                        ? "Free"
+                        : `KES ${finalShippingCost.toFixed(2)}`}
+                    </span>
                   </div>
 
                   {!qualifiesForFreeShipping && (
@@ -382,7 +382,7 @@ const CheckoutPage = () => {
 
                 <div className="flex justify-between text-lg font-semibold mb-6">
                   <span>Total</span>
-                  <span>KES {total.toFixed(2)}</span>
+                  <span>KES {grandTotal.toFixed(2)}</span>
                 </div>
 
                 <div className="text-sm text-gray-600 space-y-4">

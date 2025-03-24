@@ -8,16 +8,18 @@ import { Badge } from "@/components/ui/badge";
 import {
   ChevronRight,
   ChevronLeft,
-  Heart,
   ShoppingCart,
   Truck,
+  Minus,
+  Plus,
 } from "lucide-react";
 import useSWR from "swr";
 import Loader from "@/components/custom/Loader";
 import ProductNotFound from "@/components/errorpages/ProductNotFound";
-
+import { useCartContext } from "@/providers/CartContext";
+import { useRouter } from "next/navigation";
 // types
-import { ProductDetail } from "@/types/types";
+import { ProductDetail, CartItem } from "@/types/types";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url, { method: "GET", credentials: "include" });
@@ -27,6 +29,9 @@ const fetcher = async (url: string) => {
 };
 
 const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
+  const { cart, updateCart, addToCart } = useCartContext();
+  const router = useRouter();
+
   const { slug } = use(params);
 
   // Fetch product details
@@ -45,8 +50,43 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
 
   // State management
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  //   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [quantity, setQuantity] = useState(1);
+
+  const cartItems: CartItem[] = cart
+    ? cart.flatMap((cartObj) => cartObj.items ?? [])
+    : [];
+
+  console.log("Your Cart", cartItems);
+
+  const updateQuantity = (itemId: number, change: number) => {
+    const currentItem = cartItems.find((item) => item.id === itemId);
+    if (!currentItem) {
+      // Item not in cart, add it first
+      console.log(`Item ID ${itemId} not found in cart. Adding to cart...`);
+      addToCart(itemId, 1);
+      return;
+    }
+
+    const newQuantity = Math.max(1, currentItem.quantity + change);
+    console.log(
+      `Updating quantity for item ID ${itemId}: New Quantity ${newQuantity}`
+    );
+
+    updateCart(itemId, newQuantity);
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 24 },
+    },
+    exit: {
+      opacity: 0,
+      x: -20,
+      transition: { duration: 0.2 },
+    },
+  };
 
   // Handlers
   const nextImage = () => {
@@ -89,7 +129,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
           {/* Image Gallery */}
           <div className="relative">
             <motion.div
-              className="relative rounded-xl overflow-hidden aspect-square bg-white shadow-xl border border-[#2b0909]"
+              className="relative flex justify-center items-center rounded-xl overflow-hidden aspect-square bg-white shadow-xl border border-[#2b0909]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
@@ -129,15 +169,6 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
               >
                 <ChevronRight className="h-5 w-5 text-[#2b0909]" />
               </Button>
-
-              {/* Wishlist button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute right-3 top-3 bg-white/80 hover:bg-white rounded-full shadow-sm"
-              >
-                <Heart className="h-5 w-5 text-[#2b0909]" />
-              </Button>
             </motion.div>
 
             {/* Thumbnail Navigation */}
@@ -148,9 +179,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`w-16 h-16 rounded-md overflow-hidden ${
-                    currentImageIndex === index
-                      ? "ring-2 ring-[#2b0909]"
-                      : "opacity-70"
+                    currentImageIndex === index ? "" : "opacity-70"
                   }`}
                   onClick={() => setCurrentImageIndex(index)}
                 >
@@ -160,7 +189,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                       width={64}
                       height={64}
                       alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-200">
@@ -191,61 +220,54 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
 
               <p className="text-[#2b0909]/80 mb-6">{product?.description}</p>
 
-              {/* Color Selection */}
-              <div className="mb-6">
-                {/* <p className="font-medium mb-2">
-                  Color: <span className="font-normal">{selectedColor}</span>
-                </p> */}
-                {/* <div className="flex space-x-2">
-                  {product.colors.map((color) => (
-                    <motion.button
-                      key={color}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`w-8 h-8 rounded-full border ${
-                        selectedColor === color
-                          ? "ring-2 ring-offset-2 ring-[#2b0909]"
-                          : "border-[#2b0909]/20"
-                      }`}
-                      style={{
-                        backgroundColor:
-                          color.toLowerCase() === "tan"
-                            ? "#D2B48C"
-                            : color.toLowerCase() === "black"
-                            ? "#000000"
-                            : color.toLowerCase() === "brown"
-                            ? "#8B4513"
-                            : "#FFFFFF",
-                      }}
-                      onClick={() => setSelectedColor(color)}
-                      aria-label={`Select ${color} color`}
-                    />
-                  ))}
-                </div> */}
-              </div>
-
               {/* Quantity */}
               <div className="mb-6">
                 <p className="font-medium mb-2">Quantity</p>
-                <div className="flex items-center border border-[#2b0909]/20 rounded-md w-32">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-[#2b0909] h-8"
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  >
-                    -
-                  </Button>
-                  <span className="flex-1 text-center">{quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-[#2b0909] h-8"
-                    onClick={() => setQuantity(quantity + 1)}
-                  >
-                    +
-                  </Button>
-                </div>
+                <motion.div
+                  variants={itemVariants}
+                  exit="exit"
+                  layout
+                  className="p-4 border-b last:border-b-0"
+                  whileHover={{ backgroundColor: "rgba(43, 9, 9, 0.02)" }}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-2 gap-2">
+                        <div className="flex items-center border rounded-md justify-between">
+                          <motion.button
+                            whileTap={{ scale: 0.9 }}
+                            className="p-1 px-2"
+                            onClick={() =>
+                              updateQuantity(
+                                cartItems.find((item) => item.id)?.id ??
+                                  product.id,
+                                -1
+                              )
+                            }
+                          >
+                            <Minus size={16} />
+                          </motion.button>
+                          <span className="px-4">
+                            {cartItems.find((item) => item.id)?.quantity || 0}
+                          </span>
+                          <motion.button
+                            whileTap={{ scale: 0.9 }}
+                            className="p-1 px-2"
+                            onClick={() =>
+                              updateQuantity(
+                                cartItems.find((item) => item.id)?.id ??
+                                  product.id,
+                                +1
+                              )
+                            }
+                          >
+                            <Plus size={16} />
+                          </motion.button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
 
               {/* Stock Status */}
@@ -277,6 +299,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                   <Button
                     variant="default"
                     className="w-full bg-[#2b0909] hover:bg-[#2b0909]/90 text-white flex items-center justify-center py-6"
+                    onClick={() => addToCart(product.id, 1)}
                   >
                     <ShoppingCart className="w-5 h-5 mr-2" />
                     Add to Cart
@@ -291,6 +314,10 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                   <Button
                     variant="outline"
                     className="w-full border-[#2b0909] text-[#2b0909] hover:bg-[#2b0909]/5 py-6"
+                    onClick={() => {
+                      addToCart(product.id, 1);
+                      router.push("/checkout");
+                    }}
                   >
                     Buy Now
                   </Button>
@@ -315,12 +342,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
               >
                 Details
               </TabsTrigger>
-              <TabsTrigger
-                value="reviews"
-                className="text-[#2b0909] data-[state=active]:border-b-2 data-[state=active]:border-[#2b0909] rounded-none"
-              >
-                Reviews (0)
-              </TabsTrigger>
+
               <TabsTrigger
                 value="shipping"
                 className="text-[#2b0909] data-[state=active]:border-b-2 data-[state=active]:border-[#2b0909] rounded-none"
@@ -339,89 +361,14 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                     Product Specifications
                   </h3>
                   <ul className="space-y-2">
-                    {/* <li>
-                      <span className="font-medium">Dimensions:</span>{" "}
-                      {product.details.dimensions}
-                    </li> */}
-                    {/* <li>
-                      <span className="font-medium">Material:</span>{" "}
-                      {product.details.material}
-                    </li> */}
                     <li>
                       <span className="font-medium">Features:</span>{" "}
                       {product?.description}
                     </li>
                   </ul>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2 text-[#2b0909]">
-                    Care Instructions
-                  </h3>
-                  {/* <p>{product.details.care}</p> */}
-                </div>
               </div>
             </TabsContent>
-
-            {/* <TabsContent value="reviews">
-              <div className="space-y-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg font-semibold text-[#2b0909]">
-                      Customer Reviews
-                    </h3>
-                    <div className="flex items-center mt-1">
-                      <div className="flex mr-2">
-                        {renderStars(product.rating)}
-                      </div>
-                      <span className="text-sm text-[#2b0909]/80">
-                        Based on {product.reviewCount} reviews
-                      </span>
-                    </div>
-                  </div>
-                  <Button className="bg-[#2b0909] hover:bg-[#2b0909]/90 text-white">
-                    Write a Review
-                  </Button>
-                </div>
-
-                <Card className="border border-[#2b0909]/10">
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-semibold">James W.</h4>
-                        <div className="flex my-1">{renderStars(5)}</div>
-                      </div>
-                      <span className="text-sm text-[#2b0909]/60">
-                        3 months ago
-                      </span>
-                    </div>
-                    <p className="text-[#2b0909]/80 mt-2">
-                      This bag exceeded my expectations. The leather quality is
-                      exceptional and it's the perfect size for weekend trips.
-                      The design is both functional and stylish.
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="border border-[#2b0909]/10">
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-semibold">Emily R.</h4>
-                        <div className="flex my-1">{renderStars(4)}</div>
-                      </div>
-                      <span className="text-sm text-[#2b0909]/60">
-                        1 month ago
-                      </span>
-                    </div>
-                    <p className="text-[#2b0909]/80 mt-2">
-                      Beautiful bag with excellent craftsmanship. The only
-                      reason for 4 stars instead of 5 is that I wish it had one
-                      more interior pocket. Otherwise, it's perfect!
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent> */}
 
             <TabsContent value="shipping" className="text-[#2b0909]/80">
               <div className="space-y-4">
@@ -429,7 +376,7 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
                   Shipping Information
                 </h3>
                 <p>
-                  We offer free standard shipping on all orders over $100.
+                  We offer free standard shipping on all orders over KES 10000.
                   Standard shipping taKES 3-5 business days. Express shipping
                   options are available at checkout.
                 </p>
