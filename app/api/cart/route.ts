@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
         Authorization: token?.access ? `Bearer ${token.access}` : "",
       },
       credentials: "include",
+      cache: "no-store",
     });
 
     if (!response.ok) {

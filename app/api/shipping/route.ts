@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
           Authorization: token?.access ? `Bearer ${token.access}` : "",
         },
         credentials: "include",
+        next: { revalidate: 30 },
       }
     );
 

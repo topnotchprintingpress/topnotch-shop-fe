@@ -30,11 +30,11 @@ export const ShippingProvider = ({
       const response = await fetch("/api/shipping/", {
         method: "GET",
         credentials: "include",
+        next: { revalidate: 60 },
       });
-      console.log("Shipping API Response Status:", response.status);
+
       if (response.ok) {
         const data = await response.json();
-        console.log("Fetched Cart Data:", data); // Log the cart data
 
         setShipping(data);
       }

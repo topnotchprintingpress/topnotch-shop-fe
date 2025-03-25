@@ -30,7 +30,6 @@ export async function fetchProducts(
     if (!res.ok) throw new Error("Failed to fetch products");
 
     const data = await res.json();
-    console.log("Fetched products:", data.results); // Debugging
 
     const products = data.results;
     const totalPages = data.count ? Math.ceil(data.count / pageSize) : 1;

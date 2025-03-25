@@ -160,6 +160,10 @@ export const authOptions: NextAuthOptions = {
       }
 
       try {
+        if (!token.refresh) {
+          console.error("Refresh token is missing, forcing logout.");
+          return { ...token, error: "RefreshTokenMissing" };
+        }
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/token/refresh/`,
           {
@@ -169,17 +173,27 @@ export const authOptions: NextAuthOptions = {
             credentials: "include",
           }
         );
+
         const data = await res.json();
 
-        return {
-          ...token,
-          access: data.access,
-          accessTokenExpires:
-            JSON.parse(
-              Buffer.from(data.access.split(".")[1], "base64").toString("utf-8")
-            ).exp * 1000,
-          refresh: data.refresh || token.refresh,
-        };
+        if (res.ok && data.access) {
+          // Parse the new access token expiration time
+          const decodedAccessToken = JSON.parse(
+            Buffer.from(data.access.split(".")[1], "base64").toString("utf-8")
+          );
+          return {
+            ...token,
+            access: data.access,
+            refreshToken: data.refresh || token.refresh,
+            accessTokenExpires: decodedAccessToken.exp * 1000,
+          };
+        } else {
+          console.error(
+            "Failed to refresh token:",
+            data.detail || "Unknown error"
+          );
+          return { ...token, error: "RefreshAccessTokenError" };
+        }
       } catch (error) {
         console.error("Cannot Refresh Token", error);
         return { ...token, error: "RefreshAccessTokenError" };
@@ -187,6 +201,14 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
+      if (token.error) {
+        console.warn("Session error detected:", token.error);
+        return {
+          ...session,
+          error: token.error,
+          expires: new Date(0).toISOString(),
+        };
+      }
       session.access = token.access as string;
       session.refresh = token.refresh as string;
       session.user.name = token.name ?? "";

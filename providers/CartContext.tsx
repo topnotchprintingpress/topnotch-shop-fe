@@ -23,11 +23,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         method: "GET",
         credentials: "include",
       });
-      console.log("Cart API Response Status:", response.status);
+
       if (response.ok) {
         const data = await response.json();
         const cartProds = data.results;
-        console.log("Fetched Cart Data:", data); // Log the cart data
 
         setCart(cartProds);
       }
@@ -81,8 +80,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     try {
-      console.log("Sending update request:", { id: itemId, quantity });
-
       const response = await fetch(`/api/cart/update/`, {
         method: "PATCH",
         credentials: "include",

@@ -7,6 +7,9 @@ import { AppWrapper } from "@/providers/ProductProvider";
 import { Providers } from "@/providers/SessionProvider";
 import { CartProvider } from "@/providers/CartContext";
 import { ShippingProvider } from "@/providers/ShippingContext";
+import { Suspense } from "react";
+import Loading from "./loading";
+import AuthWrapper from "@/components/special_pages/AuthWrapper";
 
 export const metadata: Metadata = {
   title: "Topnotch Publishers",
@@ -21,7 +24,10 @@ async function fetchProducts(
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/products/` ||
-        `${process.env.NEXT_PUBLIC_API_URL}/products/?page=${page}`
+        `${process.env.NEXT_PUBLIC_API_URL}/products/?page=${page}`,
+      {
+        next: { revalidate: 60 },
+      }
     );
     if (!res.ok) {
       throw new Error("Failed to fetch Products");
@@ -41,7 +47,9 @@ async function fetchProducts(
 
 async function fetchBanners() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/banners`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/banners`, {
+      next: { revalidate: 60 },
+    });
 
     if (!res.ok) {
       throw new Error("Failed to fetch Banners");
@@ -69,17 +77,19 @@ export default async function RootLayout({
       <ShippingProvider>
         <CartProvider>
           <html lang="en">
-            <body>
-              <Navbar />
-              <AppWrapper
-                products={products}
-                banners={banners}
-                totalPages={totalPages}
-              >
-                {children}
-              </AppWrapper>
-              <Footer />
-            </body>
+            <Suspense fallback={<Loading />}>
+              <body>
+                <Navbar />
+                <AppWrapper
+                  products={products}
+                  banners={banners}
+                  totalPages={totalPages}
+                >
+                  <AuthWrapper>{children}</AuthWrapper>
+                </AppWrapper>
+                <Footer />
+              </body>
+            </Suspense>
           </html>
         </CartProvider>
       </ShippingProvider>

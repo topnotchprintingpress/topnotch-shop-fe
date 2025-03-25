@@ -47,7 +47,6 @@ const CheckoutPage = () => {
 
   // Calculate total
   const grandTotal = subtotal + finalShippingCost;
-  console.log("GRAND TOTAL", grandTotal);
 
   // Animation variants
   const fadeInVariants = {
@@ -282,8 +281,6 @@ const CheckoutPage = () => {
 
   const handlePayment = async () => {
     try {
-      console.log("Sending total to payment:", grandTotal); // Add this debug log
-
       const amount = grandTotal;
       const res = await fetch("/api/payment/", {
         method: "POST",

@@ -30,8 +30,6 @@ export default function ResetPasswordConfirm() {
     }
 
     try {
-      console.log("UID", uid);
-      console.log("Token", token);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}reset/confirm/${uid}/${token}/`,
         {

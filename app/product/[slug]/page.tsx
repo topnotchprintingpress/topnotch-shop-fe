@@ -55,21 +55,16 @@ const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
     ? cart.flatMap((cartObj) => cartObj.items ?? [])
     : [];
 
-  console.log("Your Cart", cartItems);
-
   const updateQuantity = (itemId: number, change: number) => {
     const currentItem = cartItems.find((item) => item.id === itemId);
     if (!currentItem) {
       // Item not in cart, add it first
-      console.log(`Item ID ${itemId} not found in cart. Adding to cart...`);
+
       addToCart(itemId, 1);
       return;
     }
 
     const newQuantity = Math.max(1, currentItem.quantity + change);
-    console.log(
-      `Updating quantity for item ID ${itemId}: New Quantity ${newQuantity}`
-    );
 
     updateCart(itemId, newQuantity);
   };

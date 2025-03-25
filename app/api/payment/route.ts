@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
     // Parse request body
     const body = await req.json();
     const { amount } = body;
-    console.log("Payment amount:", amount);
 
     if (!amount || amount <= 0) {
       return NextResponse.json({ error: "Invalid amount" }, { status: 400 });
@@ -35,7 +34,6 @@ export async function POST(req: NextRequest) {
     );
 
     const data = await response.json();
-    console.log("Payment response:", data);
 
     // Return response from the backend API
     return NextResponse.json(data, { status: response.status });
