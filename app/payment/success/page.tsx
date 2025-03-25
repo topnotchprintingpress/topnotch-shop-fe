@@ -4,10 +4,11 @@ import { Suspense } from "react";
 import Loading from "@/app/loading";
 
 function page() {
-  return;
-  <Suspense fallback={<Loading />}>
-    <PaymentSuccessPage />
-  </Suspense>;
+  return (
+    <Suspense fallback={<Loading />}>
+      <PaymentSuccessPage />
+    </Suspense>
+  );
 }
 
 export default page;
