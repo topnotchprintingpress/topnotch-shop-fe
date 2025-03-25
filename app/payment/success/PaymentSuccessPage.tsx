@@ -43,9 +43,15 @@ export default function PaymentSuccessPage() {
       } finally {
         setIsVerifying(false);
       }
+
+      setTimeout(() => {
+        router.push("/");
+        setTimeout(() => window.location.reload(), 500);
+      }, 2000);
     };
 
     verifyPayment();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference, router]);
 
@@ -53,7 +59,7 @@ export default function PaymentSuccessPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center px-4 py-12">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 text-center">
         {isVerifying ? (
-          <div className="text-gray-600">Verifying payment...</div>
+          <div className="text-gray-600 rounded-3xl">Verifying payment...</div>
         ) : verificationStatus === "success" ? (
           <>
             {/* Success Icon */}

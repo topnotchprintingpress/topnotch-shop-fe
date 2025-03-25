@@ -30,6 +30,8 @@ export default function ResetPasswordConfirm() {
     }
 
     try {
+      console.log("UID", uid);
+      console.log("Token", token);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}reset/confirm/${uid}/${token}/`,
         {
@@ -114,7 +116,7 @@ export default function ResetPasswordConfirm() {
               </div>
               <div className="mt-6">
                 <a
-                  href="/login"
+                  href="/signin"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-3xl shadow-sm text-white bg-[#350203]  hover:bg-[#ff8080]/50 hover:border-[#350203] hover:text-[#350203] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Go to Login

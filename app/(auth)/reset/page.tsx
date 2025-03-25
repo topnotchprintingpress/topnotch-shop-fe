@@ -153,7 +153,7 @@ export default function ResetPassword() {
           </div>
           <div className="mt-6 text-center">
             <a
-              href="/login"
+              href="/signin"
               className="font-medium text-[#350203] hover:text-blue-500"
             >
               Back to login

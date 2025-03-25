@@ -7,6 +7,7 @@ import GoogleSignInButton from "../buttons/Googlebtn";
 import GoogleSignInError from "../buttons/GoogleSignInError";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const {
@@ -18,6 +19,7 @@ export default function RegisterForm() {
   });
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
+  const router = useRouter();
 
   const onSubmit = async (data: RegisterInput) => {
     try {
@@ -31,7 +33,7 @@ export default function RegisterForm() {
       );
 
       if (response.ok) {
-        alert("Registration successful!");
+        router.push("/signin");
       }
     } catch (error) {
       console.error("Error:", error);

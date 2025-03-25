@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
     // Parse request body
     const body = await req.json();
     const { amount } = body;
+    console.log("Payment amount:", amount);
 
     if (!amount || amount <= 0) {
       return NextResponse.json({ error: "Invalid amount" }, { status: 400 });

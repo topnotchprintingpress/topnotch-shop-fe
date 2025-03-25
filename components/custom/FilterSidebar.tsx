@@ -2,7 +2,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const FilterSidebar = ({ isOpen, toggleFilters }) => {
+interface FilterSidebarProps {
+  isOpen: boolean;
+  toggleFilters: () => void;
+}
+
+const FilterSidebar = ({ isOpen, toggleFilters }: FilterSidebarProps) => {
   const [selectedFilters, setSelectedFilters] = useState({
     priceRange: [0, 100],
     ratings: null,
