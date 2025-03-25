@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, RegisterInput } from "@/lib/schemas";
 import PendingSubmitButton from "../buttons/PendingSubmitButton";
 import GoogleSignInButton from "../buttons/Googlebtn";
-import GoogleSignInError from "../buttons/GoogleSignInError";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -136,7 +135,6 @@ export default function RegisterForm() {
 
           <div className="space-y-4">
             <GoogleSignInButton />
-            <GoogleSignInError />
           </div>
 
           <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
