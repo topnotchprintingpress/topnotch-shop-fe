@@ -17,10 +17,6 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
       console.warn("Session error detected:", session.error);
       signOut({ callbackUrl: "/signin" }); // Log the user out
     }
-
-    if (!session) {
-      router.push("/signin");
-    }
   }, [session, status, router]);
 
   if (status === "loading") {
