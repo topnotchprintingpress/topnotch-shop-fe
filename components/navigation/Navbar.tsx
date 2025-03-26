@@ -69,7 +69,7 @@ function Navbar() {
             </div>
             <div className="hidden md:flex items-center">
               <Gift size={14} className="mr-1" />
-              <span>Free shipping on orders over KES 5000</span>
+              <span>Free shipping on order with 10 books or more</span>
             </div>
           </div>
           <div className="flex items-center space-x-4">

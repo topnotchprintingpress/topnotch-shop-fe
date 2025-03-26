@@ -82,23 +82,35 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/books" className="text-sm hover:text-primary">
+                <Link
+                  href="/categories/books"
+                  className="text-sm hover:text-primary"
+                >
                   Books
                 </Link>
               </li>
               <li>
-                <Link href="/authors" className="text-sm hover:text-primary">
-                  Authors
+                <Link
+                  href="/categories/stationery"
+                  className="text-sm hover:text-primary"
+                >
+                  Stationery
                 </Link>
               </li>
               <li>
-                <Link href="/events" className="text-sm hover:text-primary">
-                  Events
+                <Link
+                  href="/privacy-policy"
+                  className="text-sm hover:text-primary"
+                >
+                  Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-sm hover:text-primary">
-                  Blog
+                <Link
+                  href="/terms-of-service"
+                  className="text-sm hover:text-primary"
+                >
+                  Terms of Service
                 </Link>
               </li>
             </ul>
@@ -112,17 +124,23 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-sm hover:text-primary">
-                  FAQ
+                <Link href="/about" className="text-sm hover:text-primary">
+                  About
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-sm hover:text-primary">
+                <Link
+                  href="/shipping-and-returns-policy"
+                  className="text-sm hover:text-primary"
+                >
                   Shipping
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="text-sm hover:text-primary">
+                <Link
+                  href="/shipping-and-returns-policy"
+                  className="text-sm hover:text-primary"
+                >
                   Returns
                 </Link>
               </li>

@@ -44,10 +44,10 @@ export default function ProductNotFound() {
       <p className="text-[#350203]/60 mt-8 text-sm text-center max-w-md">
         If you believe this is an error, please contact our customer support at
         <a
-          href="mailto:support@topnotchpublishers.com"
+          href="mailto:admin@topnotchprintingpress.com"
           className="underline ml-1"
         >
-          support@topnotchpublishers.com
+          admin@topnotchprintingpress.comm
         </a>
       </p>
     </div>

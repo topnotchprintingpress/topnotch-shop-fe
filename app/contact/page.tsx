@@ -55,10 +55,10 @@ function ContactPage() {
               <div>
                 <h6 className="md:text-sm">Send Us an Email:</h6>
                 <Link
-                  href="mailto:support@topnotchpublishers.com"
+                  href="mailto:admin@topnotchprintingpress.com"
                   className="font-bold text-sm"
                 >
-                  support@topnotchpublishers.com
+                  admin@topnotchprintingpress.com
                 </Link>
               </div>
             </div>
