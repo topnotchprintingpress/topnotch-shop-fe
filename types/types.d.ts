@@ -62,7 +62,7 @@ export interface Cart {
 }
 
 export interface ProductDetail {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export interface User {
