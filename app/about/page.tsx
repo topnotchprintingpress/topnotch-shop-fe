@@ -1,6 +1,29 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us - Topnotch Printing Press",
+  description:
+    "Learn more about Topnotch Printing Press, a leading provider of educational materials. We specialize in books, stationery, tech, and lab equipment, helping educators and learners succeed.",
+
+  openGraph: {
+    title: "About Us - Topnotch Printing Press",
+    description:
+      "Topnotch Printing Press is dedicated to providing high-quality educational materials, including books, stationery, tech, and lab equipment. Our mission is to support education and innovation.",
+    url: `${process.env.NEXT_SITE_URL}/about`,
+    images: [
+      {
+        url: "/Logo1.png",
+        width: 1200,
+        height: 630,
+        alt: "About Topnotch Printing Press",
+      },
+    ],
+    type: "website",
+  },
+};
 
 function AboutPage() {
   return (

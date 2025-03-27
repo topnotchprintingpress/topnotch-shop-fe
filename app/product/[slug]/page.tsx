@@ -28,6 +28,49 @@ const fetcher = async (url: string) => {
   return prodDetails.length > 0 ? prodDetails[0] : null;
 };
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const slug = params.slug;
+  const product = await fetcher(
+    `${process.env.NEXT_PUBLIC_API_URL}/products?slug=${slug}`
+  );
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+      description: "The requested product could not be found.",
+    };
+  }
+
+  return {
+    title: product.title,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      url: `${process.env.NEXT_SITE_URL}/product/${product.slug}`,
+      images: [
+        {
+          url: product.images?.[0]?.image || "/Logo1.png",
+          width: 1200,
+          height: 630,
+          alt: product.title,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: product.description,
+      images: [product.images?.[0]?.image || "/Logo1.png"],
+    },
+  };
+}
+
 const ProductDetailsPage: React.FC<ProductDetail> = ({ params }) => {
   const { cart, updateCart, addToCart } = useCartContext();
   const router = useRouter();

@@ -5,6 +5,88 @@ import Pagination from "@/components/navigation/PaginationComponent";
 import { ProductBase } from "@/types/types";
 import FilterBar from "@/components/navigation/FilterBar";
 
+export async function generateMetadata({
+  params: paramsPromise,
+  searchParams: searchParamsPromise,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{
+    page?: string;
+    min_price?: string;
+    max_price?: string;
+  }>;
+}) {
+  const params = await paramsPromise;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const searchParams = await searchParamsPromise;
+
+  let title = "Products";
+  let description = "Explore our wide range of products.";
+
+  // Determine metadata based on the category (slug)
+  switch (params.slug) {
+    case "books":
+      title = "Books";
+      description = "Discover our collection of books across various genres.";
+      break;
+    case "technology":
+      title = "Technology";
+      description = "Shop the latest gadgets and tech accessories.";
+      break;
+    case "stationery":
+      title = "Stationery";
+      description = "Find high-quality stationery for all your needs.";
+      break;
+    case "lab-equipment":
+      title = "Lab Equipment";
+      description =
+        "Explore lab equipment for educational and professional use.";
+      break;
+    case "best-sellers":
+      title = "Best Sellers";
+      description = "Check out our top-selling products.";
+      break;
+    case "new-arrivals":
+      title = "New Arrivals";
+      description = "Discover the latest products added to our store.";
+      break;
+    case "deals-and-offers":
+      title = "Deals & Offers";
+      description = "Take advantage of exclusive discounts and deals.";
+      break;
+    default:
+      return {
+        title: "Page Not Found",
+        description: "The requested page could not be found.",
+      };
+  }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${process.env.NEXT_SITE_URL}/categories/${params.slug}`,
+      images: [
+        {
+          url: `/Logo1.png`,
+          width: 1200,
+          height: 630,
+          alt: `${title} - Explore Now`,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`/Logo1.png`], // Replace with actual image paths
+    },
+  };
+}
+
 export default async function ProductCategoryPage({
   params: paramsPromise,
   searchParams: searchParamsPromise,

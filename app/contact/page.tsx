@@ -2,6 +2,28 @@ import React from "react";
 import Link from "next/link";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoIosMailUnread } from "react-icons/io";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us - Topnotch Printing Press",
+  description:
+    "Get in touch with Topnotch Printing Press for any questions or inquiries about our educational materials, books, stationery, tech, and lab equipment. We're here to help!",
+  openGraph: {
+    title: "Contact Us - Topnotch Printing Press",
+    description:
+      "Reach out to Topnotch Printing Press for inquiries about our educational materials, books, stationery, tech, and lab equipment. We’re here to assist you.",
+    url: `${process.env.NEXT_SITE_URL}/contact`,
+    images: [
+      {
+        url: "/Logo1.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact Topnotch Printing Press",
+      },
+    ],
+    type: "website",
+  },
+};
 
 function ContactPage() {
   return (
