@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
-  debug: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -132,6 +131,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (account?.provider === "google") {
+        console.log("Authorization Code:", account.code); // Log the code
         const { access_token: access, id_token: idToken, code } = account;
 
         try {
@@ -152,12 +152,9 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!response.ok) {
-            console.error(
-              "Failed to sign in:",
-              response.status,
-              response.statusText
-            );
-            return false;
+            const errorData = await response.json();
+            console.error("Backend error:", errorData);
+            throw new Error(errorData.detail || "Failed to sign in");
           }
 
           const data = await response.json();
