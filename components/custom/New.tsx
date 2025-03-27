@@ -68,7 +68,7 @@ function New() {
           {latest.map((item) => (
             <Card
               key={item.id}
-              className="relative border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[74vh] 2xl:h-[38vh] transition-all duration-300 hover:shadow-lg overflow-hidden group"
+              className="relative border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[74vh] 2xl:h-[45vh] transition-all duration-300 hover:shadow-lg overflow-hidden group"
             >
               <CardHeader className="relative p-0 overflow-hidden">
                 <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-0.5 rounded-full text-xs md:text-sm font-bold shadow-md">
