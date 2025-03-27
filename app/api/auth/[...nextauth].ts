@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
+  debug: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -49,7 +50,6 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      checks: ["none"],
       authorization: {
         params: {
           scope: "openid email profile",
@@ -64,7 +64,18 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
-
+  cookies: {
+    state: {
+      name: "next-auth.state",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: "/",
+        domain: ".topnotchprintingpress.com",
+      },
+    },
+  },
   session: {
     strategy: "jwt",
   },
@@ -128,9 +139,8 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async redirect({ url, baseUrl }) {
-      return baseUrl;
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
 
     async jwt({ token, user, account }) {
