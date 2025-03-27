@@ -1,0 +1,30 @@
+# *
+User-agent: *
+Allow: /
+Allow: /about/
+Allow: /contact/
+Allow: /products/
+Allow: /categories/
+
+# *
+User-agent: *
+Disallow: /server-sitemap-index.xml
+Disallow: /ocean/admin
+Disallow: /signin
+Disallow: /reset
+Disallow: /checkout
+Disallow: /my_account/dashboard
+Disallow: /payment/success
+Disallow: /signup
+Disallow: /my_account/orders
+Disallow: /search
+Disallow: /shopping-cart
+Disallow: /api/
+Disallow: /__next/
+Disallow: /shopping_cart/
+
+# Host
+Host: https://topnotchprintingpress.com
+
+# Sitemaps
+Sitemap: https://topnotchprintingpress.com/sitemap.xml
