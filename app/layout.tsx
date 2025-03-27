@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
+  alternates: {
+    canonical: `${process.env.NEXT_SITE_URL}/`,
+  },
 };
 
 async function fetchProducts(

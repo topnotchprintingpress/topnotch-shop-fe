@@ -68,6 +68,9 @@ export async function generateMetadata({
       description: product.description,
       images: [product.images?.[0]?.image || "/Logo1.png"],
     },
+    alternates: {
+      canonical: `${process.env.NEXT_SITE_URL}/product/${product.slug}`,
+    },
   };
 }
 

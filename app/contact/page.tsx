@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
+  alternates: {
+    canonical: `${process.env.NEXT_SITE_URL}/contact`,
+  },
 };
 
 function ContactPage() {

@@ -23,7 +23,6 @@ export async function generateMetadata({
   let title = "Products";
   let description = "Explore our wide range of products.";
 
-  // Determine metadata based on the category (slug)
   switch (params.slug) {
     case "books":
       title = "Books";
@@ -83,6 +82,9 @@ export async function generateMetadata({
       title,
       description,
       images: [`/Logo1.png`], // Replace with actual image paths
+    },
+    alternates: {
+      canonical: `${process.env.NEXT_SITE_URL}/categories/${params.slug}`,
     },
   };
 }
