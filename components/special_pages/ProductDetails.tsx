@@ -20,6 +20,7 @@ import { useCartContext } from "@/providers/CartContext";
 import { useRouter } from "next/navigation";
 import { CartItem } from "@/types/types";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 // Fetcher function
 const fetcher = async (url: string) => {
@@ -34,7 +35,16 @@ const ProductDetailsClient = () => {
   const { cart, updateCart, addToCart } = useCartContext();
   const router = useRouter();
   const { slug } = params;
+  const { data: session } = useSession();
 
+  const handleAddToCart = (productId: number) => {
+    if (!session) {
+      router.push("/signin");
+      return;
+    }
+
+    addToCart(productId, 1);
+  };
   // Fetch product details
   const {
     data: product,
@@ -57,10 +67,13 @@ const ProductDetailsClient = () => {
     : [];
 
   const updateQuantity = (itemId: number, change: number) => {
+    if (!session) {
+      router.push("/signin");
+      return;
+    }
+
     const currentItem = cartItems.find((item) => item.id === itemId);
     if (!currentItem) {
-      // Item not in cart, add it first
-
       addToCart(itemId, 1);
       return;
     }
@@ -280,7 +293,7 @@ const ProductDetailsClient = () => {
               {/* Shipping Info */}
               <div className="flex items-center mb-8 text-sm text-[#2b0909]/80">
                 <Truck className="w-4 h-4 mr-2" />
-                <span>Free shipping on orders over $100</span>
+                <span>Free shipping on all orders with 10 books or more</span>
               </div>
 
               {/* Action Buttons */}
@@ -292,8 +305,8 @@ const ProductDetailsClient = () => {
                 >
                   <Button
                     variant="default"
-                    className="w-full bg-[#2b0909] hover:bg-[#2b0909]/90 text-white flex items-center justify-center py-6"
-                    onClick={() => addToCart(product.id, 1)}
+                    className="w-full bg-[#2b0909] hover:bg-[#2b0909]/90 text-white rounded-3xl flex items-center justify-center py-6"
+                    onClick={() => handleAddToCart(product.id)}
                   >
                     <ShoppingCart className="w-5 h-5 mr-2" />
                     Add to Cart
@@ -307,9 +320,9 @@ const ProductDetailsClient = () => {
                 >
                   <Button
                     variant="outline"
-                    className="w-full border-[#2b0909] text-[#2b0909] hover:bg-[#2b0909]/5 py-6"
+                    className="w-full border-[#2b0909] text-[#2b0909] rounded-3xl hover:bg-[#2b0909]/5 py-6"
                     onClick={() => {
-                      addToCart(product.id, 1);
+                      handleAddToCart(product.id);
                       router.push("/checkout");
                     }}
                   >

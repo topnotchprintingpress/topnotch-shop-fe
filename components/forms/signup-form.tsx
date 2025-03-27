@@ -33,7 +33,6 @@ export default function RegisterForm() {
       );
 
       const result = await response.json();
-      console.log("API Response:", result);
 
       if (response.ok) {
         router.push("/signin");
