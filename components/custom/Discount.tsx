@@ -61,9 +61,9 @@ export default function HeroOffers() {
             Special Offers
           </h3>
         </div>
-        <div className="absolute right-4 md:right-60 flex items-center">
+        <div className="absolute right-40 md:right-52 flex items-center">
           <Link
-            className="border-b hover:border-none"
+            className="border-b hover:border-none text-xs md:text-base"
             href="/categories/deals-and-offers"
           >
             View more

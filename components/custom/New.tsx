@@ -54,9 +54,9 @@ function New() {
             What{"'"}s New?
           </h3>
         </div>
-        <div className="absolute right-4 md:right-16 flex items-center">
+        <div className="absolute right-12 flex items-center">
           <Link
-            className="border-b hover:border-none"
+            className="border-b hover:border-none text-xs md:text-base"
             href="/categories/new-arrivals"
           >
             View more

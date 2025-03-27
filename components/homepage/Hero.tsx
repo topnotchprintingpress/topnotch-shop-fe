@@ -59,15 +59,15 @@ function Hero() {
       <div className="w-full mt-2 md:mt-4 mb-6">
         <Categories />
       </div>
-      <div className="w-full flex justify-between items-center max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
+      <div className="w-full relative flex justify-between items-center max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909]">
         <div>
           <h3 className="text-sm md:text-base xl:text-xl border-[#2b0909] w-max px-1 tracking-wider font-bold">
             Best Sellers{" "}
           </h3>
         </div>
-        <div className="absolute right-4 md:right-60 flex items-center">
+        <div className="absolute right-40 md:right-52 flex items-center">
           <Link
-            className="border-b hover:border-none"
+            className="border-b hover:border-none text-xs md:text-base"
             href="/categories/best-sellers"
           >
             View more
