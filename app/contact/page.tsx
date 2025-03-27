@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us - Topnotch Printing Press",
   description:
-    "Get in touch with Topnotch Printing Press for any questions or inquiries about our educational materials, books, stationery, tech, and lab equipment. We're here to help!",
+    "Get in touch with Topnotch Printing Press for any questions or inquiries about our educational materials, books, stationery, tech, and lab equipment. We're here to help you!",
   metadataBase: new URL(`${process.env.NEXT_SITE_URL}`),
   openGraph: {
     title: "Contact Us - Topnotch Printing Press",
