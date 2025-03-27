@@ -132,7 +132,7 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (account?.provider === "google") {
-        const { access_token: access, id_token: idToken } = account;
+        const { access_token: access, id_token: idToken, code } = account;
 
         try {
           const response = await fetch(
@@ -145,6 +145,7 @@ export const authOptions: NextAuthOptions = {
               body: JSON.stringify({
                 access_token: access,
                 id_token: idToken,
+                code: code,
               }),
               credentials: "include",
             }
