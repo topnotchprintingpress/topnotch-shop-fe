@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
+  debug: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -63,63 +64,6 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-    callbackUrl: {
-      name: `__Secure-next-auth.callback-url`,
-      options: {
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-    csrfToken: {
-      name: `__Host-next-auth.csrf-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-    pkceCodeVerifier: {
-      name: `__Secure-next-auth.pkce.code_verifier`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        maxAge: 900,
-      },
-    },
-    state: {
-      name: `__Secure-next-auth.state`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        maxAge: 900,
-      },
-    },
-    nonce: {
-      name: `__Secure-next-auth.nonce`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-  },
   session: {
     strategy: "jwt",
   },
@@ -132,7 +76,7 @@ export const authOptions: NextAuthOptions = {
 
       if (account?.provider === "google") {
         console.log("Authorization Code:", account.code); // Log the code
-        const { access_token: access, id_token: idToken, code } = account;
+        const { access_token: access, id_token: idToken } = account;
 
         try {
           const response = await fetch(
@@ -145,7 +89,6 @@ export const authOptions: NextAuthOptions = {
               body: JSON.stringify({
                 access_token: access,
                 id_token: idToken,
-                code: code,
               }),
               credentials: "include",
             }
