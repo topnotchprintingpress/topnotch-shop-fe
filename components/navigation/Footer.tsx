@@ -38,14 +38,19 @@ export default function Footer() {
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="mb-8 md:mb-0">
-            <div className="flex items-center mb-4">
-              <Image
-                src="/logo/Logo1.png"
-                alt="Company Logo"
-                width={120}
-                height={120}
-                className="mr-2"
-              />
+            <div className="shrink-0">
+              <Link className="flex items-center gap-2 mb-3" href="/">
+                <Image
+                  src="/logo/logo.png"
+                  width={130}
+                  height={45}
+                  alt="Topnotch Logo"
+                  className="h-12 md:h-20 w-auto"
+                />
+                <h4 className="logo-name text-base font-black text-[#350203] leading-4">
+                  Topnotch <br /> Printing <br /> Press
+                </h4>
+              </Link>
             </div>
             <address className="not-italic text-sm mb-4">
               A104, Muchane Avenue
@@ -166,8 +171,8 @@ export default function Footer() {
         </div>
         <div className="border-t border-muted-foreground/10 mt-8 pt-8 text-center text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Topnotch Publishers. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Topnotch Printing Press. All
+            rights reserved.
           </p>
         </div>
       </div>

@@ -48,11 +48,11 @@ function ContactPage() {
               Trusted Partner for Educational Resources
             </h2>
             <p className="mt-4">
-              At Topnotch Publishers, we specialize in providing high-quality
-              books, stationery, and laboratory equipment to support your
-              academic and professional needs. Whether you{"'"}re a student,
-              educator, or researcher, we{"'"}re here to assist you. Have
-              questions about our products or services? Reach out to us—we{"'"}
+              At Topnotch, we specialize in providing high-quality books,
+              stationery, and laboratory equipment to support your academic and
+              professional needs. Whether you{"'"}re a student, educator, or
+              researcher, we{"'"}re here to assist you. Have questions about our
+              products or services? Reach out to us—we{"'"}
               re dedicated to helping you succeed.
             </p>
           </div>

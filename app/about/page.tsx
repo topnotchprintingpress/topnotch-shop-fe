@@ -74,17 +74,17 @@ function AboutPage() {
           <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
             <div className="mt-10 lg:mt-0">
               <span className="block mb-2 text-base font-semibold text-[#3502038c]">
-                Why Choose Topnotch Publishers
+                Why Choose Topnotch Printing Press
               </span>
               <h2 className="mb-5 text-3xl font-bold text-dark dark:text-white sm:text-[40px]/[48px]">
                 Your One-Stop Shop for Educational Excellence
               </h2>
               <p className="mb-5 text-base text-body-color dark:text-dark-6">
-                At Topnotch Publishers, we are dedicated to providing
-                high-quality educational resources that empower students,
-                educators, and institutions. Our wide range of products includes
-                textbooks, premium stationery, and state-of-the-art laboratory
-                equipment, all designed to meet the diverse needs of learners.
+                At Topnotch, we are dedicated to providing high-quality
+                educational resources that empower students, educators, and
+                institutions. Our wide range of products includes textbooks,
+                premium stationery, and state-of-the-art laboratory equipment,
+                all designed to meet the diverse needs of learners.
               </p>
               <p className="mb-8 text-base text-body-color dark:text-dark-6">
                 Whether you{"'"}re a student preparing for exams, a teacher

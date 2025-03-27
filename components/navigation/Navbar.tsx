@@ -86,14 +86,20 @@ function Navbar() {
             {/* Branding Section */}
             <div className="flex items-center space-x-8">
               <div className="shrink-0">
-                <Link href="/">
+                <Link
+                  className="flex justify-center items-center gap-2"
+                  href="/"
+                >
                   <Image
-                    src="/logo/Logo1.png"
+                    src="/logo/logo.png"
                     width={130}
                     height={45}
                     alt="Topnotch Logo"
-                    className="h-12 md:h-16 w-auto"
+                    className="h-12 md:h-20 w-auto"
                   />
+                  <h4 className="logo-name text-base font-black text-[#350203] leading-4">
+                    Topnotch <br /> Printing <br /> Press
+                  </h4>
                 </Link>
               </div>
               {/* Desktop Menu */}
