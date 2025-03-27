@@ -371,9 +371,8 @@ const ProductDetailsClient = () => {
                   Shipping Information
                 </h3>
                 <p>
-                  We offer free standard shipping on all orders over KES 10000.
-                  Standard shipping taKES 3-5 business days. Express shipping
-                  options are available at checkout.
+                  We offer free standard shipping on all orders with 10 books or
+                  more. Standard shipping taKES 3-5 business days.
                 </p>
 
                 <h3 className="text-lg font-semibold text-[#2b0909] mt-4">
