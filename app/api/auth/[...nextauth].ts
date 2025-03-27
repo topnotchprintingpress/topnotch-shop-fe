@@ -86,6 +86,7 @@ export const authOptions: NextAuthOptions = {
                 access_token: access,
                 id_token: idToken,
               }),
+              credentials: "include",
             }
           );
 
