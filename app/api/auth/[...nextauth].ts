@@ -78,7 +78,7 @@ export const authOptions: NextAuthOptions = {
 
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/topnotch/google/login/`,
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}topnotch/google/login/`,
             {
               method: "POST",
               headers: {
