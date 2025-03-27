@@ -126,27 +126,27 @@ export default function RegisterForm() {
           </div>
           <PendingSubmitButton />
           {/* {serverError && <p className="text-red-700">{serverError}</p>} */}
-
-          <div className="flex items-center my-4">
-            <div className="flex-grow border-t border-gray-300"></div>
-            <span className="mx-2 text-gray-500">or</span>
-            <div className="flex-grow border-t border-gray-300"></div>
-          </div>
-
-          <div className="space-y-4">
-            <GoogleSignInButton />
-          </div>
-
-          <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            Already have an account?&nbsp;
-            <a
-              href="/signin"
-              className="font-medium text-[#261b72] hover:underline"
-            >
-              Sign in
-            </a>
-          </p>
         </form>
+
+        <div className="flex items-center my-4">
+          <div className="flex-grow border-t border-gray-300"></div>
+          <span className="mx-2 text-gray-500">or</span>
+          <div className="flex-grow border-t border-gray-300"></div>
+        </div>
+
+        <div className="space-y-4">
+          <GoogleSignInButton />
+        </div>
+
+        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Already have an account?&nbsp;
+          <a
+            href="/signin"
+            className="font-medium text-[#261b72] hover:underline"
+          >
+            Sign in
+          </a>
+        </p>
       </div>
     </div>
   );
