@@ -97,7 +97,7 @@ function Navbar() {
                     alt="Topnotch Logo"
                     className="h-12 md:h-20 w-auto"
                   />
-                  <h4 className="logo-name text-base font-black text-[#350203] leading-4">
+                  <h4 className="logo-name text-xs md:text-base font-black text-[#350203] leading-[0.8rem] md:leading-4 tracking-widest md:tracking-normal">
                     Topnotch <br /> Printing <br /> Press
                   </h4>
                 </Link>
