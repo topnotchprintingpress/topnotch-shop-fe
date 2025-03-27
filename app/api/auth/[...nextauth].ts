@@ -53,8 +53,6 @@ export const authOptions: NextAuthOptions = {
         params: {
           scope: "openid email profile",
           prompt: "select_account",
-          access_type: "offline",
-          response_type: "code",
         },
       },
     }),
