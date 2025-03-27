@@ -31,8 +31,13 @@ export default function RegisterForm() {
         }
       );
 
+      const result = await response.json();
+      console.log("API Response:", result);
+
       if (response.ok) {
         router.push("/signin");
+      } else {
+        alert(result?.detail || "Registration failed");
       }
     } catch (error) {
       console.error("Error:", error);
