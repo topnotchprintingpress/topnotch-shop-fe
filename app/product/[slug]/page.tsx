@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title: product.title,
     description: product.description,
+    metadataBase: new URL(`${process.env.NEXT_SITE_URL}`),
     openGraph: {
       title: product.title,
       description: product.description,

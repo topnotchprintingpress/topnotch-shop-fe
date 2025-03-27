@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     "Explore a wide range of educational materials at Topnotch Printing Press. From books authored by us to stationery, tech, and lab equipment, we have everything you need for learning and teaching.",
   keywords:
     "Topnotch Printing Press, educational materials, books, stationery, tech equipment, lab equipment, online shopz, High School Kenya",
+  metadataBase: new URL(`${process.env.NEXT_SITE_URL}`),
   openGraph: {
     title: "Topnotch Printing Press - Educational Materials & More",
     description:

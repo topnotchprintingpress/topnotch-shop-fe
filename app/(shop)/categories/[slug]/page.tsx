@@ -63,6 +63,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    metadataBase: new URL(`${process.env.NEXT_SITE_URL}`),
     openGraph: {
       title,
       description,

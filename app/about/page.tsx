@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "About Us - Topnotch Printing Press",
   description:
     "Learn more about Topnotch Printing Press, a leading provider of educational materials. We specialize in books, stationery, tech, and lab equipment, helping educators and learners succeed.",
-
+  metadataBase: new URL(`${process.env.NEXT_SITE_URL}`),
   openGraph: {
     title: "About Us - Topnotch Printing Press",
     description:
