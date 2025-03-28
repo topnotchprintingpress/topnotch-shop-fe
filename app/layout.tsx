@@ -7,8 +7,6 @@ import { AppWrapper } from "@/providers/ProductProvider";
 import { Providers } from "@/providers/SessionProvider";
 import { CartProvider } from "@/providers/CartContext";
 import { ShippingProvider } from "@/providers/ShippingContext";
-import { Suspense } from "react";
-import Loading from "./loading";
 import AuthWrapper from "@/components/special_pages/AuthWrapper";
 
 export const metadata: Metadata = {
@@ -100,19 +98,17 @@ export default async function RootLayout({
       <ShippingProvider>
         <CartProvider>
           <html lang="en">
-            <Suspense fallback={<Loading />}>
-              <body>
-                <Navbar />
-                <AppWrapper
-                  products={products}
-                  banners={banners}
-                  totalPages={totalPages}
-                >
-                  <AuthWrapper>{children}</AuthWrapper>
-                </AppWrapper>
-                <Footer />
-              </body>
-            </Suspense>
+            <body>
+              <Navbar />
+              <AppWrapper
+                products={products}
+                banners={banners}
+                totalPages={totalPages}
+              >
+                <AuthWrapper>{children}</AuthWrapper>
+              </AppWrapper>
+              <Footer />
+            </body>
           </html>
         </CartProvider>
       </ShippingProvider>
