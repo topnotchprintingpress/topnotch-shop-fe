@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuShortcut,
 } from "@/components/ui/dropdown-menu";
-import { Gift, Home, Phone, Receipt, Star, Tag } from "lucide-react";
+import { Gift, Home, Phone, Receipt, Star, Tag, Video } from "lucide-react";
 import { BsMenuButtonWideFill } from "react-icons/bs";
 
 function Navbar() {
@@ -54,6 +54,11 @@ function Navbar() {
       href: "/categories/deals-and-offers",
       label: "Deals & Offers",
       icon: <Receipt size={16} />,
+    },
+    {
+      href: "/learning-resources",
+      label: "Videos",
+      icon: <Video size={16} />,
     },
   ];
 

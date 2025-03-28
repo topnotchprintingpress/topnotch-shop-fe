@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       "localhost",
       "lon1.digitaloceanspaces.com",
       "lh3.googleusercontent.com",
+      "i.ytimg.com",
     ],
   },
 };
