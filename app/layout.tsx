@@ -57,7 +57,7 @@ async function fetchProducts(
     const data = await res.json();
     const products = data.results;
 
-    const totalPages = all ? 1 : Math.ceil(data.count / 6);
+    const totalPages = all ? 1 : Math.ceil(data.count / 12);
 
     return { products, totalPages };
   } catch (error) {
@@ -90,7 +90,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const page = 1;
-  const pageSize = 6;
+  const pageSize = 12;
   const { products, totalPages } = await fetchProducts(page, pageSize);
   const banners = await fetchBanners();
   return (

@@ -89,7 +89,7 @@ function Hero() {
                 className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[66vh] 2xl:h-[38vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[58vh] xl:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-4">
                       {item.discount ? (
                         <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm  font-bold">

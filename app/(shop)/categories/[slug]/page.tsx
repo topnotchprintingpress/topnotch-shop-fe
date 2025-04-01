@@ -104,7 +104,7 @@ export default async function ProductCategoryPage({
   const params = await paramsPromise;
   const searchParams = await searchParamsPromise;
   const page = Number(searchParams?.page) || 1;
-  const pageSize = 6;
+  const pageSize = 12;
   const min_price = searchParams?.min_price
     ? Number(searchParams.min_price)
     : undefined;
