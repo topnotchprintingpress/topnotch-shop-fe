@@ -65,7 +65,7 @@ function Hero() {
             Best Sellers{" "}
           </h3>
         </div>
-        <div className="absolute right-40 md:right-52 flex items-center">
+        <div className="absolute right-40 md:right-52 hidden md:flex items-center">
           <Link
             className="border-b hover:border-none text-xs md:text-base"
             href="/categories/best-sellers"
@@ -162,6 +162,14 @@ function Hero() {
           <CarouselPrevious className="bg-[#ffbfbf] text-[#2b0909] absolute -top-9 md:-top-10 -translate-y-1/2 right-20 md:right-28 transform hover:bg-[#e67373] transition-colors" />
           <CarouselNext className="bg-[#ffbfbf] text-[#2b0909] absolute -top-9 md:-top-10 -translate-y-1/2 right-2 md:right-8 transform hover:bg-[#e67373] transition-colors" />
         </Carousel>
+      </div>
+      <div className="flex md:hidden items-center mt-2">
+        <Link
+          className="border border-[#350203] hover:bg-[#350203] hover:text-white  rounded-xl px-8 py-1 text-sm"
+          href="/categories/best-sellers"
+        >
+          View more
+        </Link>
       </div>
     </section>
   );

@@ -43,7 +43,7 @@ const ProductList: React.FC<ProductListProps> = ({
   }
 
   return (
-    <section className="bg-white w-full px-4 md:px-8 py-0 md:py-16 lg:py-0 flex flex-col items-center justify-center my-0 md:my-4">
+    <section className="bg-white w-full px-10 md:px-8 py-0 md:py-16 lg:py-0 flex flex-col items-center justify-center my-0 md:my-4">
       <div className="w-full max-w-7xl xl:max-w-full mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-0">
         {products.map((item) => (
           <div className="p-0" key={item.id}>

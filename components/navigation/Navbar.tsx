@@ -234,18 +234,15 @@ function Navbar() {
           >
             <ul className="text-gray-900 dark:text-white text-sm font-bold space-y-3">
               {menuItems.map((item) => (
-                <li
-                  key={item.href}
-                  className="flex items-center justify-between gap-8"
-                >
+                <li key={item.href} className="">
                   <Link
                     href={item.href}
-                    className="hover:text-primary-700 dark:hover:text-primary-500"
+                    className="hover:text-primary-700 dark:hover:text-primary-500 flex items-center justify-between gap-8"
                     onClick={handleNav}
                   >
                     {item.label}
+                    {item.icon}
                   </Link>
-                  {item.icon}
                 </li>
               ))}
             </ul>
