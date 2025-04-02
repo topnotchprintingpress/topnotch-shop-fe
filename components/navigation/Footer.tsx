@@ -156,19 +156,19 @@ export default function Footer() {
             <ul className="text-sm">
               <li className="flex gap-2">
                 <span className="font-semibold">Sales:</span>
-                <p>254 742 954513</p>
+                <p>+254 792 693635</p>
               </li>
               <li className="flex gap-2">
-                <span className="font-semibold">Kisumu:</span>
-                <p>254 742 954513</p>
+                <span className="font-semibold">Nairobi:</span>
+                <p>+254 721 354045</p>
               </li>
               <li className="flex gap-2">
                 <span className="font-semibold">Kikuyu:</span>
-                <p>254 742 954513</p>
+                <p>+254 792 693635</p>
               </li>
               <li className="flex gap-2">
                 <span className="font-semibold">CBD:</span>
-                <p>254 742 954513</p>
+                <p>+254 721 354045</p>
               </li>
             </ul>
           </div>

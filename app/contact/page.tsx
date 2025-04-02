@@ -66,10 +66,10 @@ function ContactPage() {
               <div>
                 <h6 className="md:text-sm">Call Us On:</h6>
                 <Link
-                  href="tel:+254742954513"
+                  href="tel:+254792693635"
                   className="font-bold text-nowrap text-sm"
                 >
-                  +254 742 954513
+                  +254 792 693635
                 </Link>
               </div>
             </div>
