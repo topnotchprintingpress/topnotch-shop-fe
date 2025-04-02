@@ -68,11 +68,9 @@ function Navbar() {
       <div className="bg-[#2b0909] text-white px-4 md:px-12 2xl:px-0 py-2 text-sm">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-8">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-xs md:text-sm">
               <Phone size={14} className="mr-2" />
               <span>+254 792 693635</span>
-              <div className="bg-white w-0.5 h-2"></div>
-              <span>+254 721 354045</span>
             </div>
             <div className="hidden md:flex items-center">
               <Gift size={14} className="mr-1" />
@@ -82,7 +80,7 @@ function Navbar() {
           <div className="flex items-center space-x-4">
             <Link
               href="mailto:admin@topnotchprintingpress.com"
-              className="text-sm"
+              className="text-xs md:text-sm"
             >
               admin@topnotchprintingpress.com
             </Link>
