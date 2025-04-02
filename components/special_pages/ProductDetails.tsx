@@ -224,8 +224,8 @@ const ProductDetailsClient = () => {
               <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
 
               {product.discount ? (
-                <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
-                  <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center md:mb-4">
+                  <h3 className="text-lg md:text-2xl font-bold truncate tracking-tighter text-[#2b0909]">
                     KES{" "}
                     {(
                       product.price *
@@ -235,7 +235,7 @@ const ProductDetailsClient = () => {
                       maximumFractionDigits: 2,
                     })}
                   </h3>
-                  <span className="text-xs sm:text-sm text-gray-500 line-through">
+                  <span className="text-xs sm:text-sm md:text-base text-gray-500 line-through">
                     KES{" "}
                     {product.price.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
@@ -244,7 +244,7 @@ const ProductDetailsClient = () => {
                   </span>
                 </div>
               ) : (
-                <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                <h3 className="text-lg md:text-2xl font-bold truncate tracking-tighter text-[#2b0909] md:mb-4">
                   KES{" "}
                   {product.price.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
