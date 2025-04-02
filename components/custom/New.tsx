@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -17,24 +17,18 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useAppContext } from "@/providers/ProductProvider";
-import { ProductBase } from "@/types/types";
 import { FaBoxOpen } from "react-icons/fa";
 import AddToCart from "../buttons/AddToCart";
 
 function New() {
   const context = useAppContext();
   const { newItems } = context;
-  const [latest, setLatest] = useState<ProductBase[]>([]);
-
-  useEffect(() => {
-    setLatest(newItems?.slice(0, 8) || []);
-  }, [newItems]);
 
   if (!newItems || newItems.length === 0) {
     return (
-      <section className="bg-white w-full px-4 py-8 md:py-12 lg:py-16 xl:px-24 2xl:px-32 flex flex-col items-center justify-center">
+      <section className="bg-white w-full px-4 md:px-8 py-0 md:py-12 lg:py-16 flex flex-col items-center justify-center">
         <div className="w-full max-w-7xl xl:max-w-full my-2 mx-2 bg-[#fffcf7] p-4 border border-[#2b0909] rounded-md">
-          <h3 className="text-sm md:text-base xl:text-xl border-b border-[#2b0909] w-max px-1 pb-1 tracking-wider font-bold">
+          <h3 className="text-sm md:text-base xl:text-xl w-max px-1 pb-1 tracking-wider font-bold">
             What{"'"}s New?
           </h3>
         </div>
@@ -52,6 +46,8 @@ function New() {
       </section>
     );
   }
+
+  const featuredNew = newItems?.slice(0, 12);
 
   return (
     <section className="bg-white w-full px-4 md:px-8 py-0 md:py-12 lg:py-16 flex flex-col items-center justify-center">
@@ -79,13 +75,13 @@ function New() {
           className="w-full"
         >
           <CarouselContent>
-            {latest.map((item) => (
+            {featuredNew.map((item) => (
               <CarouselItem
                 key={item.id}
                 className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[56vh] md:h-[62vh] xl:h-[66vh] 2xl:h-[38vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[50vh] sm:h-[48vh] md:h-[62vh] xl:h-[66vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-4">
                       {item.discount ? (
                         <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm  font-bold">
@@ -111,7 +107,7 @@ function New() {
                         {item.main_category}
                       </p>
                       <Link href={`/product/${item.slug}`}>
-                        <CardTitle className="text-base font-bold">
+                        <CardTitle className="text-base font-bold line-clamp-2">
                           {item.title}
                         </CardTitle>
                       </Link>

@@ -53,7 +53,7 @@ function Hero() {
     );
   }
 
-  const firstTen = bestSellers?.slice(0, 9);
+  const firstTen = bestSellers?.slice(0, 10);
   return (
     <section className="bg-white w-full px-4 md:px-8 py-0 md:py-16 lg:py-0 flex flex-col items-center justify-center border-t border-[#2b0909] my-0 md:my-4">
       <div className="w-full mt-2 md:mt-4 mb-6">
@@ -89,7 +89,7 @@ function Hero() {
                 className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
-                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[52vh] md:h-[58vh] xl:h-[64vh] 2xl:h-[38vh]">
+                  <Card className="relative bg-[#fffcf7] border border-[#2b0909] w-[70vw] md:w-full h-[48vh] md:h-[58vh] xl:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-4">
                       {item.discount ? (
                         <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm  font-bold">
@@ -115,7 +115,7 @@ function Hero() {
                         {item.main_category}
                       </p>
                       <Link href={`/product/${item.slug}`}>
-                        <CardTitle className="text-base">
+                        <CardTitle className="text-base line-clamp-2">
                           {item.title}
                         </CardTitle>
                       </Link>

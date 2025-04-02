@@ -47,7 +47,7 @@ const ProductList: React.FC<ProductListProps> = ({
       <div className="w-full max-w-7xl xl:max-w-full mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 md:gap-0">
         {products.map((item) => (
           <div className="p-0" key={item.id}>
-            <Card className="relative bg-[#fffcf7] border-b rounded-none w-[70vw] md:w-full h-[52vh] md:h-[62vh] xl:h-[68vh] 2xl:h-[38vh]">
+            <Card className="relative bg-[#fffcf7] border-b rounded-none w-[70vw] md:w-full h-[48vh] md:h-[62vh] xl:h-[68vh] 2xl:h-[38vh]">
               <CardHeader className="relative p-4">
                 {item.discount ? (
                   <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm  font-bold">
@@ -71,7 +71,9 @@ const ProductList: React.FC<ProductListProps> = ({
                   {item.main_category}
                 </p>
                 <Link href={`/product/${item.slug}`}>
-                  <CardTitle className="text-base">{item.title}</CardTitle>
+                  <CardTitle className="text-base line-clamp-2">
+                    {item.title}
+                  </CardTitle>
                 </Link>
               </CardContent>
               <CardFooter className="absolute -bottom-2 right-0 md:flex items-center justify-between w-full px-4 p-4">

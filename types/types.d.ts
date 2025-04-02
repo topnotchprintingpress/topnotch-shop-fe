@@ -30,6 +30,7 @@ export interface ProductBase {
   images: Image[];
   get_discounted_price: number;
   created_at: string;
+  is_new_arrival: boolean;
 }
 
 export interface Banner {

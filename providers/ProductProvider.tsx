@@ -43,9 +43,9 @@ export function AppWrapper({
 
   useEffect(() => {
     if (products) {
-      const filteredBestSellers = products.filter(
-        (product) => product.best_seller
-      );
+      const filteredBestSellers = products
+        .filter((product) => product.best_seller)
+        .sort(() => Math.random() - 4);
       setBestSellers(filteredBestSellers);
     }
   }, [products]);
@@ -61,9 +61,9 @@ export function AppWrapper({
   );
 
   // discounted items
-  const discountedItems: ProductBase[] = (products ?? []).filter(
-    (item) => item.discount > 0
-  );
+  const discountedItems: ProductBase[] = (products ?? [])
+    .filter((item) => item.discount > 0)
+    .sort(() => Math.random() - 0.5);
 
   // new items
   const newItems: ProductBase[] = products ?? [];

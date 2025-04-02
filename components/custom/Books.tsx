@@ -82,7 +82,7 @@ export default function FeaturedBooks() {
                 className="basis-1/1 md:basis-1/2 lg:basis-1/3"
               >
                 <div className="p-2">
-                  <Card className="relative w-[70vw] md:w-full 2xl:w-[21vw] bg-[#fffcf7] border border-[#2b0909] h-[52vh] md:h-[58vh] xl:h-[64vh] 2xl:h-[38vh]">
+                  <Card className="relative w-[70vw] md:w-full 2xl:w-[21vw] bg-[#fffcf7] border border-[#2b0909] h-[50vh] sm:h-[48vh] md:h-[58vh] xl:h-[64vh] 2xl:h-[38vh]">
                     <CardHeader className="relative p-0">
                       {item.discount ? (
                         <div className="absolute top-2 left-2 z-10 bg-[#ff8080] text-white px-2 py-1 rounded-full text-sm font-bold">
@@ -108,7 +108,7 @@ export default function FeaturedBooks() {
                         {item.main_category}
                       </p>
                       <Link href={`/product/${item.slug}`}>
-                        <CardTitle className="text-base">
+                        <CardTitle className="text-base line-clamp-2">
                           {item.title}
                         </CardTitle>
                       </Link>
