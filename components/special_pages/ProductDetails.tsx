@@ -224,13 +224,35 @@ const ProductDetailsClient = () => {
             >
               <h1 className="text-3xl font-bold mb-2">{product?.title}</h1>
 
-              <p className="text-2xl font-semibold mb-6">
-                KES{" "}
-                {(product?.price).toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
-              </p>
+              {product.discount ? (
+                <div className="flex flex-col md:flex-row gap-1 md:gap-2 items-center">
+                  <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                    KES{" "}
+                    {(
+                      product.price *
+                      (1 - product.discount / 100)
+                    ).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </h3>
+                  <span className="text-xs sm:text-sm text-gray-500 line-through">
+                    KES{" "}
+                    {product.price.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
+              ) : (
+                <h3 className="text-lg font-bold truncate tracking-tighter text-[#2b0909]">
+                  KES{" "}
+                  {product.price.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </h3>
+              )}
 
               <p className="text-[#2b0909]/80 mb-6">{product?.description}</p>
 
