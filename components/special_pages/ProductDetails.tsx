@@ -28,7 +28,6 @@ const fetcher = async (url: string) => {
   const res = await fetch(url, {
     method: "GET",
     credentials: "include",
-    cache: "no-store",
   });
   const data = await res.json();
   const prodDetails = data.results;
