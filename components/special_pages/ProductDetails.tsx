@@ -27,7 +27,6 @@ const fetcher = async (url: string) => {
   console.log("Fetching URL:", url);
   const res = await fetch(url, { method: "GET", credentials: "include" });
   const data = await res.json();
-  console.log("Fetching URL:", data);
   const prodDetails = data.results;
   return prodDetails.length > 0 ? prodDetails[0] : null;
 };
@@ -58,10 +57,10 @@ const ProductDetailsClient = () => {
     {
       onSuccess: (data) => console.log("API Response:", data),
       onError: (err) => console.error("API Error:", err),
-      revalidateOnFocus: true,
-      revalidateOnReconnect: true,
     }
   );
+
+  console.log("Result Data:", product);
 
   // State management
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
