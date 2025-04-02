@@ -25,7 +25,11 @@ import { useSession } from "next-auth/react";
 // Fetcher function
 const fetcher = async (url: string) => {
   console.log("Fetching URL:", url);
-  const res = await fetch(url, { method: "GET", credentials: "include" });
+  const res = await fetch(url, {
+    method: "GET",
+    credentials: "include",
+    cache: "no-store",
+  });
   const data = await res.json();
   const prodDetails = data.results;
   return prodDetails.length > 0 ? prodDetails[0] : null;
