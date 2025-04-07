@@ -142,15 +142,12 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (user && user.access) {
-        return {
-          ...token,
-          access: user.access,
-          refresh: user.refresh,
-          email: user.user?.email ?? user?.email ?? null,
-          name: user.user?.username ?? user?.name ?? null,
-          image: user.image ?? null,
-          accessTokenExpires: user.accessTokenExpires,
-        };
+        token.access = user.access;
+        token.refresh = user.refresh;
+        token.email = user.user?.email ?? user?.email ?? null;
+        token.name = user.user?.username ?? user?.name ?? null;
+        token.image = user.image ?? null;
+        token.accessTokenExpires = user.accessTokenExpires;
       }
       const tokenExpireAt = token.accessTokenExpires as number;
       if (Date.now() < (tokenExpireAt as number)) {
