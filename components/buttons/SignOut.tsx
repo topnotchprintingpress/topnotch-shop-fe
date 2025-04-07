@@ -9,6 +9,9 @@ function SignOut() {
     await signOut({ redirect: false });
 
     router.push("/signin");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   return (
