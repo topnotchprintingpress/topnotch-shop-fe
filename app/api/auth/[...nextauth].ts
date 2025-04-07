@@ -65,27 +65,30 @@ export const authOptions: NextAuthOptions = {
       name: "__Secure-next-auth.pkce.code_verifier",
       options: {
         httpOnly: true,
-        sameSite: "none",
+        sameSite: "None",
         path: "/",
         secure: true,
+        domain: ".topnotchprintingpress.com",
       },
     },
     state: {
       name: "__Secure-next-auth.state",
       options: {
         httpOnly: true,
-        sameSite: "none",
+        sameSite: "None",
         path: "/",
         secure: true,
+        domain: ".topnotchprintingpress.com",
       },
     },
     sessionToken: {
       name: "__Secure-next-auth.session-token",
       options: {
         httpOnly: true,
-        sameSite: "none",
+        sameSite: "None",
         path: "/",
         secure: true,
+        domain: ".topnotchprintingpress.com",
       },
     },
   },
