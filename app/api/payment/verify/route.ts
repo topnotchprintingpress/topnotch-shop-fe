@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token.access}`,
+          Authorization: `Bearer ${token.access || token.acccessToken}`,
         },
         credentials: "include",
         body: JSON.stringify({ reference }),

@@ -132,7 +132,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, account }) {
       if (account) {
         // Set Google tokens from the account object (if available)
-        token.accessToken = account.access_token;
+        token.accessToken = account.access_token || user?.access;
         token.refreshToken = account.refresh_token || user?.refresh;
         token.idqToken = account.idToken;
         token.provider = account.provider;
