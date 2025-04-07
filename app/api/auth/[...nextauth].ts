@@ -60,6 +60,18 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true, // ✅ this is critical on production (https)
+        domain: ".topnotchprintingpress.com", // ✅ allow subdomain sharing
+      },
+    },
+  },
   pages: {
     signIn: "/auth/signin",
   },
@@ -142,12 +154,15 @@ export const authOptions: NextAuthOptions = {
       }
 
       if (user && user.access) {
-        token.access = user.access;
-        token.refresh = user.refresh;
-        token.email = user.user?.email ?? user?.email ?? null;
-        token.name = user.user?.username ?? user?.name ?? null;
-        token.image = user.image ?? null;
-        token.accessTokenExpires = user.accessTokenExpires;
+        return {
+          ...token,
+          access: user.access,
+          refresh: user.refresh,
+          email: user.user?.email ?? user?.email ?? null,
+          name: user.user?.username ?? user?.name ?? null,
+          image: user.image ?? null,
+          accessTokenExpires: user.accessTokenExpires,
+        };
       }
       const tokenExpireAt = token.accessTokenExpires as number;
       if (Date.now() < (tokenExpireAt as number)) {
