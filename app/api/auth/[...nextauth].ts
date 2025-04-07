@@ -61,14 +61,31 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
+    pkceCodeVerifier: {
+      name: "__Secure-next-auth.pkce.code_verifier",
       options: {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         path: "/",
-        secure: true, // ✅ this is critical on production (https)
-        domain: ".topnotchprintingpress.com", // ✅ allow subdomain sharing
+        secure: true,
+      },
+    },
+    state: {
+      name: "__Secure-next-auth.state",
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
+      },
+    },
+    sessionToken: {
+      name: "__Secure-next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        secure: true,
       },
     },
   },
