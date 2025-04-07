@@ -6,20 +6,9 @@ function SignOut() {
   const router = useRouter();
 
   const handleSignOut = async () => {
-    const clearCookies = () => {
-      document.cookie.split(";").forEach((cookie) => {
-        const [name] = cookie.split("=");
-        document.cookie = `${name.trim()}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=None; Domain=.topnotchprintingpress.com`;
-      });
-    };
-
     await signOut({ redirect: false });
-    clearCookies();
 
     router.push("/signin");
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   return (
