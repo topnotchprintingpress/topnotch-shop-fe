@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 function SignOut() {
   const router = useRouter();
