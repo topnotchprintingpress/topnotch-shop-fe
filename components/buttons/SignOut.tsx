@@ -6,11 +6,15 @@ function SignOut() {
   const router = useRouter();
 
   const handleSignOut = async () => {
+    const clearCookies = () => {
+      document.cookie.split(";").forEach((cookie) => {
+        const [name] = cookie.split("=");
+        document.cookie = `${name.trim()}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=None; Domain=.topnotchprintingpress.com`;
+      });
+    };
+
     await signOut({ redirect: false });
-    document.cookie =
-      "__Secure-next-auth.session-token=; Max-Age=0; path=/; domain=.topnotchprintingpress.com; secure; SameSite=Lax";
-    document.cookie =
-      "__Secure-next-auth.csrf-token=; Max-Age=0; path=/; domain=.topnotchprintingpress.com; secure; SameSite=Lax";
+    clearCookies();
 
     router.push("/signin");
     setTimeout(() => {
