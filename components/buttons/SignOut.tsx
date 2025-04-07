@@ -7,6 +7,10 @@ function SignOut() {
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
+    document.cookie =
+      "__Secure-next-auth.session-token=; Max-Age=0; path=/; domain=.topnotchprintingpress.com; secure; SameSite=Lax";
+    document.cookie =
+      "__Secure-next-auth.csrf-token=; Max-Age=0; path=/; domain=.topnotchprintingpress.com; secure; SameSite=Lax";
 
     router.push("/signin");
     setTimeout(() => {
