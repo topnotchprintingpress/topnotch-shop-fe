@@ -81,6 +81,16 @@ export const authOptions: NextAuthOptions = {
         domain: ".topnotchprintingpress.com",
       },
     },
+    sessionToken: {
+      name: "__Secure-next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "None",
+        path: "/",
+        secure: true,
+        domain: ".topnotchprintingpress.com",
+      },
+    },
   },
   pages: {
     signIn: "/auth/signin",
