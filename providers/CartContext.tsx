@@ -104,6 +104,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   // Remove an item from the cart
   const removeFromCart = async (itemId: number) => {
     try {
+      setCart((prevCart) => prevCart.filter((item) => item.id !== itemId));
       const response = await fetch(`/api/cart/remove?id=${itemId}`, {
         method: "DELETE",
         credentials: "include",
@@ -116,6 +117,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       await fetchCart(); // Refresh the cart
     } catch (error) {
       console.error("Failed to remove item from cart:", error);
+      fetchCart();
     }
   };
 
