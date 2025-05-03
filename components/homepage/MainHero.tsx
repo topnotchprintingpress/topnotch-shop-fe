@@ -43,7 +43,7 @@ export default function MainHero() {
       ) : (
         <Carousel
           plugins={[plugin.current]}
-          className="w-full max-w-full "
+          className="w-full max-w-7xl mx-auto"
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
@@ -53,13 +53,14 @@ export default function MainHero() {
                 <div className="p-1">
                   <Link href={`/categories/${prod.link}`}>
                     <Card className="border-0 bg-none">
-                      <Image
-                        src={prod.image || "/path/to/default/image.jpg"}
-                        width={1200}
-                        height={48}
-                        alt="Product Image"
-                        className="w-full rounded-2xl"
-                      />
+                      <div className="h-64 md:h-80 lg:h-96 relative">
+                        <Image
+                          src={prod.image || "/path/to/default/image.jpg"}
+                          fill
+                          alt="Product Image"
+                          className="rounded-2xl object-cover object-center"
+                        />
+                      </div>
                     </Card>
                   </Link>
                 </div>
